@@ -149,8 +149,8 @@ std::string generate_rool_compare(const std::pair <func, func>& rool) {
     top_up_with_zeros(W1, S1);
     top_up_with_zeros(W2, S2);
 
-    std::string res = "(assert (or (and " + or_and_gen(">", W1, S1) + " " + or_and_gen(">=", W2, S2) +
-                        ") (and " + and_gen(W1, S1) + " " + or_and_gen(">", W2, S2) + ")))\n";
+    std::string res = "(assert (or (and " + or_and_gen("<", W1, S1) + " " + or_and_gen("<=", W2, S2) +
+                        ") (and " + and_gen(W1, S1) + " " + or_and_gen("<", W2, S2) + ")))\n";
     return res;
 }
 
