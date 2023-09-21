@@ -3,6 +3,8 @@
 #include <vector>
 #include <cassert>
 #include <fstream>
+#include <set>
+#include <cmath>
 
 struct func {
     std::vector <std::string> k1;
@@ -30,17 +32,17 @@ std::vector <func> generate_func_vector(const std::string& input){
     std::vector <func > funcs (input.size());
 
     for (int i = 0; i < input.size(); i++){
-        std::string a0 = "(", a1 = "(";
+        std::string a0 = "", a1 = "";
         a0.push_back(input[i]), a1.push_back(input[i]);
         a0.push_back('1'), a1.push_back('1');
         a0.push_back('0'), a1.push_back('1');
-        a0.push_back(')'), a1.push_back(')');
+        //a0.push_back(')'), a1.push_back(')');
 
-        std::string b0 = "(", b1 = "(";
+        std::string b0 = "", b1 = "";
         b0.push_back(input[i]), b1.push_back(input[i]);
         b0.push_back('2'), b1.push_back('2');
         b0.push_back('0'), b1.push_back('1');
-        b0.push_back(')'), b1.push_back(')');
+        //b0.push_back(')'), b1.push_back(')');
 
         funcs[i].k1.emplace_back(a0), funcs[i].k1.push_back(a1);
         funcs[i].k2.emplace_back(b0), funcs[i].k2.push_back(b1);
@@ -59,7 +61,7 @@ std::vector <std::string> mult_ords(std::vector <std::string> a, std::vector <st
     std::string b0 = b[0], b1 = b[1];
     a.emplace_back("");
     a[a.size() - 1] = b1;
-    a[a.size() - 2] += b0;
+    a[a.size() - 2] += "*" + b0;
     return a;
 }
 
@@ -89,6 +91,55 @@ func apply_compositions(std::vector <func> funcs) {
     return res;
 }
 
+void generate_smt_file (const std::set <char>& unig, std::vector <std::pair <func, func > > rools) {
+    std::ofstream fout;
+    fout.open("check.smt");
+    assert(fout.is_open());
+    fout << "(set-logic QF_NIA)\n"
+            "(declare-const w1 Int)\n";
+    for (auto x : unig) {
+        std::string letter; letter.push_back(x);
+        std::string a10 = letter + "10", a11 = letter + "11", a20 = letter + "20", a21 = letter + "21";
+
+        fout << "(declare-const " + a10 +  " Int)" << std::endl;
+        fout << "(assert (>= " + a10 + " 0))" << std::endl;
+        fout << "(declare-const " + a11 +  " Int)" << std::endl;
+        fout << "(assert (>= " + a11 + " 0))" << std::endl;
+        fout << "(declare-const " + a20 +  " Int)" << std::endl;
+        fout << "(assert (>= " + a20 + " 0))" << std::endl;
+        fout << "(declare-const " + a21 +  " Int)" << std::endl;
+        fout << "(assert (>= " + a21 + " 0))" << std::endl;
+
+    }
+}
+
+std::string to_polish(std::string k){
+    std::string res = "(";
+    if (k.size() == 7){
+        res += "* ";
+        res += k.substr(0, 3) + " " + k.substr(4, 3) + ")";
+    }
+    else if (k.size() == 11){
+        res += "+ ";
+        res += k.substr(8, 3) + " (* " + k.substr(0, 3) + " " + k.substr(4, 3) + ")";
+    }
+    else res = k;
+    return res;
+}
+
+void generate_ord_compare(std::vector <std::string> a, std::vector <std::string> b){
+    std::string res;
+    for (int i = 0; i < std::max(a.size(), b.size()); i++){
+        if (i >= a.size()) {
+            a.emplace_back("0");
+        }
+        else if (i >= b.size()) {
+            b.emplace_back("0");
+        }
+    }
+
+}
+
 int main() {
 
     std::ifstream fin1;
@@ -98,9 +149,13 @@ int main() {
     std::vector <func> funcs1;
     std::vector <func> funcs2;
     std::string l, r;
+    std::set <char> uniq_func;
     while(!fin1.eof()) {
         fin1 >> l >> r >> r;
         std::cout << l << " -> " << r << std::endl;
+
+        for (char f : l) uniq_func.insert(f);
+        for (char f : r) uniq_func.insert(f);
 
         funcs1 = generate_func_vector(l);
         funcs2 = generate_func_vector(r);
@@ -115,15 +170,13 @@ int main() {
 
         rools.emplace_back(composition1, composition2);
     }
+    generate_smt_file(uniq_func, rools);
 
-//    std::string input;
-//    std::cin >> input;
-//
-//    std::vector <func > funcs = generate_func_vector(input);
-//
-//    func res = funcs[0];
-//    for (int i = 1; i < funcs.size(); i++){
-//        res = composition(res, funcs[i]);
-//    }
-//    print_func(res);
+    func t = rools[0].first;
+
+    for (const auto & i : t.k1){
+        std::cout << to_polish(i) << std::endl;
+    }
+
+    ///TODO: функция перавода коэффа a1*a2+a3 -> (+ (* a1 a2) a3)
 }
