@@ -91,6 +91,69 @@ func apply_compositions(std::vector <func> funcs) {
     return res;
 }
 
+std::string to_polish(std::string k){
+    std::string res = "(";
+    if (k.size() == 7){
+        res += "* ";
+        res += k.substr(0, 3) + " " + k.substr(4, 3) + ")";
+    }
+    else if (k.size() == 11){
+        res += "+ ";
+        res += k.substr(8, 3) + " (* " + k.substr(0, 3) + " " + k.substr(4, 3) + ")";
+    }
+    else res = k;
+    return res;
+}
+
+std::string or_and_gen(std::string comp_sign, std::vector <std::string> a, std::vector <std::string> b) {
+    std::string s;
+    for (int i = a.size() - 1; i >= 0; i--){
+        if (i > 0)
+            s += "(or (" + comp_sign + " " + to_polish(b[i]) + " " + to_polish(a[i]) + ") (and (= " +
+                 to_polish(b[i]) + " " + to_polish(a[i]) + ") ";
+        else {
+            s += "(> " + to_polish(b[i]) + " " + to_polish(a[i]) + ")";
+            for (int j = 0; j < (a.size() - 1) * 2; j++) s += ")";
+        }
+    }
+    return s;
+}
+
+std::string and_gen(std::vector <std::string> a, std::vector <std::string> b) {
+    std::string s = "(and";
+    for (int i = 0; i < a.size(); i++){
+        s += " ( " + to_polish(a[i]) + " " + to_polish(b[i]) + ")";
+    }
+    s += ")";
+    return s;
+}
+
+void top_up_with_zeros(std::vector <std::string> &a, std::vector <std::string> &b){
+    std::string res;
+    for (int i = 0; i < std::max(a.size(), b.size()); i++){
+        if (i >= a.size()) {
+            a.emplace_back("0");
+        }
+        else if (i >= b.size()) {
+            b.emplace_back("0");
+        }
+    }
+}
+//(or (and or_and_compare(>, W1, S1) or_and_compare(>=, W2, S2)) (and and_compare(W1, S1) or_and_compare(>, W2, S2)))
+std::string generate_rool_compare(std::pair <func, func> rool) {
+    std::vector <std::string> W1 = rool.first.k1;
+    std::vector <std::string> W2 = rool.first.k2;
+    std::vector <std::string> S1 = rool.second.k1;
+    std::vector <std::string> S2 = rool.second.k2;
+
+    top_up_with_zeros(W1, S1);
+    top_up_with_zeros(W2, S2);
+
+    std::string res = "(assert (or (and (" + or_and_gen(">", W1, S1) + " " + or_and_gen(">=", W2, S2) +
+                        ") (and " + and_gen(W1, S1) + " " + or_and_gen(">", W2, S2) + "))\n";
+    return res;
+}
+
 void generate_smt_file (const std::set <char>& unig, std::vector <std::pair <func, func > > rools) {
     std::ofstream fout;
     fout.open("check.smt");
@@ -109,35 +172,15 @@ void generate_smt_file (const std::set <char>& unig, std::vector <std::pair <fun
         fout << "(assert (>= " + a20 + " 0))" << std::endl;
         fout << "(declare-const " + a21 +  " Int)" << std::endl;
         fout << "(assert (>= " + a21 + " 0))" << std::endl;
-
     }
-}
 
-std::string to_polish(std::string k){
-    std::string res = "(";
-    if (k.size() == 7){
-        res += "* ";
-        res += k.substr(0, 3) + " " + k.substr(4, 3) + ")";
-    }
-    else if (k.size() == 11){
-        res += "+ ";
-        res += k.substr(8, 3) + " (* " + k.substr(0, 3) + " " + k.substr(4, 3) + ")";
-    }
-    else res = k;
-    return res;
-}
-
-void generate_ord_compare(std::vector <std::string> a, std::vector <std::string> b){
     std::string res;
-    for (int i = 0; i < std::max(a.size(), b.size()); i++){
-        if (i >= a.size()) {
-            a.emplace_back("0");
-        }
-        else if (i >= b.size()) {
-            b.emplace_back("0");
-        }
+    for (const auto& rool : rools) {
+        res += generate_rool_compare(rool);
     }
-
+    fout << res;
+    fout << "(check-sat)" << std::endl;
+    fout << "(get-model)" << std::endl;
 }
 
 int main() {
@@ -178,5 +221,5 @@ int main() {
         std::cout << to_polish(i) << std::endl;
     }
 
-    ///TODO: функция перавода коэффа a1*a2+a3 -> (+ (* a1 a2) a3)
 }
+
