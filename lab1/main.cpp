@@ -21,7 +21,7 @@ void print_ord(const std::vector <std::string>& a){
     }
 }
 
-void print_func(func f) {
+void print_func(const func& f) {
     std::cout << "( ";
     print_ord(f.k1);
     std::cout << " )x + ";
@@ -32,13 +32,13 @@ std::vector <func> generate_func_vector(const std::string& input){
     std::vector <func > funcs (input.size());
 
     for (int i = 0; i < input.size(); i++){
-        std::string a0 = "", a1 = "";
+        std::string a0, a1;
         a0.push_back(input[i]), a1.push_back(input[i]);
         a0.push_back('1'), a1.push_back('1');
         a0.push_back('0'), a1.push_back('1');
         //a0.push_back(')'), a1.push_back(')');
 
-        std::string b0 = "", b1 = "";
+        std::string b0, b1;
         b0.push_back(input[i]), b1.push_back(input[i]);
         b0.push_back('2'), b1.push_back('2');
         b0.push_back('0'), b1.push_back('1');
@@ -91,7 +91,7 @@ func apply_compositions(std::vector <func> funcs) {
     return res;
 }
 
-std::string to_polish(std::string k){
+std::string to_polish(const std::string& k){
     std::string res = "(";
     if (k.size() == 7){
         res += "* ";
@@ -99,13 +99,13 @@ std::string to_polish(std::string k){
     }
     else if (k.size() == 11){
         res += "+ ";
-        res += k.substr(8, 3) + " (* " + k.substr(0, 3) + " " + k.substr(4, 3) + ")";
+        res += k.substr(8, 3) + " (* " + k.substr(0, 3) + " " + k.substr(4, 3) + "))";
     }
     else res = k;
     return res;
 }
 
-std::string or_and_gen(std::string comp_sign, std::vector <std::string> a, std::vector <std::string> b) {
+std::string or_and_gen(const std::string& comp_sign, std::vector <std::string> a, std::vector <std::string> b) {
     std::string s;
     for (int i = a.size() - 1; i >= 0; i--){
         if (i > 0)
@@ -122,7 +122,7 @@ std::string or_and_gen(std::string comp_sign, std::vector <std::string> a, std::
 std::string and_gen(std::vector <std::string> a, std::vector <std::string> b) {
     std::string s = "(and";
     for (int i = 0; i < a.size(); i++){
-        s += " ( " + to_polish(a[i]) + " " + to_polish(b[i]) + ")";
+        s += " (= " + to_polish(a[i]) + " " + to_polish(b[i]) + ")";
     }
     s += ")";
     return s;
@@ -140,7 +140,7 @@ void top_up_with_zeros(std::vector <std::string> &a, std::vector <std::string> &
     }
 }
 //(or (and or_and_compare(>, W1, S1) or_and_compare(>=, W2, S2)) (and and_compare(W1, S1) or_and_compare(>, W2, S2)))
-std::string generate_rool_compare(std::pair <func, func> rool) {
+std::string generate_rool_compare(const std::pair <func, func>& rool) {
     std::vector <std::string> W1 = rool.first.k1;
     std::vector <std::string> W2 = rool.first.k2;
     std::vector <std::string> S1 = rool.second.k1;
@@ -149,12 +149,12 @@ std::string generate_rool_compare(std::pair <func, func> rool) {
     top_up_with_zeros(W1, S1);
     top_up_with_zeros(W2, S2);
 
-    std::string res = "(assert (or (and (" + or_and_gen(">", W1, S1) + " " + or_and_gen(">=", W2, S2) +
-                        ") (and " + and_gen(W1, S1) + " " + or_and_gen(">", W2, S2) + "))\n";
+    std::string res = "(assert (or (and " + or_and_gen(">", W1, S1) + " " + or_and_gen(">=", W2, S2) +
+                        ") (and " + and_gen(W1, S1) + " " + or_and_gen(">", W2, S2) + ")))\n";
     return res;
 }
 
-void generate_smt_file (const std::set <char>& unig, std::vector <std::pair <func, func > > rools) {
+void generate_smt_file (const std::set <char>& unig, const std::vector <std::pair <func, func > >& rools) {
     std::ofstream fout;
     fout.open("check.smt");
     assert(fout.is_open());
@@ -217,9 +217,11 @@ int main() {
 
     func t = rools[0].first;
 
-    for (const auto & i : t.k1){
+    for (const auto & i : t.k2){
         std::cout << to_polish(i) << std::endl;
     }
+
+    std::cout << or_and_gen(">", rools[1].first.k1, rools[1].second.k1);
 
 }
 
