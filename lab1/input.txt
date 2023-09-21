@@ -1,2 +1,2 @@
-fgt -> hg
-fhge -> egf
+ab -> ba
+ba -> ab

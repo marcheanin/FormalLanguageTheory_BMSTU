@@ -184,7 +184,6 @@ void generate_smt_file (const std::set <char>& unig, const std::vector <std::pai
 }
 
 int main() {
-
     std::ifstream fin1;
     fin1.open("input.txt");
     assert(fin1.is_open());
@@ -195,7 +194,7 @@ int main() {
     std::set <char> uniq_func;
     while(!fin1.eof()) {
         fin1 >> l >> r >> r;
-        std::cout << l << " -> " << r << std::endl;
+        //std::cout << l << " -> " << r << std::endl;
 
         for (char f : l) uniq_func.insert(f);
         for (char f : r) uniq_func.insert(f);
@@ -206,22 +205,16 @@ int main() {
         func composition1 = apply_compositions(funcs1);
         func composition2 = apply_compositions(funcs2);
 
-        print_func(composition1);
-        std::cout << std::endl;
-        print_func(composition2);
-        std::cout << std::endl;
+//        print_func(composition1);
+//        std::cout << std::endl;
+//        print_func(composition2);
+//        std::cout << std::endl;
 
         rools.emplace_back(composition1, composition2);
     }
+
     generate_smt_file(uniq_func, rools);
 
-    func t = rools[0].first;
-
-    for (const auto & i : t.k2){
-        std::cout << to_polish(i) << std::endl;
-    }
-
-    std::cout << or_and_gen(">", rools[1].first.k1, rools[1].second.k1);
-
+    return 0;
 }
 
