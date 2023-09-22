@@ -112,7 +112,7 @@ std::string or_and_gen(const std::string& comp_sign, std::vector <std::string> a
             s += "(or (" + comp_sign + " " + to_polish(b[i]) + " " + to_polish(a[i]) + ") (and (= " +
                  to_polish(b[i]) + " " + to_polish(a[i]) + ") ";
         else {
-            s += "(> " + to_polish(b[i]) + " " + to_polish(a[i]) + ")";
+            s += "(" + comp_sign + " " + to_polish(b[i]) + " " + to_polish(a[i]) + ")";
             for (int j = 0; j < (a.size() - 1) * 2; j++) s += ")";
         }
     }
@@ -139,7 +139,7 @@ void top_up_with_zeros(std::vector <std::string> &a, std::vector <std::string> &
         }
     }
 }
-//(or (and or_and_compare(>, W1, S1) or_and_compare(>=, W2, S2)) (and and_compare(W1, S1) or_and_compare(>, W2, S2)))
+//(or (and or_and_compare(<, W1, S1) or_and_compare(<=, W2, S2)) (and and_compare(W1, S1) or_and_compare(<, W2, S2)))
 std::string generate_rool_compare(const std::pair <func, func>& rool) {
     std::vector <std::string> W1 = rool.first.k1;
     std::vector <std::string> W2 = rool.first.k2;

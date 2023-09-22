@@ -1,2 +1,1 @@
-ab -> ba
-ba -> ab
+A -> C
