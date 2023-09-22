@@ -158,8 +158,7 @@ void generate_smt_file (const std::set <char>& unig, const std::vector <std::pai
     std::ofstream fout;
     fout.open("check.smt");
     assert(fout.is_open());
-    fout << "(set-logic QF_NIA)\n"
-            "(declare-const w1 Int)\n";
+    fout << "(set-logic QF_NIA)\n";
     for (auto x : unig) {
         std::string letter; letter.push_back(x);
         std::string a10 = letter + "10", a11 = letter + "11", a20 = letter + "20", a21 = letter + "21";

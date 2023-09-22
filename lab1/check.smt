@@ -1,5 +1,4 @@
 (set-logic QF_NIA)
-(declare-const w1 Int)
 (declare-const A10 Int)
 (assert (>= A10 0))
 (declare-const A11 Int)
