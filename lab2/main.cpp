@@ -6,6 +6,38 @@
 #include <stack>
 
 const std::string CONCAT_OP = "·";
+const std::string INTERSECT_OP = "∩";
+
+void replace_lookahead(std::vector <std::pair <std::string, std::string > >& lexemes, int pos){
+    int balance = 1;
+    bool end_line_flag = false;
+    int pos2 = -1;
+    lexemes.erase(lexemes.begin()+pos);
+    for (int i = pos; i < lexemes.size(); i++) {
+        if (lexemes[i].first == "(") balance++;
+        if (lexemes[i].first == ")") balance--;
+        if (balance == 0){
+            if (lexemes[i - 1].second == "END-LINE"){
+                end_line_flag = true;
+                lexemes.erase(lexemes.begin()+i-1);
+                pos2 = i;
+            }
+            else pos2 = i + 1;
+            break;
+        }
+    }
+    assert(pos2 != -1);
+    lexemes.erase(lexemes.begin() + pos2);
+    if (!end_line_flag){
+        lexemes.insert(lexemes.begin()+pos2, {CONCAT_OP, "CONCAT"});
+        pos2++;
+        lexemes.insert(lexemes.begin()+pos2, {".", "TERM"});
+        pos2++;
+        lexemes.insert(lexemes.begin()+pos2, {"*", "UNARY"});
+        pos2++;
+    }
+    lexemes.insert(lexemes.begin()+pos2, {INTERSECT_OP, "INTERSECT"});
+}
 
 std::vector <std::pair <std::string, std::string> > lexer(const std::string& regex) {
     std::vector <std::pair <std::string, std::string> > res;
@@ -21,6 +53,7 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
             if (s == ")") balance--;
             if (balance < 0) throw std::invalid_argument("Bad bracket balance");
         } else if (s == "$") {
+            if (i == regex.size() - 1) continue;
             res.emplace_back(s, "END-LINE");
         } else if (s == "|") {
             res.emplace_back(s, "BINARY");
@@ -37,32 +70,59 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
     }
     if (balance != 0) throw std::invalid_argument("Bad bracket balance");
 
+    std::cout << "first parse layer passed" << std::endl;
+
+    std::vector <int> la_poses;
+
     for (int i = 0; i < res.size() - 1; i++){
-        if (res[i].second == "TERM" && res[i + 1].second == "TERM"
-            || res[i].first == ")" && res[i + 1].first == "("
-            || res[i].second == "UNARY" && res[i + 1].first == "("
-            || res[i].second == "TERM" && res[i + 1].first == "("
-            || res[i + 1].second == "TERM" && res[i].first == ")"){
+        if (res[i].second == "TERM" && res[i + 1].second == "TERM"      // a · b
+            || res[i].first == ")" && res[i + 1].first == "("           // ) · (
+            || res[i].second == "UNARY" && res[i + 1].first == "("      // * · (
+            || res[i].second == "TERM" && res[i + 1].first == "("       // a · (
+            || res[i + 1].second == "TERM" && res[i].first == ")"){     // ) · a
             res.insert(res.begin()+i+1, {CONCAT_OP, "CONCAT"});
-            i++;
         }
+//        if (res[i].second == "LOOKAHEAD"){
+            //la_poses.push_back(i);
+//            replace_lookahead(res, i);
+//        }
     }
+    for (const auto& i : res){
+        std::cout << i.first << " ";
+    }
+    std::cout << std::endl;
+
+    bool f;
+    while(true){
+        f = false;
+        for (int i = 0; i < res.size(); i++){
+            if (res[i].second == "LOOKAHEAD"){
+                replace_lookahead(res, i);
+                f = true;
+                break;
+            }
+        }
+        if (!f) break;
+    }
+
+//    for (auto pos : la_poses) {
+//        std::cout << "la pos: " << pos << std::endl;
+//        replace_lookahead(res, pos);
+//    }
     return res;
 }
 
 int get_priority(const std::string& op){
     if (op == "|") return 4;
-    if (op == CONCAT_OP) return 3;
-    if (op == "*") return 2;
-    if (op == "?=") return 1;
+    if (op == CONCAT_OP) return 2;
+    if (op == "*") return 1;
+    if (op == INTERSECT_OP) return 3;
     return 5;
 }
-
 
 std::vector <std::pair <std::string, std::string> > to_postfix(const std::vector <std::pair <std::string, std::string > >& lexemes){
     std::vector <std::pair <std::string, std::string> > res;
     std::stack <std::pair <std::string, std::string> > st;
-    bool unary_f = false;
     for (const auto& lexeme : lexemes) {
         if (lexeme.first == "(") st.push(lexeme);
 
@@ -103,7 +163,7 @@ int main() {
     fin >> input_regex;
     std::vector <std::pair <std::string, std::string > > lexemes = lexer(input_regex);
     for (const auto& i : lexemes){
-        std::cout << i.first << " " << i.second << std::endl;
+        std::cout << i.first << " ";
     }
 
     std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
