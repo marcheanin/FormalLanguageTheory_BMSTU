@@ -104,7 +104,8 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
             || res[i].first == ")" && res[i + 1].first == "("           // ) · (
             || res[i].second == "UNARY" && res[i + 1].first == "("      // * · (
             || res[i].second == "TERM" && res[i + 1].first == "("       // a · (
-            || res[i + 1].second == "TERM" && res[i].first == ")"){     // ) · a
+            || res[i + 1].second == "TERM" && res[i].first == ")"       // ) · a
+            || res[i].first == "*" && res[i+1].second == "TERM"){       // * · a
             res.insert(res.begin()+i+1, {CONCAT_OP, "CONCAT"});
         }
     }
