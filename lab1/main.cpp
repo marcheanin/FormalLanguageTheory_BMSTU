@@ -211,7 +211,7 @@ int main() {
 
         rools.emplace_back(composition1, composition2);
     }
-
+    std::cout << rools.size();
     generate_smt_file(uniq_func, rools);
 
     return 0;

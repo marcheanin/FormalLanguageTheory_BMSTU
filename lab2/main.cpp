@@ -12,6 +12,9 @@ void replace_lookahead(std::vector <std::pair <std::string, std::string > >& lex
     int balance = 1;
     bool end_line_flag = false;
     int pos2 = -1;
+    int bracket_pos = pos - 1;
+    lexemes.insert(lexemes.begin() + bracket_pos, {"(", "BRACKET"});
+    pos++;
     lexemes.erase(lexemes.begin()+pos);
     for (int i = pos; i < lexemes.size(); i++) {
         if (lexemes[i].first == "(") balance++;
@@ -37,6 +40,28 @@ void replace_lookahead(std::vector <std::pair <std::string, std::string > >& lex
         pos2++;
     }
     lexemes.insert(lexemes.begin()+pos2, {INTERSECT_OP, "INTERSECT"});
+
+    pos2++;
+
+    int f = 0;
+    for (int i = pos2; i < lexemes.size(); i++){
+        if (lexemes[i].first == "*" || lexemes[i].first == CONCAT_OP || lexemes[i].second == "TERM") continue;
+        if (lexemes[i].first == "("){
+            int b = 1;
+            i++;
+            while(b != 0){
+                if (lexemes[i].first == "(") b++;
+                if (lexemes[i].first == ")") b--;
+                i++;
+            }
+        }
+        else{
+            lexemes.insert(lexemes.begin() + i, {")", "BRACKET"});
+            f = 1;
+            break;
+        }
+    }
+    if (f == 0) lexemes.emplace_back(")", "BRACKET");
 }
 
 std::vector <std::pair <std::string, std::string> > lexer(const std::string& regex) {
@@ -82,10 +107,6 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
             || res[i + 1].second == "TERM" && res[i].first == ")"){     // ) · a
             res.insert(res.begin()+i+1, {CONCAT_OP, "CONCAT"});
         }
-//        if (res[i].second == "LOOKAHEAD"){
-            //la_poses.push_back(i);
-//            replace_lookahead(res, i);
-//        }
     }
     for (const auto& i : res){
         std::cout << i.first << " ";
@@ -104,11 +125,6 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
         }
         if (!f) break;
     }
-
-//    for (auto pos : la_poses) {
-//        std::cout << "la pos: " << pos << std::endl;
-//        replace_lookahead(res, pos);
-//    }
     return res;
 }
 
@@ -162,6 +178,7 @@ int main() {
     assert(fin.is_open());
     fin >> input_regex;
     std::vector <std::pair <std::string, std::string > > lexemes = lexer(input_regex);
+
     for (const auto& i : lexemes){
         std::cout << i.first << " ";
     }
