@@ -3,118 +3,107 @@
 #include <cassert>
 #include <utility>
 #include <vector>
+#include <set>
+#include <map>
 
 #include "parser.cpp"
+#include "tree.cpp"
 
-struct TreeNode {
-    std::pair<std::string, std::string> data;
-    struct TreeNode *left{};
-    struct TreeNode *right{};
+class FFL{
+public:
+    std::set <std::string> First{};
+    std::map <std::string, std::set <std::string> > Follow{};
+    std::set <std::string> Last{};
+    bool flag = false;
 
-    TreeNode(){
-        this->data = {"",""};
-        this->left = nullptr;
-        this->right = nullptr;
+    FFL()= default;
+
+    FFL(const std::pair <std::string, std::string>& term) {
+        assert(term.second == "TERM");
+        First.insert(term.first);
+        Last.insert(term.first);
+        Follow[term.first] = {};
     }
 
-    TreeNode(const std::pair<std::string, std::string> &data, TreeNode *left, TreeNode *right) {
-        this->data = data;
-        this->left = left;
-        this->right = right;
+    void show(){
+        std::cout << "First: {";
+        for (const auto& elem : this->First){
+            std::cout << elem << " ";
+        }
+        std::cout << "}\n";
+
+        std::cout << "Last: {";
+        for (const auto& elem : this->Last){
+            std::cout << elem << " ";
+        }
+        std::cout << "}\n";
+
+        for(const auto& elem :  this->Follow){
+            std::cout << "Follow(" << elem.first << ") = {";
+            for (const auto& i : elem.second) {
+                std::cout << i << " ";
+            }
+            std::cout << "}\n";
+        }
+        std::cout << std::endl;
+    }
+
+    void concatenate(const FFL& b){
+        for (const auto& elem : this->Last){
+            this->Follow[elem].insert(b.First.begin(), b.First.end());
+        }
+
+        if (!b.flag){  // НЕ примнимает пустое слово
+            this->Last = b.Last;
+            if (this->flag) {
+                this->First.insert(b.First.begin(), b.First.end());
+            }
+        }
+        else{
+            this->Last.insert(b.Last.begin(), b.Last.end());
+            if (this->flag){
+                this->First.insert(b.First.begin(), b.First.end());
+            }
+        }
+        if (!b.flag){
+            this->flag = false;
+        }
+    }
+
+    void alternative(const FFL& b){
+        this->First.insert(b.First.begin(), b.First.end());
+        this->Last.insert(b.Last.begin(), b.Last.end());
+        this->flag = this->flag || b.flag;
+    }
+
+    void unary(){
+        this->flag = true;
+        for (const auto& elem : this->Last){
+            this->Follow[elem].insert(this->First.begin(), this->First.end());
+        }
     }
 };
 
-TreeNode* build_rec(std::vector <std::pair <std::string, std::string > > postfix) {
-    if (postfix.empty()) return nullptr;
-
-    std::stack <TreeNode*> s;
-
-    for (auto elem : postfix) {
-        if (elem.second != "TERM") {
-            TreeNode *x = s.top();
-            TreeNode *y;
-            s.pop();
-            if (elem.second == "UNARY"){
-                auto* node = new TreeNode(elem, x, nullptr);
-                s.push(node);
-            }
-            else{
-                y = s.top();
-                s.pop();
-                auto* node = new TreeNode(elem, x, y);
-                s.push(node);
-            }
-        }
-        else {
-            s.push(new TreeNode(elem, nullptr, nullptr));
-        }
+FFL process_tree(TreeNode* node){
+    //TODO: че то сделать с пересечением
+    if (node->data.second == "UNARY") {
+        auto a = process_tree(node->left);
+        a.unary();
+        return a;
     }
-    return s.top();
-}
-
-
-
-TreeNode* build_tree(std::vector <std::pair <std::string, std::string > > postfix){
-    assert(!postfix.empty());
-    TreeNode *root = build_rec(postfix);
-    return root;
-}
-
-struct Trunk
-{
-    Trunk *prev;
-    std::string str;
-
-    Trunk(Trunk *prev, std::string str)
-    {
-        this->prev = prev;
-        this->str = str;
+    if (node->data.first == CONCAT_OP){
+        auto a = process_tree(node->left);
+        auto b = process_tree(node->right);
+        a.concatenate(b);
+        return a;
     }
-};
-
-void showTrunks(Trunk *p)
-{
-    if (p == nullptr) {
-        return;
+    if (node->data.first == "|"){
+        auto a = process_tree(node->left);
+        auto b = process_tree(node->right);
+        a.alternative(b);
+        return a;
     }
-
-    showTrunks(p->prev);
-    std::cout << p->str;
-}
-
-void printTree(TreeNode* root, Trunk *prev, bool isLeft)
-{
-    if (root == nullptr) {
-        return;
-    }
-
-    std::string prev_str = "    ";
-    Trunk *trunk = new Trunk(prev, prev_str);
-
-    printTree(root->right, trunk, true);
-
-    if (!prev) {
-        trunk->str = "———";
-    }
-    else if (isLeft)
-    {
-        trunk->str = ".———";
-        prev_str = "   |";
-    }
-    else {
-        trunk->str = "`———";
-        prev->str = prev_str;
-    }
-
-    showTrunks(trunk);
-    std::cout << " " << root->data.first << std::endl;
-
-    if (prev) {
-        prev->str = prev_str;
-    }
-    trunk->str = "   |";
-
-    printTree(root->left, trunk, false);
+    return FFL(node->data);
 }
 
 int main() {
@@ -136,6 +125,10 @@ int main() {
     std::cout << std::endl;
 
     TreeNode* tree = build_tree(postfix);
+
+    FFL res = process_tree(tree);
+
+    res.show();
 
     printTree(tree, nullptr, false);
 }
