@@ -53,6 +53,10 @@ public:
             this->Follow[elem].insert(b.First.begin(), b.First.end());
         }
 
+        for (const auto& elem : b.Follow) {
+            this->Follow[elem.first] = elem.second;
+        }
+
         if (!b.flag){  // НЕ примнимает пустое слово
             this->Last = b.Last;
             if (this->flag) {
@@ -71,6 +75,9 @@ public:
     }
 
     void alternative(const FFL& b){
+        for (const auto& elem : b.Follow) {
+            this->Follow[elem.first] = elem.second;
+        }
         this->First.insert(b.First.begin(), b.First.end());
         this->Last.insert(b.Last.begin(), b.Last.end());
         this->flag = this->flag || b.flag;
@@ -122,6 +129,7 @@ int main() {
     for (const auto& i : postfix){
         std::cout << i.first << " ";
     }
+    std::cout << std::endl;
     std::cout << std::endl;
 
     TreeNode* tree = build_tree(postfix);
