@@ -101,7 +101,47 @@ automaton intersect_automatons(automaton& auto1, automaton& auto2){
 }
 
 automaton alternative_automatons(automaton& auto1, automaton& auto2){
+    std::vector<int> start_states(auto1.get_start_states().size() + auto2.get_start_states().size() - 1, 0);
+    for (int i = 0; i < auto1.get_start_states().size(); i++){
+        if (auto1.get_start_states()[i]){
+            start_states[i] = 1;
+        }
+    }
+    for (int i = 1; i < auto2.get_start_states().size(); i++){
+        if (auto2.get_start_states()[i]){
+            start_states[auto1.get_start_states().size() + i - 1] = 1;
+        }
+    }
 
+    std::vector <std::vector <std::string>> transition_matrix (auto1.get_transition_matrix().size() + auto2.get_transition_matrix().size() - 1, std::vector<std::string>(auto1.get_transition_matrix().size() + auto2.get_transition_matrix().size() - 1, "0"));
+    for (int i = 0; i < auto1.get_transition_matrix().size(); i++){
+        for (int j = 0; j < auto1.get_transition_matrix().size(); j++){
+            transition_matrix[i][j] = auto1.get_transition_matrix()[i][j];
+        }
+    }
+    for (int i = 0; i < auto2.get_transition_matrix().size(); i++){
+        for (int j = 1; j < auto2.get_transition_matrix().size(); j++){
+            if (i == 0){
+                transition_matrix[i][auto1.get_transition_matrix().size() + j - 1] = auto2.get_transition_matrix()[i][j];
+            } else {
+                transition_matrix[auto1.get_transition_matrix().size() + i - 1][auto1.get_transition_matrix().size() + j - 1] = auto2.get_transition_matrix()[i][j];
+            }
+        }
+    }
+
+    std::vector<int> end_states (auto1.get_end_states().size() + auto2.get_end_states().size() - 1, 0);
+    for (int i = 0; i < auto1.get_end_states().size(); i++){
+        end_states[i] = auto1.get_end_states()[i];
+    }
+    for (int i = 0; i < auto2.get_end_states().size(); i++){
+        if (i == 0){
+            end_states[i] = end_states[i] || auto2.get_end_states()[i];
+        } else {
+            end_states[auto1.get_end_states().size() + i - 1] = auto2.get_end_states()[i];
+        }
+    }
+
+    return {start_states, transition_matrix, end_states};
 }
 
 int main(){
@@ -116,7 +156,7 @@ int main(){
     std::vector <int> automaton2_end {0, 1};
     automaton automaton2 = automaton(automaton2_start, automaton2_matrix, automaton2_end);
 
-    automaton res = intersect_automatons(automaton1, automaton2);
+    automaton res = alternative_automatons(automaton1, automaton2);
     res.print_start_vector();
     std::cout << std::endl;
     res.print_transition_matrix();
