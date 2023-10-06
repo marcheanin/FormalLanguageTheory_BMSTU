@@ -69,7 +69,13 @@ void automaton::print_end_vector() {
 
 automaton intersect_automatons(automaton& auto1, automaton& auto2){
     std::vector<int> start_states(auto1.get_start_states().size() * auto2.get_start_states().size(), 0);
-    start_states[0] = 1;
+    for (int i = 0; i < auto1.get_start_states().size(); i++){
+        for (int j = 0; j < auto2.get_start_states().size(); j++){
+            if (auto1.get_start_states()[i] && auto2.get_start_states()[j]){
+                start_states[i * auto2.get_end_states().size() + j] = 1;
+            }
+        }
+    }
     std::vector<int> end_indexes1 = get_one_indexes(auto1.get_end_states());
     std::vector<int> end_indexes2 = get_one_indexes(auto2.get_end_states());
     std::vector<int> end_states(auto1.get_end_states().size() * auto2.get_end_states().size(), 0);
@@ -92,6 +98,10 @@ automaton intersect_automatons(automaton& auto1, automaton& auto2){
     }
 
     return {start_states, transition_matrix, end_states};
+}
+
+automaton alternative_automatons(automaton& auto1, automaton& auto2){
+
 }
 
 int main(){
