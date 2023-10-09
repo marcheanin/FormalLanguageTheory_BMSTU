@@ -15,6 +15,35 @@
 const std::string CONCAT_OP = "·";
 const std::string INTERSECT_OP = "∩";
 
+
+void replace_dots(std::vector <std::pair <std::string, std::string > >& lexemes) {
+    std::set <std::string> terms;
+    for (const auto& elem : lexemes){
+        if (elem.second == "TERM") {
+            terms.insert(elem.first);
+        }
+    }
+    std::vector <std::pair <std::string, std::string > > r = {{"(", "BRACKET"}};
+    for (const auto& elem : terms) {
+        if (r.size() > 1) r.emplace_back("|", "BINARY");
+        r.emplace_back(elem, "TERM");
+    }
+    r.emplace_back(")", "BRACKET");
+    bool f;
+    while(true) {
+        f = false;
+        for (int i = 0; i < lexemes.size(); i++) {
+            if (lexemes[i].second == "DOT") {
+                lexemes.erase(lexemes.begin() + i);
+                lexemes.insert(lexemes.begin() + i, r.begin(), r.end());
+                f = true;
+                break;
+            }
+        }
+        if (!f) break;
+    }
+}
+
 void replace_lookahead(std::vector <std::pair <std::string, std::string > >& lexemes, int pos){
     int balance = 1;
     bool end_line_flag = false;
@@ -41,7 +70,7 @@ void replace_lookahead(std::vector <std::pair <std::string, std::string > >& lex
     if (!end_line_flag){
         lexemes.insert(lexemes.begin()+pos2, {CONCAT_OP, "CONCAT"});
         pos2++;
-        lexemes.insert(lexemes.begin()+pos2, {".", "TERM"});
+        lexemes.insert(lexemes.begin()+pos2, {".", "DOT"});
         pos2++;
         lexemes.insert(lexemes.begin()+pos2, {"*", "UNARY"});
         pos2++;
@@ -68,6 +97,7 @@ void replace_lookahead(std::vector <std::pair <std::string, std::string > >& lex
             break;
         }
     }
+
     if (f == 0) lexemes.emplace_back(")", "BRACKET");
 }
 
@@ -129,6 +159,12 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
         }
         if (!f) break;
     }
+    for (const auto& i : res){
+        std::cout << i.first << " ";
+    }
+    std::cout << std::endl;
+    replace_dots(res);
+
     return res;
 }
 

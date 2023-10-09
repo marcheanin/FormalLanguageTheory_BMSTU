@@ -75,7 +75,7 @@ int main() {
     if (input_regex.empty()) {
         std::cout << "gen regex:" << std::endl;
         for (int i = 0; i < 10; i++) {
-            std::cout << regex_gen(3, 8, 1, 2) << std::endl;
+            std::cout << regex_gen(3, 12, 1, 2) << std::endl;
         }
         return 0;
     }
