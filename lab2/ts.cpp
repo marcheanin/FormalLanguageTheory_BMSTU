@@ -25,7 +25,17 @@ public:
     void print_start_vector();
     void print_transition_matrix();
     void print_end_vector();
+    void show_automaton();
 };
+
+void automaton::show_automaton() {
+    this->print_start_vector();
+    std::cout << std::endl;
+    this->print_transition_matrix();
+    std::cout << std::endl;
+    this->print_end_vector();
+    std::cout << std::endl;
+}
 
 automaton::automaton(std::vector <int> p_start_states, std::vector <std::vector <std::string>> p_transition_matrix, std::vector <int> p_end_states) {
     start_states = std::move(p_start_states);
@@ -223,25 +233,4 @@ automaton iteration_automaton(automaton& auto1){
         }
     }
     return {start_states, transition_matrix, end_states};
-}
-
-int main(){
-    //testing
-    std::vector <int> automaton1_start {1, 0};
-    std::vector <std::vector <std::string>> automaton1_matrix {{"0", "a"}, {"0", "0"}};
-    std::vector <int> automaton1_end {0, 1};
-    automaton automaton1 = automaton(automaton1_start, automaton1_matrix, automaton1_end);
-
-    std::vector <int> automaton2_start {1, 0, 0, 0};
-    std::vector <std::vector <std::string>> automaton2_matrix {{"0", "a", "b", "c"}, {"0", "0", "0", "0"}, {"0", "0", "0", "0"}, {"0", "0", "0", "0"}};
-    std::vector <int> automaton2_end {0, 1, 0, 1};
-    automaton automaton2 = automaton(automaton2_start, automaton2_matrix, automaton2_end);
-
-    automaton res = iteration_automaton(automaton2);
-    res.print_start_vector();
-    std::cout << std::endl;
-    res.print_transition_matrix();
-    std::cout << std::endl;
-    res.print_end_vector();
-    return 0;
 }

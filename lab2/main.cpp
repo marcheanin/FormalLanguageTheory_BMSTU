@@ -45,7 +45,6 @@ int main() {
         return 0;
     }
     std::vector <std::pair <std::string, std::string > > lexemes = lexer(input_regex);
-
     for (const auto& i : lexemes){
         std::cout << i.first << " ";
     }
@@ -65,4 +64,10 @@ int main() {
     res.show();
 
     printTree(tree, nullptr, false);
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    automaton auto_res = res.ffl_2_glushkov();
+    auto_res.show_automaton();
 }
