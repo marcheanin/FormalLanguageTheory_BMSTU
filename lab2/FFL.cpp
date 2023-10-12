@@ -37,6 +37,7 @@ public:
             std::cout << "}\n";
         }
         std::cout << std::endl;
+        std::cout << "Empty word accept: " << this->flag << std::endl;
     }
 
     void concatenate(const FFL& b){
@@ -174,3 +175,4 @@ FFL process_tree(TreeNode* node){
     }
     return FFL(node->data);
 }
+
