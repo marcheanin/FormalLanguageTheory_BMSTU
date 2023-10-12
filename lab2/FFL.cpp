@@ -140,6 +140,15 @@ public:
                 end_states[check_state_number(*ite)] = 1;
             }
         }
+        for (int i = 0; i < transition_matrix.size(); i++){
+            for (int j = 0; j < transition_matrix.size(); j++){
+                if (transition_matrix[i][j] != "0"){
+                    std::string::iterator end_pos = std::remove_if(transition_matrix[i][j].begin(), transition_matrix[i][j].end(),
+                                                                   isdigit);
+                    transition_matrix[i][j].erase(end_pos, transition_matrix[i][j].end());
+                }
+            }
+        }
         return {start_states, transition_matrix, end_states};
     }
 };

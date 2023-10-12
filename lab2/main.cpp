@@ -69,5 +69,5 @@ int main() {
     std::cout << std::endl;
 
     automaton auto_res = res.ffl_2_glushkov();
-    auto_res.show_automaton();
+    auto_res.show_like_arrows();
 }

@@ -26,6 +26,7 @@ public:
     void print_transition_matrix();
     void print_end_vector();
     void show_automaton();
+    void show_like_arrows();
 };
 
 void automaton::show_automaton() {
@@ -35,6 +36,16 @@ void automaton::show_automaton() {
     std::cout << std::endl;
     this->print_end_vector();
     std::cout << std::endl;
+}
+
+void automaton::show_like_arrows() {
+    for (int i = 0; i < this->transition_matrix.size(); i++){
+        for (int j = 0; j < this->transition_matrix.size(); j++){
+            if (this->transition_matrix[i][j] != "0"){
+                std::cout << std::to_string(i) << " -> " << std::to_string(j) << " (label = " << this->transition_matrix[i][j] << ")" << std::endl;
+            }
+        }
+    }
 }
 
 automaton::automaton(std::vector <int> p_start_states, std::vector <std::vector <std::string>> p_transition_matrix, std::vector <int> p_end_states) {
