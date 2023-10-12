@@ -19,6 +19,7 @@ private:
     std::vector <int> end_states;
 public:
     automaton(std::vector <int> p_start_states, std::vector <std::vector <std::string>> p_transition_matrix, std::vector <int> p_end_states);
+    automaton() = default;
     std::vector<int> get_start_states();
     std::vector <std::vector <std::string >> get_transition_matrix();
     std::vector<int> get_end_states();
