@@ -1,3 +1,5 @@
+#include "ts.cpp"
+
 class FFL{
 public:
     std::set <std::string> First{};
@@ -11,7 +13,7 @@ public:
         assert(term.second == "TERM");
         First.insert(term.first);
         Last.insert(term.first);
-        //Follow[term.first] = {};  //кажется это не нужно
+        Follow[term.first] = {};
     }
 
     void show(){
@@ -77,6 +79,77 @@ public:
         for (const auto& elem : this->Last){
             this->Follow[elem].insert(this->First.begin(), this->First.end());
         }
+    }
+
+    int get_states_count(){
+        std::set <std::string> buf;
+        std::set <std::string>::iterator iter;
+        std::map <std::string, std::set <std::string> >::iterator it;
+        for (it = this->Follow.begin(); it != this->Follow.end(); it++){
+            buf.insert(it->first);
+        }
+        return buf.size() + 1; // +1 because of start state exists
+    }
+
+    int check_state_number(const std::string& state){
+        std::map <std::string, std::set <std::string> >::iterator it;
+        int cnt = 1;
+        for (it = this->Follow.begin(); it != this->Follow.end(); it++){
+            if (state == it->first){
+                return cnt;
+            }
+            cnt += 1;
+        }
+        return 0;
+    }
+
+    automaton ffl_2_glushkov(){
+        int states_number = get_states_count();
+        std::vector<int> start_states(states_number, 0);
+        start_states[0] = 1;
+
+        std::vector<std::vector<std::string>> transition_matrix(states_number, std::vector<std::string>(states_number, "0"));
+        for (int i = 0; i < this->First.size(); i++){
+            auto state = this->First.begin();
+            for(int j=0;j<i;j++){
+                state++;
+            }
+            int index = check_state_number(*state);
+            transition_matrix[0][index] = *state;
+        }
+
+        std::map <std::string, std::set <std::string> >::iterator it;
+        for (it = this->Follow.begin(); it != this->Follow.end(); it++){
+            int i = check_state_number(it->first);
+            for (int ind = 0; ind < it->second.size(); ind++){
+                auto transit_to = it->second.begin();
+                for (int z = 0; z < ind; z++){
+                    transit_to++;
+                }
+                int j = check_state_number(*transit_to);
+                transition_matrix[i][j] = *transit_to;
+            }
+        }
+
+        std::vector<int> end_states(get_states_count(), 0);
+        if (this->flag){
+            end_states[0] = 1;
+        } else {
+            std::set<std::string>::iterator ite;
+            for (ite = this->Last.begin(); ite != this->Last.end(); ite++){
+                end_states[check_state_number(*ite)] = 1;
+            }
+        }
+        for (int i = 0; i < transition_matrix.size(); i++){
+            for (int j = 0; j < transition_matrix.size(); j++){
+                if (transition_matrix[i][j] != "0"){
+                    std::string::iterator end_pos = std::remove_if(transition_matrix[i][j].begin(), transition_matrix[i][j].end(),
+                                                                   isdigit);
+                    transition_matrix[i][j].erase(end_pos, transition_matrix[i][j].end());
+                }
+            }
+        }
+        return {start_states, transition_matrix, end_states};
     }
 };
 
