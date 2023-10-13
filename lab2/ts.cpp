@@ -40,6 +40,7 @@ void automaton::show_automaton() {
 }
 
 void automaton::show_like_arrows() {
+    std::cout << "digraph G {" << std::endl;
     std::cout << "rankdir=\"LR\";" << std::endl;
     for (int i = 0; i < this->transition_matrix.size(); i++){
         for (int j = 0; j < this->transition_matrix.size(); j++){
@@ -55,6 +56,7 @@ void automaton::show_like_arrows() {
             std::cout << std::to_string(i) <<  " [label=\"" << std::to_string(i) << "\", shape=circle];" << std::endl;
         }
     }
+    std::cout << "}" << std::endl;
 }
 
 automaton::automaton(std::vector <int> p_start_states, std::vector <std::vector <std::string>> p_transition_matrix, std::vector <int> p_end_states) {

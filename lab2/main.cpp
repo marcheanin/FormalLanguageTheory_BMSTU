@@ -110,6 +110,9 @@ int main() {
     //FFL res = process_tree(tree);
     auto res2 = process_tree2(tree);
 
+    if (res2.first.flag != -1)
+        res2.second = res2.first.ffl_2_glushkov();
+
     res2.first.show();
     res2.second.show_automaton();
     res2.second.show_like_arrows();
