@@ -207,11 +207,11 @@ automaton concat_automatons(automaton& auto1, automaton& auto2){
             }
         }
     }
-    for (int i = 1; i < auto1.get_transition_matrix().size(); i++){
-        for (int j = 1; j < auto2.get_transition_matrix().size(); j++){
-            transition_matrix[auto1.get_transition_matrix().size() + i - 1][auto1.get_transition_matrix().size() + j - 1] = auto2.get_transition_matrix()[i][j];
-        }
-    }
+//    for (int i = 1; i < auto1.get_transition_matrix().size(); i++){
+//        for (int j = 1; j < auto2.get_transition_matrix().size(); j++){
+//            transition_matrix[auto1.get_transition_matrix().size() + i - 1][auto1.get_transition_matrix().size() + j - 1] = auto2.get_transition_matrix()[i][j];
+//        }
+//    }
 
     std::vector<int> end_states (auto1.get_end_states().size() + auto2.get_end_states().size() - 1, 0);
     if (auto2.get_end_states()[0] == 0){
