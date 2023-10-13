@@ -69,6 +69,24 @@ std::pair <FFL, automaton> process_tree2(TreeNode* node){
     }
 }
 
+automaton process_automaton_tree(TreeNode* node){
+    if (node->data.second == "UNARY") {
+        auto a = process_automaton_tree(node->left);
+        return iteration_automaton(a);
+    }
+    if (node->data.first == CONCAT_OP){
+        auto a = process_automaton_tree(node->left);
+        auto b = process_automaton_tree(node->right);
+        return concat_automatons(a, b);
+    }
+    if (node->data.first == "|"){
+        auto a = process_automaton_tree(node->left);
+        auto b = process_automaton_tree(node->right);
+        return alternative_automatons(a, b);
+    }
+    return FFL(node->data).ffl_2_glushkov();
+}
+
 
 int main() {
     std::string input_regex;
@@ -108,17 +126,20 @@ int main() {
     TreeNode* tree = build_tree(postfix);
 
     //FFL res = process_tree(tree);
-    auto res2 = process_tree2(tree);
+    //auto res2 = process_tree2(tree);
 
-    if (res2.first.flag != -1)
-        res2.second = res2.first.ffl_2_glushkov();
-
-    res2.first.show();
-    res2.second.show_automaton();
-    res2.second.show_like_arrows();
+//    if (res2.first.flag != -1)
+//        res2.second = res2.first.ffl_2_glushkov();
+//
+//    res2.first.show();
+//    res2.second.show_automaton();
+//    res2.second.show_like_arrows();
 
     //res.show();
 
+    auto res3 = process_automaton_tree(tree);
+    res3.show_automaton();
+    res3.show_like_arrows();
     printTree(tree, nullptr, false);
 
     std::cout << std::endl;
