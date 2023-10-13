@@ -84,6 +84,11 @@ automaton process_automaton_tree(TreeNode* node){
         auto b = process_automaton_tree(node->right);
         return alternative_automatons(a, b);
     }
+    if (node->data.first == INTERSECT_OP){
+        auto a = process_automaton_tree(node->left);
+        auto b = process_automaton_tree(node->right);
+        return intersect_automatons(a, b);
+    }
     return FFL(node->data).ffl_2_glushkov();
 }
 
@@ -125,7 +130,7 @@ int main() {
 
     TreeNode* tree = build_tree(postfix);
 
-    //FFL res = process_tree(tree);
+    FFL res = process_tree(tree);
     //auto res2 = process_tree2(tree);
 
 //    if (res2.first.flag != -1)
@@ -145,6 +150,6 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
 
-    //automaton auto_res = res.ffl_2_glushkov();
-    //auto_res.show_like_arrows();
+//    automaton auto_res = res.ffl_2_glushkov();
+//    auto_res.show_like_arrows();
 }
