@@ -112,6 +112,7 @@ int main() {
 
     res2.first.show();
     res2.second.show_automaton();
+    res2.second.show_like_arrows();
 
     //res.show();
 

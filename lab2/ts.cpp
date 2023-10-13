@@ -40,10 +40,11 @@ void automaton::show_automaton() {
 }
 
 void automaton::show_like_arrows() {
+    std::cout << "digraph G {\nrankdir=\"LR\"";
     for (int i = 0; i < this->transition_matrix.size(); i++){
         for (int j = 0; j < this->transition_matrix.size(); j++){
             if (this->transition_matrix[i][j] != "0"){
-                std::cout << std::to_string(i) << " -> " << std::to_string(j) << " (label = " << this->transition_matrix[i][j] << ")" << std::endl;
+                std::cout << std::to_string(i) << " -> " << std::to_string(j) << " [label = " << this->transition_matrix[i][j] << "];" << std::endl;
             }
         }
     }
