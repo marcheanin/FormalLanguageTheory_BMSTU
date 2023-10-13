@@ -5,7 +5,7 @@ public:
     std::set <std::string> First{};
     std::map <std::string, std::set <std::string> > Follow{};
     std::set <std::string> Last{};
-    bool flag = false;
+    int flag = 0;
 
     FFL() = default;
 
@@ -37,6 +37,7 @@ public:
             std::cout << "}\n";
         }
         std::cout << std::endl;
+        std::cout << "Empty word accept: " << this->flag << std::endl;
     }
 
     void concatenate(const FFL& b){
@@ -61,7 +62,7 @@ public:
             }
         }
         if (!b.flag){
-            this->flag = false;
+            this->flag = 0;
         }
     }
 
@@ -174,3 +175,6 @@ FFL process_tree(TreeNode* node){
     }
     return FFL(node->data);
 }
+
+
+
