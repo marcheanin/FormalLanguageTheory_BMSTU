@@ -34,6 +34,8 @@ public:
     void show_like_arrows();
     void dfs(int vertex);
     void dfs_from_starts();
+    void dfs_transpon(int vertex);
+    void delete_traps();
 
     automaton(std::vector<int> p_start_states,
               std::vector<std::vector<std::pair<std::string, bool>>> p_transition_matrix,
@@ -131,6 +133,56 @@ std::vector<bool> automaton::get_visited() {
     return this->visited;
 }
 
+void automaton::dfs_transpon(int vertex) {
+    this->visited[vertex] = true;
+    for (int i = 0; i < this->transition_matrix[vertex].size(); i++){
+        if (this->transition_matrix[i][vertex].first != "0" && !this->visited[i]){
+            dfs_transpon(i);
+        }
+    }
+}
+
+void automaton::delete_traps() {
+    // Ѕудем проходить по транспонированной матрице из конечных состо€ний. ¬се, которые не покрасим - удал€ем
+    for (int i = 0; i < this->visited.size(); i++){
+        visited[i] = false;
+    }
+    for (int i = 0; i < this->end_states.size(); i++){
+        if (this->end_states[i]){
+            dfs_transpon(i);
+        }
+    }
+    std::vector <bool> need_delete(this->transition_matrix.size(), false);
+    for (int i = 0; i < this->visited.size(); i++){
+        if (!this->visited[i]){
+            need_delete[i] = true;
+        }
+    }
+
+    int cnt = 0;
+    for (int i = 0; i < need_delete.size(); i++){
+        if (need_delete[i]){
+            this->start_states.erase(this->start_states.begin() + i - cnt);
+            this->end_states.erase(this->end_states.begin() + i - cnt);
+            this->transition_matrix.erase(this->transition_matrix.begin() + i - cnt);
+            cnt += 1;
+        }
+    }
+    cnt = 0;
+    for (auto & i : this->transition_matrix){
+        for (int j = 0; j < need_delete.size(); j++){
+            if (need_delete[j]){
+                i.erase(i.begin() + j - cnt);
+                cnt += 1;
+            }
+        }
+        cnt = 0;
+    }
+    for(auto && i : this->visited){
+        i = false;
+    }
+}
+
 automaton intersect_automatons(automaton& auto1, automaton& auto2){
     std::vector<int> start_states(auto1.get_start_states().size() * auto2.get_start_states().size(), 0);
     for (int i = 0; i < auto1.get_start_states().size(); i++){
@@ -202,8 +254,13 @@ automaton intersect_automatons(automaton& auto1, automaton& auto2){
         }
         cnt = 0;
     }
+    for(int i = 0; i < res.get_visited().size(); i++){
+        res.get_visited()[i] = false;
+    }
+    res = {start_states, transition_matrix, end_states};
+    res.delete_traps();
 
-    return {start_states, transition_matrix, end_states};
+    return res;
 }
 
 automaton alternative_automatons(automaton& auto1, automaton& auto2){

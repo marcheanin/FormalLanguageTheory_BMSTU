@@ -157,17 +157,20 @@ int main() {
 
 
 
-    std::vector<int> start1 = {1, 0, 0, 0};
-    std::vector<std::vector<std::pair<std::string, bool>>> transit1 = {{{"0", false}, {"a", false}, {"b", false}, {"c", false}}, {{"0", false}, {"a", false}, {"b", false}, {"c", false}}, {{"0", false}, {"a", false}, {"b", false}, {"c", false}}, {{"0", false}, {"a", false}, {"b", false}, {"c", false}}};
-    std::vector<int> end1 = {1, 1, 1, 1};
+    std::vector<int> start1 = {1, 0, 0, 0, 0};
+    std::vector<std::vector<std::pair<std::string, bool>>> transit1 = {{{"0", false}, {"a", false}, {"0", false}, {"0", false}, {"c", false}},
+                                                                       {{"0", false}, {"0", false}, {"b", false}, {"0", false}, {"0", false}},
+                                                                       {{"0", false}, {"0", false}, {"0", false}, {"a", false}, {"0", false}},
+                                                                       {{"0", false}, {"c", false}, {"0", false}, {"0", false}, {"0", false}},
+                                                                       {{"0", false}, {"0", false}, {"0", false}, {"0", false}, {"0", false}}};
+    std::vector<int> end1 = {0, 0, 0, 0, 1};
     automaton autom1 = automaton(start1, transit1, end1);
 
-    std::vector<int> start2 = {1, 0};
-    std::vector<std::vector<std::pair<std::string, bool>>> transit2 = {{{"0", false}, {"b", false}}, {{"0", false}, {"b", false}}};
-    std::vector<int> end2 = {1, 1};
-    automaton autom2 = automaton(start2, transit2, end2);
+    autom1.show_automaton();
+    autom1.show_like_arrows();
 
-    automaton inter_test = intersect_automatons(autom1, autom2);
-    inter_test.show_automaton();
-    inter_test.show_like_arrows();
+    autom1.delete_traps();
+
+    autom1.show_automaton();
+    autom1.show_like_arrows();
 }
