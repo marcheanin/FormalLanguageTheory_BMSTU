@@ -109,14 +109,14 @@ public:
         std::vector<int> start_states(states_number, 0);
         start_states[0] = 1;
 
-        std::vector<std::vector<std::string>> transition_matrix(states_number, std::vector<std::string>(states_number, "0"));
+        std::vector<std::vector<std::pair<std::string, bool>>> transition_matrix(states_number, std::vector<std::pair<std::string, bool>>(states_number, {"0", false}));
         for (int i = 0; i < this->First.size(); i++){
             auto state = this->First.begin();
             for(int j=0;j<i;j++){
                 state++;
             }
             int index = check_state_number(*state);
-            transition_matrix[0][index] = *state;
+            transition_matrix[0][index].first = *state;
         }
 
         std::map <std::string, std::set <std::string> >::iterator it;
@@ -128,7 +128,7 @@ public:
                     transit_to++;
                 }
                 int j = check_state_number(*transit_to);
-                transition_matrix[i][j] = *transit_to;
+                transition_matrix[i][j].first = *transit_to;
             }
         }
 
@@ -143,10 +143,10 @@ public:
         }
         for (int i = 0; i < transition_matrix.size(); i++){
             for (int j = 0; j < transition_matrix.size(); j++){
-                if (transition_matrix[i][j] != "0"){
-                    std::string::iterator end_pos = std::remove_if(transition_matrix[i][j].begin(), transition_matrix[i][j].end(),
+                if (transition_matrix[i][j].first != "0"){
+                    std::string::iterator end_pos = std::remove_if(transition_matrix[i][j].first.begin(), transition_matrix[i][j].first.end(),
                                                                    isdigit);
-                    transition_matrix[i][j].erase(end_pos, transition_matrix[i][j].end());
+                    transition_matrix[i][j].first.erase(end_pos, transition_matrix[i][j].first.end());
                 }
             }
         }
