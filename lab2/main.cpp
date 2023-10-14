@@ -94,43 +94,44 @@ automaton process_automaton_tree(TreeNode* node){
 
 
 int main() {
-    std::string input_regex;
-    std::ifstream fin("input.txt");
-    assert(fin.is_open());
-    fin >> input_regex;
-    if (input_regex.empty()) {
-        std::cout << "gen regex:" << std::endl;
-        std::vector <std::string> regexes;
-        for (int i = 0; i < 5; i++) {
-            regexes.push_back(regex_gen(3, 12, 0, 2));
-            std::cout << regexes.back() << std::endl;
-        }
-        for (const auto& regex : regexes){
-            std::vector <std::pair <std::string, std::string > > lexemes = lexer(regex);
-            std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
-            TreeNode* tree = build_tree(postfix);
-            FFL res = process_tree(tree);
-            res.show();
-            printTree(tree, nullptr, false);
-        }
-        return 0;
-    }
-    std::vector <std::pair <std::string, std::string > > lexemes = lexer(input_regex);
-    for (const auto& i : lexemes){
-        std::cout << i.first << " ";
-    }
+//    std::string input_regex;
+//    std::ifstream fin("input.txt");
+//    assert(fin.is_open());
+//    fin >> input_regex;
+//    if (input_regex.empty()) {
+//        std::cout << "gen regex:" << std::endl;
+//        std::vector <std::string> regexes;
+//        for (int i = 0; i < 5; i++) {
+//            regexes.push_back(regex_gen(3, 12, 0, 2));
+//            std::cout << regexes.back() << std::endl;
+//        }
+//        for (const auto& regex : regexes){
+//            std::vector <std::pair <std::string, std::string > > lexemes = lexer(regex);
+//            std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
+//            TreeNode* tree = build_tree(postfix);
+//            FFL res = process_tree(tree);
+//            res.show();
+//            printTree(tree, nullptr, false);
+//        }
+//        return 0;
+//    }
+//    std::vector <std::pair <std::string, std::string > > lexemes = lexer(input_regex);
+//    for (const auto& i : lexemes){
+//        std::cout << i.first << " ";
+//    }
+//
+//    std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
+//    std::cout << std::endl;
+//    for (const auto& i : postfix){
+//        std::cout << i.first << " ";
+//    }
+//
+//    std::cout << std::endl;
+//    std::cout << std::endl;
+//
+//    TreeNode* tree = build_tree(postfix);
 
-    std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
-    std::cout << std::endl;
-    for (const auto& i : postfix){
-        std::cout << i.first << " ";
-    }
-    std::cout << std::endl;
-    std::cout << std::endl;
-
-    TreeNode* tree = build_tree(postfix);
-
-    FFL res = process_tree(tree);
+//    FFL res = process_tree(tree);
     //auto res2 = process_tree2(tree);
 
 //    if (res2.first.flag != -1)
@@ -142,14 +143,31 @@ int main() {
 
     //res.show();
 
-    auto res3 = process_automaton_tree(tree);
-    res3.show_automaton();
-    res3.show_like_arrows();
-    printTree(tree, nullptr, false);
-
-    std::cout << std::endl;
-    std::cout << std::endl;
+//    auto res3 = process_automaton_tree(tree);
+//    res3.show_automaton();
+//    res3.show_like_arrows();
+//    printTree(tree, nullptr, false);
+//
+//    std::cout << std::endl;
+//    std::cout << std::endl;
 
 //    automaton auto_res = res.ffl_2_glushkov();
 //    auto_res.show_like_arrows();
+
+
+
+
+    std::vector<int> start1 = {1, 0, 0, 0};
+    std::vector<std::vector<std::pair<std::string, bool>>> transit1 = {{{"0", false}, {"a", false}, {"b", false}, {"c", false}}, {{"0", false}, {"a", false}, {"b", false}, {"c", false}}, {{"0", false}, {"a", false}, {"b", false}, {"c", false}}, {{"0", false}, {"a", false}, {"b", false}, {"c", false}}};
+    std::vector<int> end1 = {1, 1, 1, 1};
+    automaton autom1 = automaton(start1, transit1, end1);
+
+    std::vector<int> start2 = {1, 0};
+    std::vector<std::vector<std::pair<std::string, bool>>> transit2 = {{{"0", false}, {"b", false}}, {{"0", false}, {"b", false}}};
+    std::vector<int> end2 = {1, 1};
+    automaton autom2 = automaton(start2, transit2, end2);
+
+    automaton inter_test = intersect_automatons(autom1, autom2);
+    inter_test.show_automaton();
+    inter_test.show_like_arrows();
 }
