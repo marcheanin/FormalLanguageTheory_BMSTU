@@ -373,7 +373,12 @@ automaton iteration_automaton(automaton& auto1){
                 } else if (auto1.get_transition_matrix()[i][j].first == "0"){
                     transition_matrix[i][j].first = transition_matrix[0][j].first;
                 } else {
-                    transition_matrix[i][j].first = "(" + transition_matrix[0][j].first + "|" + auto1.get_transition_matrix()[i][j].first + ")";
+//                    transition_matrix[i][j].first = "(" + transition_matrix[0][j].first + "|" + auto1.get_transition_matrix()[i][j].first + ")";
+                    if (transition_matrix[0][j].first != auto1.get_transition_matrix()[i][j].first){
+                        transition_matrix[i][j].first = "(" + transition_matrix[0][j].first + "|" + auto1.get_transition_matrix()[i][j].first + ")";
+                    } else {
+                        transition_matrix[i][j].first = transition_matrix[0][j].first;
+                    }
                 }
             } else {
                 transition_matrix[i][j].first = auto1.get_transition_matrix()[i][j].first;
