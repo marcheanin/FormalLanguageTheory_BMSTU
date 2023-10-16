@@ -176,5 +176,77 @@ FFL process_tree(TreeNode* node){
     return FFL(node->data);
 }
 
+std::pair <FFL, automaton> process_tree2(TreeNode* node){
+    if (node->data.second == "UNARY") {
+        auto a = process_tree2(node->left);
+        if (a.first.flag == -1) {
+            return {a.first, iteration_automaton(a.second)};
+        }
+        a.first.unary();
+        return a;
+    }
+    if (node->data.second == "TERM") return {FFL(node->data), automaton()};
+    auto a = process_tree2(node->left);
+    auto b = process_tree2(node->right);
+    if (a.first.flag == -1 || b.first.flag == -1 || node->data.first == INTERSECT_OP){ //делаем операции с автоматами
+        if (a.first.flag != -1){
+            a.first.flag = -1;
+            a.second = a.first.ffl_2_glushkov();
+        }
+        if (b.first.flag != -1){
+            b.first.flag = -1;
+            b.second = b.first.ffl_2_glushkov();
+        }
+        if (node->data.first == CONCAT_OP) {
+            auto res = concat_automatons(a.second, b.second);
+            return {a.first, res};
+        }
+        if (node->data.first == INTERSECT_OP) {
+            auto res = intersect_automatons(a.second, b.second);
+            a.first.flag = -1;
+            return {a.first, res};
+        }
+        if (node->data.first == "|") {
+            auto res = alternative_automatons(a.second, b.second);
+            return {a.first, res};
+        }
+        throw std::invalid_argument("Oops, can not find operation: " + node->data.first);
+    }
+    else{                                                                               //делаем операции с FFL
+        if (node->data.first == CONCAT_OP){
+            a.first.concatenate(b.first);
+            return a;
+        }
+        if (node->data.first == "|"){
+            a.first.alternative(b.first);
+            return a;
+        }
+    }
+}
+
+automaton process_automaton_tree(TreeNode* node){
+    if (node->data.second == "UNARY") {
+        auto a = process_automaton_tree(node->left);
+        return iteration_automaton(a);
+    }
+    if (node->data.first == CONCAT_OP){
+        auto a = process_automaton_tree(node->left);
+        auto b = process_automaton_tree(node->right);
+        return concat_automatons(a, b);
+    }
+    if (node->data.first == "|"){
+        auto a = process_automaton_tree(node->left);
+        auto b = process_automaton_tree(node->right);
+        return alternative_automatons(a, b);
+    }
+    if (node->data.first == INTERSECT_OP){
+        auto a = process_automaton_tree(node->left);
+        auto b = process_automaton_tree(node->right);
+        return intersect_automatons(a, b);
+    }
+    return FFL(node->data).ffl_2_glushkov();
+}
+
+
 
 
