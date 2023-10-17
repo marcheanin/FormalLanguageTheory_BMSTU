@@ -43,7 +43,7 @@ void get_words_rec(std::string word, int count, int v, std::vector <int> final_s
 void get_words (automaton a, int count){
     auto m = a.get_transition_matrix();
     auto final = a.get_end_states();
-
+    if (std::find(final.begin(), final.end(), 1) == final.end()) return;
     while(words.size() < count){
         std::fill(visited.begin(), visited.end(), 0);
         get_words_rec("", count, 0, final, m);
@@ -67,11 +67,12 @@ void test_automaton(automaton a, std::string input_regex, int col_words, std::os
     fout << "Words true: " << col_true << "/" << col_words << std::endl;
     if (problem_words.empty()){
         fout << "OK" << std::endl;
+        if (col_true == 0) fout << "it's empty regular expression" << std::endl;
     }
     else{
         fout << "Problem words:" << std::endl;
         for (const auto& word : problem_words) {
-            std::cout << word << std::endl;
+            fout << word << std::endl;
         }
     }
     fout << std::endl;
@@ -89,11 +90,11 @@ int main() {
         std::cout << "gen regex:" << std::endl;
         std::vector <std::string> regexes;
         for (int i = 0; i < 50; i++) {
-            regexes.push_back(regex_gen(3, 25, 0, 3));
+            regexes.push_back(regex_gen(3, 15, 1, 2));
             //std::cout << regexes.back() << std::endl;
         }
         for (const auto& regex : regexes){
-            //std::cout << regex << std::endl;
+            std::cout << regex << std::endl;
             std::vector <std::pair <std::string, std::string > > lexemes = lexer(regex);
             //std::cout << "Parse completed" << std::endl;
             std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);

@@ -1,200 +1,204 @@
-Results for (b|b)*db|da|a(d|d|ba)*d|cb: 
+Results for (?=((d|ab|b)*)*)((db)*)*a|ca: 
 Words true: 25/25
 OK
 
-Results for (c|c|b|a)*(ba)*|a(ccc)*|c(a|c)*c: 
+Results for (?=c)da|c|a|(?=d|d)ab: 
 Words true: 25/25
 OK
 
-Results for (c|c)*|b|da|d|a|(((d|da)*b)*)*(a|bd)*: 
+Results for (((?=c$)b|bc(?=cc)dc)*)*: 
 Words true: 25/25
 OK
 
-Results for ((ca|c|d)*(b|d)*|a)*|d|bc|cddc: 
+Results for (?=cb$)(a|b)*(?=b$)a|d: 
 Words true: 25/25
 OK
 
-Results for (((a|c)*a|b)*(dcc)*(dd|b)*a|(cc)*|a)*: 
+Results for (((?=db$)ac)*|(?=(d|a)*)(cb)*)*: 
 Words true: 25/25
 OK
 
-Results for b|d|b|b((d|a)*|b)*(bcd|a((cac)*)*)*: 
+Results for ((?=b)d|(?=c$)b|((?=a|a$)d|c)*)*: 
 Words true: 25/25
 OK
 
-Results for (((b|ccd|cbc)*)*|((b|c)*|bb(cac)*)*)*: 
+Results for ((?=c|a$)ad)*((?=d)c|c)*: 
 Words true: 25/25
 OK
 
-Results for ((d|a)*b|c(ada)*)*dbda|(((dd|d)*)*)*: 
+Results for (?=((ca)*a|c)*)a|b|cb|b: 
 Words true: 25/25
 OK
 
-Results for d|a|b|b((ba)*a)*(((d|bcc)*)*)*(a|b|d)*: 
+Results for ((dd)*d|c|b)*((c|c|d)*)*|c: 
 Words true: 25/25
 OK
 
-Results for ((c|c)*d|dc|ad)*(((d|d)*|c)*d((ab)*)*a)*: 
+Results for ((?=a)a|ca)*((?=a$)d)*|d: 
 Words true: 25/25
 OK
 
-Results for (((cd|d)*bcbc)*)*|(((ab|d)*)*)*|b|c|ab: 
+Results for (((?=c$)a)*a)*|dc|(((?=a$)ac)*)*|a: 
 Words true: 25/25
 OK
 
-Results for (acb|a|((c|a|b)*)*)*|((a|aa|c)*)*|(cdc)*: 
+Results for (?=((b|b|aa)*)*)d|d|a|bd: 
 Words true: 25/25
 OK
 
-Results for (((a|a)*)*bb)*|d|d|caab|c(((da|c)*)*)*: 
+Results for (b|c)*|dd|d(?=ca)bd: 
 Words true: 25/25
 OK
 
-Results for (da|c|b)*|d|b|a|((b|c)*|da)*|(bc)*d: 
+Results for (bca)*|c|b|(?=(b|d)*$)b|c: 
 Words true: 25/25
 OK
 
-Results for (((ba|a|d|aac|bbbba|bc)*)*)*: 
+Results for (d|bbcb(?=b)dd)*: 
 Words true: 25/25
 OK
 
-Results for (bbdd|bad)*|d|d|a|c|((d|b)*)*d: 
+Results for (?=b|db|b)cdd|dd: 
 Words true: 25/25
 OK
 
-Results for (((c|dc|a|da|d)*)*|((bccc|dda)*)*)*: 
+Results for (?=d|bd|a$)ba|a|(ad)*: 
 Words true: 25/25
 OK
 
-Results for bc|ddbdb|(((b|cc|c)*)*)*|(cbc)*: 
+Results for (?=d)ad|bd|(adb)*|d: 
 Words true: 25/25
 OK
 
-Results for (((aa)*)*)*|d|b|(((dd|c)*)*)*|(a|c|b|c)*(c|b)*|a: 
+Results for ((?=c)cb|c)*|(?=c|a)bb: 
 Words true: 25/25
 OK
 
-Results for (cad|c|aa|c|((a|ad|a|dca)*)*)*: 
+Results for (((?=b$)cb|a)*(dd|b)*d)*: 
 Words true: 25/25
 OK
 
-Results for (((b|c)*ab)*|((d|b|c)*)*((a|d)*ab|d|a|d)*)*: 
+Results for ((?=b|c|cb)(c|bd)*|d|a)*: 
 Words true: 25/25
 OK
 
-Results for (((ba)*dcb|bd(b|db)*|b|(dc)*c)*)*: 
+Results for (?=((aa)*b|c)*)((b|c)*|b)*cb: 
 Words true: 25/25
 OK
 
-Results for ((c|c|a|c(c|c|d)*)*|(d|c|ad|(bbc)*)*)*: 
+Results for bd|ddb(d|a|bb)*: 
 Words true: 25/25
 OK
 
-Results for (((aac|b)*(cd|c)*)*((b|c|d|a)*c|a|b)*)*: 
+Results for (?=((ca)*)*dd$)(ab)*|b|a|d: 
 Words true: 25/25
 OK
 
-Results for (((ab)*|a)*b|d|ac)*(((d|c)*)*ad)*|(dc)*d: 
+Results for ((?=a|d$)a|a)*|(((?=a$)cc)*)*: 
 Words true: 25/25
 OK
 
-Results for (ac|d)*|a|(((b|c|c)*)*)*|dc|b|c|bac: 
+Results for (((?=d)b)*bbd(?=d$)cb|b)*: 
 Words true: 25/25
 OK
 
-Results for (ad)*c|b|(d|b)*b|((abd)*)*d|a|d|a: 
+Results for (?=d|a)da|((?=c)d)*a: 
 Words true: 25/25
 OK
 
-Results for ab|d|d|d|c|a(((ddb|ba|ba)*)*)*: 
+Results for (?=a|c$)a|bb|a|b|b: 
 Words true: 25/25
 OK
 
-Results for (((a|d|b)*|a)*|dbd|((baab)*ac|d)*)*: 
+Results for (?=d)ba|d|((c|c)*|d|c)*: 
 Words true: 25/25
 OK
 
-Results for (((d|ac)*c(bcb)*)*)*(b|dc|d((bcc)*)*)*: 
+Results for (?=((a|a)*|d)*a$)((db)*c|cc)*: 
+Words true: 0/25
+OK
+it's empty regular expression
+
+Results for (?=((bd)*)*)d|c|(ad|c)*|c: 
 Words true: 25/25
 OK
 
-Results for (((b|b|d|c)*|(bcd)*(a|bd|d)*|d|ad)*)*: 
+Results for ((?=(c|c)*)d|b)*ba|ba: 
 Words true: 25/25
 OK
 
-Results for ((dd)*|dc)*|(b|db)*b|d|a|b|((a|b)*|a)*: 
+Results for (?=cd|b|a$)c|a|d|c|c: 
 Words true: 25/25
 OK
 
-Results for ((b|ca)*b|ca|c)*(((ac)*)*a|b)*|c|da: 
+Results for (b|ca(?=a)c|(?=ba)(a|b)*)*: 
 Words true: 25/25
 OK
 
-Results for (c|a|b|a|((ac)*)*|c)*(abcb)*((d|c)*a)*: 
+Results for ((a|d)*a((?=c$)c)*|(c|ba)*c)*: 
 Words true: 25/25
 OK
 
-Results for (((acb|c|cca|d|a|ac|c|cc)*)*)*: 
+Results for b|ba|(a|d)*(?=b$)ca: 
 Words true: 25/25
 OK
 
-Results for (ab|ac|(a|dd)*)*(((cd)*)*)*|a|aca|c: 
+Results for (?=((b|aa)*|a)*)(caa|b|d)*: 
 Words true: 25/25
 OK
 
-Results for ba|bc|d|db|(((cc|c)*|d)*)*(b|b)*b: 
+Results for (?=cb|d|c)((b|b)*ac|a)*: 
+Words true: 0/25
+OK
+it's empty regular expression
+
+Results for (?=(bac)*c$)(c|a|a)*ba: 
+Words true: 0/25
+OK
+it's empty regular expression
+
+Results for (?=(a|d)*$)(bc)*|((?=b|d)(ac)*)*: 
 Words true: 25/25
 OK
 
-Results for (((d|b|c)*)*c(cbb)*)*((d|ca|a|(ba)*|a)*)*: 
+Results for (?=(bba|b)*)(bdd)*(b|c)*: 
 Words true: 25/25
 OK
 
-Results for (d|dd|c)*((ac|a)*)*|(ca)*d|d|dab: 
+Results for (?=(bd)*|b|c)((b|bb)*)*|bb: 
 Words true: 25/25
 OK
 
-Results for ((cd|b)*d|(d|ca)*|((a|c)*ca)*|((a|b)*)*|c)*: 
+Results for (((?=ad)ad)*((?=cc)bc)*)*: 
 Words true: 25/25
 OK
 
-Results for (((cab)*dbd|c(cdc|d)*|aad)*)*: 
+Results for (?=b)c|a|d|(b|b)*|bc: 
 Words true: 25/25
 OK
 
-Results for ((a|b)*cd|ca|a)*a|a|d|c(b|c)*|b: 
+Results for (?=bc$)aa(?=a)cdb: 
+Words true: 0/25
+OK
+it's empty regular expression
+
+Results for (?=(cd)*$)(d|d)*|(?=(db)*)(bb)*: 
 Words true: 25/25
 OK
 
-Results for (((ac|a)*)*)*ad|cc(((c|ba)*|c(a|d)*d)*)*: 
+Results for (((?=a)c|aba|a|cc)*)*: 
 Words true: 25/25
 OK
 
-Results for ((dc|cc)*(b|c)*b|(bb|b)*a(a|dc)*)*: 
+Results for (ddd)*|((?=b)d)*|(((?=a)aa)*)*: 
 Words true: 25/25
 OK
 
-Results for (bdda|(d|c|b)*)*|(((a|a|c)*)*)*b(((bc)*)*a)*: 
+Results for (?=((b|db)*)*|b$)((dd|d)*|cc)*: 
 Words true: 25/25
 OK
 
-Results for (cd|ddb|da)*(((d|d)*dc)*)*|(ba)*a: 
-Words true: 25/25
-OK
-
-Results for (((dd|d|b|dbcdad|a|b|dc)*)*)*: 
-Words true: 25/25
-OK
-
-Results for ((cd)*c)*b|d|a|b|(((bbb|abbc)*)*)*: 
-Words true: 25/25
-OK
-
-Results for ((ad)*)*dda|b|c(((c|cb)*a)*)*c|db: 
-Words true: 25/25
-OK
-
-Results for (cbad)*|(ac)*|d|((c|a|bd|(c|a)*|a)*)*: 
+Results for (?=d$)a((?=a)b)*|(?=c)c|d|a: 
 Words true: 25/25
 OK
 
