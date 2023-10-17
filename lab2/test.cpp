@@ -4,21 +4,19 @@
 
 std::random_device rd;
 std::mt19937 gen(rd());
+
 std::map <int, std::string> ops = {{0, "|"},
                                    {1, CONCAT_OP},
                                    {2, "?="},
                                    {3, "*"}};
-int random_value(int low, int high)
-{
+int random_value(int low, int high){
     std::uniform_int_distribution<> dist(low, high);
     return dist(gen);
 }
 
 std::string regex_gen(int terms_range, int terms_col, int la_num, int star_deep){
     if (terms_col <= 0) terms_col = 1;
-    //std::cout << terms_col << std::endl;
     std::string s;
-    //int term_or_op = random_value(0, 1);
     if (terms_col == 1 || terms_col == 2) {
         int c = random_value(0, terms_range);
         s += char('a' + c);
@@ -41,8 +39,9 @@ std::string regex_gen(int terms_range, int terms_col, int la_num, int star_deep)
     if (op == "|") {
         return regex_gen(terms_range, terms_col / 2 + 1, la_num, star_deep) + "|" + regex_gen(terms_range, terms_col / 2 - 1, la_num, star_deep);
     }
-    std::string symb = "";
+    std::string symb;
     if (random_value(0, 1)) symb = "$";
     return "(?=" + regex_gen(terms_range, terms_col / 3 + 1, la_num - 1, star_deep) + symb + ")" +
            regex_gen(terms_range, terms_col / 3 * 2 - 1, la_num - 1, star_deep);
 }
+

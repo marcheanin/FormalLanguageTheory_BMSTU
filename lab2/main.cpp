@@ -6,6 +6,7 @@
 #include <set>
 #include <map>
 #include <random>
+#include <regex>
 
 #include "parser.cpp"
 #include "tree.cpp"
@@ -13,118 +14,97 @@
 #include "test.cpp"
 
 /*
- * TODO: regex_gen
- * TODO: автомат -> регулярка (Детерминизация? Минимизация? Удаление ловушек?)
- * TODO: операции с автоматами
- * TODO: FFL -> автомат
+ * TODO: автомат -> регулярка (Удаление состояний)
  * TODO: генерация слов через финальный автомат
  * TODO: написание тест функции через regex-библу, regex_gen и генерации слов через автомат
  */
 
-std::pair <FFL, automaton> process_tree2(TreeNode* node){
-    if (node->data.second == "UNARY") {
-        auto a = process_tree2(node->left);
-        if (a.first.flag == -1) {
-            return {a.first, iteration_automaton(a.second)};
-        }
-        a.first.unary();
-        return a;
+std::vector <std::string> words;
+std::vector <bool> visited (100, false);
+
+void get_words_rec(std::string word, int count, int v, std::vector <int> final_states,  std::vector <std::vector <std::pair<std::string, bool> > > m){
+    if (final_states[v]){
+        words.push_back(word);
+        if (words.size() >= count) return;
     }
-    if (node->data.second == "TERM") return {FFL(node->data), automaton()};
-    auto a = process_tree2(node->left);
-    auto b = process_tree2(node->right);
-    if (a.first.flag == -1 || b.first.flag == -1 || node->data.first == INTERSECT_OP){ //делаем операции с автоматами
-        if (a.first.flag != -1){
-            a.first.flag = -1;
-            a.second = a.first.ffl_2_glushkov();
-        }
-        if (b.first.flag != -1){
-            b.first.flag = -1;
-            b.second = b.first.ffl_2_glushkov();
-        }
-        if (node->data.first == CONCAT_OP) {
-            auto res = concat_automatons(a.second, b.second);
-            return {a.first, res};
-        }
-        if (node->data.first == INTERSECT_OP) {
-            auto res = intersect_automatons(a.second, b.second);
-            a.first.flag = -1;
-            return {a.first, res};
-        }
-        if (node->data.first == "|") {
-            auto res = alternative_automatons(a.second, b.second);
-            return {a.first, res};
-        }
-        throw std::invalid_argument("Oops, can not find operation: " + node->data.first);
-    }
-    else{                                                                               //делаем операции с FFL
-        if (node->data.first == CONCAT_OP){
-            a.first.concatenate(b.first);
-            return a;
-        }
-        if (node->data.first == "|"){
-            a.first.alternative(b.first);
-            return a;
+    visited[v] = true;
+    std::vector <int> nexts;
+    for (int j = 0; j < m[v].size(); j++){
+        if (m[v][j].first != "0" && !visited[j]){
+            nexts.push_back(j);
         }
     }
+    if (nexts.empty()) return;
+    int val = random_value(0, nexts.size()-1);
+
+    get_words_rec(word + m[v][nexts[val]].first, count, nexts[val], final_states, m);
 }
 
-automaton process_automaton_tree(TreeNode* node){
-    if (node->data.second == "UNARY") {
-        auto a = process_automaton_tree(node->left);
-        return iteration_automaton(a);
-    }
-    if (node->data.first == CONCAT_OP){
-        auto a = process_automaton_tree(node->left);
-        auto b = process_automaton_tree(node->right);
-        return concat_automatons(a, b);
-    }
-    if (node->data.first == "|"){
-        auto a = process_automaton_tree(node->left);
-        auto b = process_automaton_tree(node->right);
-        return alternative_automatons(a, b);
-    }
-    if (node->data.first == INTERSECT_OP){
-        auto a = process_automaton_tree(node->left);
-        auto b = process_automaton_tree(node->right);
-        return intersect_automatons(a, b);
-    }
-    return FFL(node->data).ffl_2_glushkov();
+void get_words (automaton a, int count){
+    auto m = a.get_transition_matrix();
+    auto final = a.get_end_states();
+
+    while(words.size() < count){
+        std::fill(visited.begin(), visited.end(), 0);
+        get_words_rec("", count, 0, final, m);
+   }
 }
 
+void test_automaton(automaton a, std::string input_regex, int col_words, std::ostream& fout){
+    std::vector <std::string> problem_words;
+    int col_true = 0;
+    get_words(std::move(a), col_words);
+    std::regex r(input_regex);
+    for (const auto & word : words){
+        bool res = regex_match(word, r);
+        //std::cout << word << " " << res << std::endl;
+        if (res) col_true++;
+        else{
+            problem_words.push_back(word);
+        }
+    }
+    fout << "Results for " << input_regex << ": " << std::endl;
+    fout << "Words true: " << col_true << "/" << col_words << std::endl;
+    if (problem_words.empty()){
+        fout << "OK" << std::endl;
+    }
+    else{
+        fout << "Problem words:" << std::endl;
+        for (const auto& word : problem_words) {
+            std::cout << word << std::endl;
+        }
+    }
+    fout << std::endl;
+    words.clear();
+}
 
 int main() {
+    //TODO: не забыть обработать пустую регулярку ^$
     std::string input_regex;
     std::ifstream fin("input.txt");
     assert(fin.is_open());
     fin >> input_regex;
     if (input_regex.empty()) {
+        std::ofstream fout("test_results.txt");
         std::cout << "gen regex:" << std::endl;
         std::vector <std::string> regexes;
-        for (int i = 0; i < 5; i++) {
-            regexes.push_back(regex_gen(3, 12, 0, 2));
-            std::cout << regexes.back() << std::endl;
+        for (int i = 0; i < 50; i++) {
+            regexes.push_back(regex_gen(3, 25, 0, 3));
+            //std::cout << regexes.back() << std::endl;
         }
         for (const auto& regex : regexes){
+            //std::cout << regex << std::endl;
             std::vector <std::pair <std::string, std::string > > lexemes = lexer(regex);
+            //std::cout << "Parse completed" << std::endl;
             std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
+            //std::cout << "To postfix completed" << std::endl;
             TreeNode* tree = build_tree(postfix);
-            FFL res = process_tree(tree);
-            res.show();
-            regexes.push_back(regex_gen(3, 12, 2, 2));
-        }
-        for (const auto& regex : regexes){
-            std::cout << regex << std::endl;
-            std::vector <std::pair <std::string, std::string > > lexemes = lexer(regex);
-            std::cout << "Parse completed" << std::endl;
-            std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
-            std::cout << "To postfix completed" << std::endl;
-            TreeNode* tree = build_tree(postfix);
-            std::cout << "Build tree completed" << std::endl;
+            //std::cout << "Build tree completed" << std::endl;
             auto res = process_automaton_tree(tree);
-            res.show_automaton();
-            res.show_like_arrows();
-            printTree(tree, nullptr, false);
+            test_automaton(res, regex, 25, fout);
+            //res.show_automaton();
+            //res.show_like_arrows();
+            //printTree(tree, nullptr, false);
         }
         return 0;
     }
@@ -160,6 +140,7 @@ int main() {
     res3.show_automaton();
     res3.show_like_arrows();
     printTree(tree, nullptr, false);
+    test_automaton(res3, input_regex, 10, std::cout);
 
     std::cout << std::endl;
 
