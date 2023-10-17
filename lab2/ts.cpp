@@ -264,6 +264,11 @@ automaton intersect_automatons(automaton& auto1, automaton& auto2){
 }
 
 automaton alternative_automatons(automaton& auto1, automaton& auto2){
+    if (auto1.get_transition_matrix().empty()){
+        return auto2;
+    } else if (auto2.get_transition_matrix().empty()){
+        return auto1;
+    }
     std::vector<int> start_states(auto1.get_start_states().size() + auto2.get_start_states().size() - 1, 0);
     for (int i = 0; i < auto1.get_start_states().size(); i++){
         if (auto1.get_start_states()[i]){
@@ -308,6 +313,9 @@ automaton alternative_automatons(automaton& auto1, automaton& auto2){
 }
 
 automaton concat_automatons(automaton& auto1, automaton& auto2){
+    if (auto2.get_transition_matrix().empty()){
+        return auto2;
+    }
     std::vector<int> start_states(auto1.get_start_states().size() + auto2.get_start_states().size() - 1, 0);
     for (int i = 0; i < auto1.get_start_states().size(); i++){
         if (auto1.get_start_states()[i]){
@@ -356,6 +364,9 @@ automaton concat_automatons(automaton& auto1, automaton& auto2){
 }
 
 automaton iteration_automaton(automaton& auto1){
+    if (auto1.get_transition_matrix().empty()){
+        return {std::vector<int>(1, 1), std::vector <std::vector <std::pair<std::string, bool>>>(1, std::vector<std::pair<std::string, bool>>(1, {"0", false})), std::vector<int>(1, 1)};
+    }
     std::vector<int> start_states = auto1.get_start_states();
 
     std::vector<int> end_states = auto1.get_end_states();
@@ -373,7 +384,6 @@ automaton iteration_automaton(automaton& auto1){
                 } else if (auto1.get_transition_matrix()[i][j].first == "0"){
                     transition_matrix[i][j].first = transition_matrix[0][j].first;
                 } else {
-//                    transition_matrix[i][j].first = "(" + transition_matrix[0][j].first + "|" + auto1.get_transition_matrix()[i][j].first + ")";
                     if (transition_matrix[0][j].first != auto1.get_transition_matrix()[i][j].first){
                         transition_matrix[i][j].first = "(" + transition_matrix[0][j].first + "|" + auto1.get_transition_matrix()[i][j].first + ")";
                     } else {
@@ -386,4 +396,8 @@ automaton iteration_automaton(automaton& auto1){
         }
     }
     return {start_states, transition_matrix, end_states};
+}
+
+automaton delete_states(automaton& auto1){
+
 }
