@@ -70,9 +70,10 @@ void test_automaton(automaton a, std::string input_regex, int col_words, std::os
         if (col_true == 0) fout << "it's empty regular expression" << std::endl;
     }
     else{
+        fout << "FAIL" << std::endl;
         fout << "Problem words:" << std::endl;
         for (const auto& word : problem_words) {
-            fout << word << std::endl;
+            fout << "\"" << word << "\"" << std::endl;
         }
     }
     fout << std::endl;
@@ -90,7 +91,7 @@ int main() {
         std::cout << "gen regex:" << std::endl;
         std::vector <std::string> regexes;
         for (int i = 0; i < 50; i++) {
-            regexes.push_back(regex_gen(3, 30, 4, 3));
+            regexes.push_back(regex_gen(3, 30, 2, 2));
             //std::cout << regexes.back() << std::endl;
         }
         for (const auto& regex : regexes){
@@ -102,7 +103,7 @@ int main() {
             TreeNode* tree = build_tree(postfix);
             //std::cout << "Build tree completed" << std::endl;
             auto res = process_automaton_tree(tree);
-            test_automaton(res, regex, 25, fout);
+            test_automaton(res, regex, 50, fout);
             //res.show_automaton();
             //res.show_like_arrows();
             //printTree(tree, nullptr, false);
@@ -141,7 +142,8 @@ int main() {
     res3.show_automaton();
     res3.show_like_arrows();
     printTree(tree, nullptr, false);
-    test_automaton(res3, input_regex, 10, std::cout);
+    test_automaton(res3, input_regex, 50, std::cout);
+
 
     std::cout << std::endl;
 
