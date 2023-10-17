@@ -90,7 +90,7 @@ int main() {
         std::cout << "gen regex:" << std::endl;
         std::vector <std::string> regexes;
         for (int i = 0; i < 50; i++) {
-            regexes.push_back(regex_gen(3, 15, 1, 2));
+            regexes.push_back(regex_gen(3, 30, 4, 3));
             //std::cout << regexes.back() << std::endl;
         }
         for (const auto& regex : regexes){
