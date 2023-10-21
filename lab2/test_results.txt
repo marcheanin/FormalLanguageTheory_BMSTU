@@ -1,200 +1,1494 @@
-Results for (b|b)*db|da|a(d|d|ba)*d|cb: 
+Results for b|b|ab|(b|b|d)*: 
 Words true: 25/25
 OK
 
-Results for (c|c|b|a)*(ba)*|a(ccc)*|c(a|c)*c: 
+Test output regex d
+Problem words for output regex:
+""
+"b"
+"bd"
+"bdb"
+""
+"b"
+"bd"
+"bdb"
+""
+"db"
+"dbb"
+""
+"db"
+"dbb"
+""
+"b"
+"bd"
+"bdb"
+""
+"b"
+""
+"ab"
+""
+
+===========================================================
+Results for ((d|d|b)*|a|b|a|d)*: 
 Words true: 25/25
 OK
 
-Results for (c|c)*|b|da|d|a|(((d|da)*b)*)*(a|bd)*: 
+Test output regex d
+Problem words for output regex:
+""
+"b"
+"bb"
+"bbd"
+"bbdd"
+"bbddd"
+"bbddda"
+"bbdddaa"
+""
+"dd"
+"ddd"
+"ddda"
+"dddaa"
+"dddaab"
+"dddaabb"
+""
+"b"
+"bb"
+"bbd"
+"bbdd"
+"bbddd"
+"bbddda"
+"bbdddaa"
+""
+
+===========================================================
+Results for ((d|d)*b)*b|(dab)*: 
 Words true: 25/25
 OK
 
-Results for ((ca|c|d)*(b|d)*|a)*|d|bc|cddc: 
+Test output regex ((da)b)
+Problem words for output regex:
+""
+""
+"bb"
+""
+""
+""
+""
+"ddbb"
+""
+""
+"ddbb"
+""
+"dbb"
+""
+"ddbb"
+""
+"ddbb"
+""
+"b"
+""
+"b"
+""
+
+===========================================================
+Results for (a|c)*|ac|d|bc: 
 Words true: 25/25
 OK
 
-Results for (((a|c)*a|b)*(dcc)*(dd|b)*a|(cc)*|a)*: 
+Test output regex (bc)
+Problem words for output regex:
+""
+"c"
+"ca"
+""
+"ac"
+""
+"ac"
+""
+"ac"
+""
+"a"
+"ac"
+""
+"ac"
+""
+"d"
+""
+"a"
+"ac"
+""
+"d"
+""
+""
+"ac"
+
+===========================================================
+Results for b|dc|bb|c|b: 
 Words true: 25/25
 OK
 
-Results for b|d|b|b((d|a)*|b)*(bcd|a((cac)*)*)*: 
+Test output regex b
+Problem words for output regex:
+"bb"
+"c"
+"c"
+"bb"
+"bb"
+"bb"
+"c"
+"dc"
+"c"
+"dc"
+"bb"
+"dc"
+"dc"
+"dc"
+"bb"
+"bb"
+
+===========================================================
+Results for ((b|abb)*add)*: 
 Words true: 25/25
 OK
 
-Results for (((b|ccd|cbc)*)*|((b|c)*|bb(cac)*)*)*: 
+Test output regex ((((b(b)*(a|a))|((((b(b)*(a|a))b)b)((((b(b)*(a|a))b)b))*(b(b)*(a|a))))d)d)
+Problem words for output regex:
+""
+"add"
+""
+"add"
+""
+"abbadd"
+""
+""
+"abbadd"
+""
+"add"
+""
+"add"
+""
+"add"
+""
+""
+""
+"abbbadd"
+""
+""
+
+===========================================================
+Results for (d|da)*|b|a|c|a: 
 Words true: 25/25
 OK
 
-Results for ((d|a)*b|c(ada)*)*dbda|(((dd|d)*)*)*: 
+Test output regex a
+Problem words for output regex:
+""
+"b"
+""
+"d"
+"dda"
+""
+""
+"da"
+"dad"
+""
+"da"
+"dad"
+""
+""
+"c"
+""
+""
+"d"
+"dda"
+""
+""
+
+===========================================================
+Results for ((b|bbc|b|b|b)*)*: 
 Words true: 25/25
 OK
 
-Results for d|a|b|b((ba)*a)*(((d|bcc)*)*)*(a|b|d)*: 
+Test output regex b
+Problem words for output regex:
+""
+"bb"
+"bbb"
+"bbbb"
+"bbbbbbc"
+""
+"bb"
+"bbbbc"
+"bbbbcb"
+"bbbbcbb"
+""
+"bb"
+"bbb"
+"bbbb"
+"bbbbbbc"
+""
+"bb"
+"bbb"
+"bbbb"
+"bbbbbbc"
+""
+
+===========================================================
+Results for a|bc|a|((b|d)*b)*: 
 Words true: 25/25
 OK
 
-Results for ((c|c)*d|dc|ad)*(((d|d)*|c)*d((ab)*)*a)*: 
+Test output regex ((b(b)*(d|b))|((b(b)*(d|b))((b(b)*(d|b)))*(b(b)*(d|b))))
+Problem words for output regex:
+""
+"a"
+""
+"b"
+""
+"a"
+""
+"b"
+""
+"bc"
+""
+""
+"bc"
+""
+"a"
+""
+"b"
+""
+"bdb"
+""
+"b"
+""
+"dbb"
+""
+
+===========================================================
+Results for ((da)*a|c)*|a|a|d: 
 Words true: 25/25
 OK
 
-Results for (((cd|d)*bcbc)*)*|(((ab|d)*)*)*|b|c|ab: 
+Test output regex d
+Problem words for output regex:
+""
+"daa"
+"daac"
+""
+""
+"a"
+""
+"daa"
+"daac"
+""
+"a"
+""
+"a"
+""
+"a"
+""
+""
+"a"
+""
+"c"
+"cdaa"
+""
+"a"
+
+===========================================================
+Results for ((cc)*|da(ac|c)*)*: 
 Words true: 25/25
 OK
 
-Results for (acb|a|((c|a|b)*)*)*|((a|aa|c)*)*|(cdc)*: 
+Test output regex 0
+Problem words for output regex:
+""
+"cc"
+"ccda"
+"ccdac"
+"ccdacac"
+""
+"da"
+"daac"
+"daaccc"
+""
+"da"
+"daac"
+"daacc"
+"daacccc"
+""
+"cc"
+"ccda"
+"ccdac"
+"ccdacac"
+""
+"da"
+"dac"
+"daccc"
+""
+"da"
+
+===========================================================
+Results for a|ad|b((bc)*)*|c: 
 Words true: 25/25
 OK
 
-Results for (((a|a)*)*bb)*|d|d|caab|c(((da|c)*)*)*: 
+Test output regex c
+Problem words for output regex:
+"a"
+"b"
+"bbc"
+"b"
+"bbc"
+"b"
+"bbc"
+"ad"
+"ad"
+"b"
+"bbc"
+"a"
+"a"
+"ad"
+"a"
+"ad"
+"ad"
+"b"
+"bbc"
+"a"
+"ad"
+
+===========================================================
+Results for ((db|db)*b|ab)*: 
 Words true: 25/25
 OK
 
-Results for (da|c|b)*|d|b|a|((b|c)*|da)*|(bc)*d: 
+Test output regex (ab)
+Problem words for output regex:
+""
+"dbb"
+"dbbab"
+""
+"dbb"
+""
+"dbdbb"
+"dbdbbab"
+""
+"b"
+""
+"abb"
+""
+"dbb"
+""
+"abb"
+""
+"b"
+""
+"b"
+"bab"
+""
+"dbb"
+
+===========================================================
+Results for ((ac)*d|a)*a|ad: 
 Words true: 25/25
 OK
 
-Results for (((ba|a|d|aac|bbbba|bc)*)*)*: 
+Test output regex (ad)
+Problem words for output regex:
+"a"
+"acda"
+"da"
+"aa"
+"aacda"
+"a"
+"acda"
+"a"
+"da"
+"acda"
+"a"
+"acda"
+"a"
+"ada"
+"acda"
+"acdaa"
+"acdaa"
+"acdaa"
+"ada"
+"acda"
+"aacda"
+
+===========================================================
+Results for da|dd|aac: 
 Words true: 25/25
 OK
 
-Results for (bbdd|bad)*|d|d|a|c|((d|b)*)*d: 
+Test output regex ((aa)c)
+Problem words for output regex:
+"da"
+"dd"
+"da"
+"da"
+"da"
+"dd"
+"da"
+"dd"
+"da"
+"dd"
+"dd"
+"da"
+"dd"
+
+===========================================================
+Results for (d|b|c|c|abc)*: 
 Words true: 25/25
 OK
 
-Results for (((c|dc|a|da|d)*)*|((bccc|dda)*)*)*: 
+Test output regex ((ab)c)
+Problem words for output regex:
+""
+"abcc"
+"abccb"
+"abccbd"
+"abccbdc"
+""
+"c"
+"cabc"
+"cabcc"
+"cabccd"
+"cabccdb"
+""
+"c"
+"cc"
+"ccabc"
+"ccabcd"
+"ccabcdb"
+""
+"d"
+"dc"
+"dcabc"
+"dcabcb"
+"dcabcbc"
+""
+
+===========================================================
+Results for ((ca)*c)*|c|((d|c)*)*d: 
 Words true: 25/25
 OK
 
-Results for bc|ddbdb|(((b|cc|c)*)*)*|(cbc)*: 
+Test output regex ((d(d)*(c|d))|((d(d)*(c|d))((d(d)*(c|d)))*(d(d)*(c|d))))
+Problem words for output regex:
+""
+""
+"c"
+""
+""
+"cac"
+""
+"c"
+""
+"c"
+""
+"cd"
+""
+"cd"
+""
+"cdd"
+""
+""
+"d"
+""
+"cac"
+""
+
+===========================================================
+Results for (dac|a|(cd|a)*)*: 
 Words true: 25/25
 OK
 
-Results for (((aa)*)*)*|d|b|(((dd|c)*)*)*|(a|c|b|c)*(c|b)*|a: 
+Test output regex a
+Problem words for output regex:
+""
+"dac"
+"daca"
+"dacacd"
+"dacacda"
+""
+"aa"
+"aadac"
+"aadaccd"
+""
+"acd"
+"acddac"
+"acddaca"
+""
+"adac"
+"adaca"
+"adacacd"
+""
+"acd"
+"acda"
+"acdadac"
+
+===========================================================
+Results for d|c|dc|abc: 
 Words true: 25/25
 OK
 
-Results for (cad|c|aa|c|((a|ad|a|dca)*)*)*: 
+Test output regex ((ab)c)
+Problem words for output regex:
+"c"
+"dc"
+"c"
+"c"
+"dc"
+"c"
+"d"
+"dc"
+"c"
+"d"
+"dc"
+"dc"
+"dc"
+"dc"
+"c"
+"dc"
+
+===========================================================
+Results for b|dd|a|(c|d)*d: 
 Words true: 25/25
 OK
 
-Results for (((b|c)*ab)*|((d|b|c)*)*((a|d)*ab|d|a|d)*)*: 
+Test output regex ((c(c)*(d|d))|((c(c)*(d|d))((c(c)*(d|d)))*(c(c)*(d|d))))
+Problem words for output regex:
+"dd"
+"dd"
+"d"
+"b"
+"cdd"
+"d"
+"b"
+"a"
+"d"
+"b"
+"a"
+"d"
+"dcd"
+"a"
+"a"
+"a"
+"dd"
+"a"
+"d"
+"a"
+"dd"
+"b"
+"dd"
+"dd"
+"dd"
+
+===========================================================
+Results for (cb|cd)*|((a|db)*)*: 
 Words true: 25/25
 OK
 
-Results for (((ba)*dcb|bd(b|db)*|b|(dc)*c)*)*: 
+Test output regex (db)
+Problem words for output regex:
+""
+"cd"
+"cdcb"
+""
+"cb"
+"cbcd"
+""
+"dba"
+""
+"dba"
+""
+"cd"
+"cdcb"
+""
+"a"
+"adb"
+""
+"a"
+"adb"
+""
+"a"
+"adb"
+""
+
+===========================================================
+Results for ((aa|a|a)*|a|bc)*: 
 Words true: 25/25
 OK
 
-Results for ((c|c|a|c(c|c|d)*)*|(d|c|ad|(bbc)*)*)*: 
+Test output regex (bc)
+Problem words for output regex:
+""
+"aa"
+"aaa"
+"aaaa"
+"aaaabc"
+"aaaabca"
+""
+"aa"
+"aaa"
+"aaaa"
+"aaaabc"
+"aaaabca"
+""
+"aa"
+"aaa"
+"aaaa"
+"aaaabc"
+"aaaabca"
+""
+"bca"
+"bcaa"
+"bcaaaa"
+"bcaaaaa"
+""
+
+===========================================================
+Results for ((a|cba)*|(b|c)*|b)*: 
 Words true: 25/25
 OK
 
-Results for (((aac|b)*(cd|c)*)*((b|c|d|a)*c|a|b)*)*: 
+Test output regex b
+Problem words for output regex:
+""
+"a"
+"ab"
+"abb"
+"abbcba"
+"abbcbac"
+""
+"ba"
+"bacba"
+"bacbac"
+"bacbacb"
+""
+"bcba"
+"bcbaa"
+"bcbaac"
+"bcbaacb"
+""
+"a"
+"acba"
+"acbab"
+"acbabb"
+"acbabbc"
+""
+
+===========================================================
+Results for ((bb|cba|ba)*)*: 
 Words true: 25/25
 OK
 
-Results for (((ab)*|a)*b|d|ac)*(((d|c)*)*ad)*|(dc)*d: 
+Test output regex (ba)
+Problem words for output regex:
+""
+"bb"
+"bbba"
+"bbbacba"
+""
+"cba"
+"cbaba"
+"cbababb"
+""
+"cba"
+"cbaba"
+"cbababb"
+""
+"bacba"
+"bacbabb"
+""
+"bb"
+"bbcba"
+"bbcbaba"
+""
+"bb"
+"bbcba"
+"bbcbaba"
+""
+
+===========================================================
+Results for (dc|ab)*b|aa: 
 Words true: 25/25
 OK
 
-Results for (ac|d)*|a|(((b|c|c)*)*)*|dc|b|c|bac: 
+Test output regex (aa)
+Problem words for output regex:
+"abdcb"
+"dcabb"
+"b"
+"abdcb"
+"b"
+"dcabb"
+"b"
+"dcabb"
+"b"
+"dcabb"
+"abdcb"
+"b"
+"abdcb"
+"dcb"
+"b"
+"abb"
+
+===========================================================
+Results for ((c|c|ba|cc|b)*)*: 
 Words true: 25/25
 OK
 
-Results for (ad)*c|b|(d|b)*b|((abd)*)*d|a|d|a: 
+Test output regex b
+Problem words for output regex:
+""
+"c"
+"cb"
+"cbcc"
+"cbccba"
+"cbccbac"
+""
+"ba"
+"bac"
+"bacc"
+"bacccc"
+"baccccb"
+""
+"cc"
+"ccba"
+"ccbac"
+"ccbacb"
+"ccbacbc"
+""
+"cc"
+"ccba"
+"ccbac"
+"ccbacc"
+"ccbaccb"
+""
+
+===========================================================
+Results for (d|a)*|bc((cb)*|c)*: 
 Words true: 25/25
 OK
 
-Results for ab|d|d|d|c|a(((ddb|ba|ba)*)*)*: 
+Test output regex 0
+Problem words for output regex:
+""
+"a"
+"ad"
+""
+"a"
+"ad"
+""
+"a"
+"ad"
+""
+"d"
+"da"
+""
+"a"
+"ad"
+""
+"a"
+"ad"
+""
+"d"
+"da"
+""
+"a"
+"ad"
+""
+
+===========================================================
+Results for ((abc|c|a|cb)*)*: 
 Words true: 25/25
 OK
 
-Results for (((a|d|b)*|a)*|dbd|((baab)*ac|d)*)*: 
+Test output regex (cb)
+Problem words for output regex:
+""
+"cba"
+"cbac"
+"cbacabc"
+""
+"cbc"
+"cbcabc"
+"cbcabca"
+""
+"cba"
+"cbaabc"
+"cbaabcc"
+""
+"abc"
+"abccb"
+"abccbc"
+"abccbca"
+""
+"cbabc"
+"cbabcc"
+"cbabcca"
+
+===========================================================
+Results for ((dc)*)*|d|dc|c|a: 
 Words true: 25/25
 OK
 
-Results for (((d|ac)*c(bcb)*)*)*(b|dc|d((bcc)*)*)*: 
+Test output regex a
+Problem words for output regex:
+""
+"dc"
+""
+""
+"c"
+""
+"dc"
+""
+"d"
+""
+"c"
+""
+"c"
+""
+"dc"
+""
+""
+"c"
+""
+"c"
+""
+"d"
+""
+
+===========================================================
+Results for ((a|bc|d|b|ac)*)*: 
 Words true: 25/25
 OK
 
-Results for (((b|b|d|c)*|(bcd)*(a|bd|d)*|d|ad)*)*: 
+Test output regex (ac)
+Problem words for output regex:
+""
+"b"
+"ba"
+"baac"
+"baacbc"
+"baacbcd"
+""
+"bc"
+"bcb"
+"bcbac"
+"bcbacd"
+"bcbacda"
+""
+"b"
+"ba"
+"baac"
+"baacbc"
+"baacbcd"
+""
+"b"
+"ba"
+"babc"
+"babcac"
+"babcacd"
+""
+
+===========================================================
+Results for c|c|ad(bd)*a: 
 Words true: 25/25
 OK
 
-Results for ((dd)*|dc)*|(b|db)*b|d|a|b|((a|b)*|a)*: 
+Test output regex (((ad)(b|a))|((((ad)(b|a))d)((bd))*a))
+Problem words for output regex:
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+"c"
+
+===========================================================
+Results for ((cd)*ab)*(c|d)*|a: 
 Words true: 25/25
 OK
 
-Results for ((b|ca)*b|ca|c)*(((ac)*)*a|b)*|c|da: 
+Test output regex a
+Problem words for output regex:
+""
+"ab"
+"abd"
+"abdc"
+""
+"c"
+"cd"
+""
+"d"
+"dc"
+""
+"c"
+"cd"
+""
+"cdab"
+"cdabc"
+"cdabcd"
+""
+"d"
+"dc"
+""
+"c"
+"cd"
+""
+"c"
+
+===========================================================
+Results for ((cc|d)*b)*b|bd: 
 Words true: 25/25
 OK
 
-Results for (c|a|b|a|((ac)*)*|c)*(abcb)*((d|c)*a)*: 
+Test output regex (bd)
+Problem words for output regex:
+"b"
+"b"
+"b"
+"bb"
+"ccdbb"
+"dccbb"
+"dccbb"
+"bb"
+"ccbb"
+"dbb"
+"dbb"
+"b"
+"bb"
+"bb"
+"ccdbb"
+"bb"
+"b"
+"ccbb"
+"bb"
+"dbb"
+
+===========================================================
+Results for ((bbd|b|a|dc)*)*: 
 Words true: 25/25
 OK
 
-Results for (((acb|c|cca|d|a|ac|c|cc)*)*)*: 
+Test output regex (dc)
+Problem words for output regex:
+""
+"b"
+"ba"
+"babbd"
+"babbddc"
+""
+"dcbbd"
+"dcbbdb"
+"dcbbdba"
+""
+"dcbbd"
+"dcbbda"
+"dcbbdab"
+""
+"b"
+"bbbd"
+"bbbda"
+"bbbdadc"
+""
+"b"
+"bdc"
+"bdcbbd"
+"bdcbbda"
+
+===========================================================
+Results for bc|c|ba|ad: 
 Words true: 25/25
 OK
 
-Results for (ab|ac|(a|dd)*)*(((cd)*)*)*|a|aca|c: 
+Test output regex (ad)
+Problem words for output regex:
+"ba"
+"bc"
+"ba"
+"bc"
+"bc"
+"c"
+"c"
+"c"
+"bc"
+"c"
+"c"
+"c"
+"bc"
+"ba"
+"ba"
+"bc"
+"ba"
+"ba"
+"bc"
+"ba"
+
+===========================================================
+Results for ((b|ba|aaba)*)*: 
 Words true: 25/25
 OK
 
-Results for ba|bc|d|db|(((cc|c)*|d)*)*(b|b)*b: 
+Test output regex (((aa)b)a)
+Problem words for output regex:
+""
+"b"
+"baaba"
+"baababa"
+""
+"aababa"
+"aababab"
+""
+"b"
+"baaba"
+"baababa"
+""
+"aababa"
+"aababab"
+""
+"b"
+"baaba"
+"baababa"
+""
+"aababa"
+"aababab"
+""
+
+===========================================================
+Results for ((cc|a|a|b|dc)*)*: 
 Words true: 25/25
 OK
 
-Results for (((d|b|c)*)*c(cbb)*)*((d|ca|a|(ba)*|a)*)*: 
+Test output regex (dc)
+Problem words for output regex:
+""
+"b"
+"ba"
+"badc"
+"badccc"
+"badccca"
+""
+"b"
+"bcc"
+"bccdc"
+"bccdca"
+"bccdcaa"
+""
+"b"
+"bdc"
+"bdca"
+"bdcaa"
+"bdcaacc"
+""
+"a"
+"adc"
+"adca"
+"adcab"
+"adcabcc"
+""
+
+===========================================================
+Results for ab|ab|((bad)*)*: 
 Words true: 25/25
 OK
 
-Results for (d|dd|c)*((ac|a)*)*|(ca)*d|d|dab: 
+Test output regex ((ba)d)
+Problem words for output regex:
+""
+"ab"
+""
+"ab"
+""
+"ab"
+""
+""
+"ab"
+""
+""
+"ab"
+""
+"ab"
+""
+""
+"ab"
+""
+""
+""
+
+===========================================================
+Results for (a|cb)*|abbc: 
 Words true: 25/25
 OK
 
-Results for ((cd|b)*d|(d|ca)*|((a|c)*ca)*|((a|b)*)*|c)*: 
+Test output regex (((ab)b)c)
+Problem words for output regex:
+""
+""
+"a"
+"acb"
+""
+"cb"
+"cba"
+""
+"a"
+"acb"
+""
+""
+"cb"
+"cba"
+""
+""
+"cb"
+"cba"
+""
+"cb"
+"cba"
+""
+
+===========================================================
+Results for ((bba|d|b|da)*)*: 
 Words true: 25/25
 OK
 
-Results for (((cab)*dbd|c(cdc|d)*|aad)*)*: 
+Test output regex (da)
+Problem words for output regex:
+""
+"b"
+"bbba"
+"bbbad"
+"bbbadda"
+""
+"d"
+"db"
+"dbbba"
+"dbbbada"
+""
+"bba"
+"bbad"
+"bbadb"
+"bbadbda"
+""
+"dad"
+"dadb"
+"dadbbba"
+""
+"dabba"
+"dabbab"
+"dabbabd"
+
+===========================================================
+Results for ((cbd)*a)*|c|b|a: 
 Words true: 25/25
 OK
 
-Results for ((a|b)*cd|ca|a)*a|a|d|c(b|c)*|b: 
+Test output regex a
+Problem words for output regex:
+""
+"cbda"
+""
+"c"
+""
+"cbda"
+""
+"cbda"
+""
+"c"
+""
+"c"
+""
+"c"
+""
+"b"
+""
+""
+""
+""
+"c"
+""
+
+===========================================================
+Results for ca|d|c|cac: 
 Words true: 25/25
 OK
 
-Results for (((ac|a)*)*)*ad|cc(((c|ba)*|c(a|d)*d)*)*: 
+Test output regex ((ca)c)
+Problem words for output regex:
+"d"
+"c"
+"d"
+"ca"
+"d"
+"c"
+"ca"
+"ca"
+"ca"
+"ca"
+"d"
+"c"
+"ca"
+"d"
+"d"
+"ca"
+
+===========================================================
+Results for (ac)*cab|db: 
 Words true: 25/25
 OK
 
-Results for ((dc|cc)*(b|c)*b|(bb|b)*a(a|dc)*)*: 
+Test output regex (db)
+Problem words for output regex:
+"cab"
+"cab"
+"cab"
+"cab"
+"cab"
+"cab"
+"cab"
+"accab"
+"accab"
+"accab"
+"accab"
+"cab"
+"accab"
+"cab"
+"cab"
+"accab"
+"accab"
+"cab"
+
+===========================================================
+Results for (a|d|c|d)*aa|b: 
 Words true: 25/25
 OK
 
-Results for (bdda|(d|c|b)*)*|(((a|a|c)*)*)*b(((bc)*)*a)*: 
+Test output regex b
+Problem words for output regex:
+"aaa"
+"cdaa"
+"aaa"
+"daaa"
+"daaa"
+"aa"
+"ddacaa"
+"aa"
+"caaa"
+"daa"
+"ddcaaa"
+"aa"
+"dcadaa"
+"dacaa"
+"caa"
+"acaa"
+"ddaaa"
+"dacaa"
+"dacdaa"
+"daa"
+
+===========================================================
+Results for ((b|abc)*)*|dbd: 
 Words true: 25/25
 OK
 
-Results for (cd|ddb|da)*(((d|d)*dc)*)*|(ba)*a: 
+Test output regex ((db)d)
+Problem words for output regex:
+""
+"b"
+"babc"
+""
+""
+""
+""
+"abc"
+"abcb"
+""
+"abc"
+"abcb"
+""
+"b"
+"babc"
+""
+"abc"
+"abcb"
+""
+""
+"abc"
+
+===========================================================
+Results for (ad|c)*|a((db)*a)*: 
 Words true: 25/25
 OK
 
-Results for (((dd|d|b|dbcdad|a|b|dc)*)*)*: 
+Test output regex 0
+Problem words for output regex:
+""
+"a"
+"adba"
+""
+"a"
+"aa"
+""
+"c"
+"cad"
+""
+"c"
+"cad"
+""
+"a"
+"aa"
+""
+"c"
+"cad"
+""
+"ad"
+"adc"
+""
+"a"
+"adba"
+""
+
+===========================================================
+Results for ((b|cb)*)*|d|(aa)*|c: 
 Words true: 25/25
 OK
 
-Results for ((cd)*c)*b|d|a|b|(((bbb|abbc)*)*)*: 
+Test output regex c
+Problem words for output regex:
+""
+"aa"
+""
+"aa"
+""
+"d"
+""
+"aa"
+""
+"d"
+""
+"b"
+"bcb"
+""
+"cb"
+"cbb"
+""
+"b"
+"bcb"
+""
+"aa"
+""
+"d"
+""
+"aa"
+
+===========================================================
+Results for ((abb|a)*|(d|d|b)*)*: 
 Words true: 25/25
 OK
 
-Results for ((ad)*)*dda|b|c(((c|cb)*a)*)*c|db: 
+Test output regex b
+Problem words for output regex:
+""
+"d"
+"dabb"
+"dabbb"
+"dabbbd"
+"dabbbda"
+""
+"bd"
+"bda"
+"bdaabb"
+"bdaabbd"
+""
+"d"
+"da"
+"dad"
+"dadabb"
+"dadabbb"
+""
+"bd"
+"bdd"
+"bddabb"
+"bddabba"
+""
+
+===========================================================
+Results for ((ba)*|bc)*|(cb)*|c: 
 Words true: 25/25
 OK
 
-Results for (cbad)*|(ac)*|d|((c|a|bd|(c|a)*|a)*)*: 
+Test output regex c
+Problem words for output regex:
+""
+""
+"cb"
+""
+""
+"ba"
+"babc"
+""
+"ba"
+"babc"
+""
+"cb"
+""
+"cb"
+""
+""
+"cb"
+""
+""
+"ba"
+"babc"
+
+===========================================================
+Results for ((b|cd)*|a|c|aa)*: 
 Words true: 25/25
 OK
 
+Test output regex (aa)
+Problem words for output regex:
+""
+"a"
+"acd"
+"acdc"
+"acdcb"
+"acdcbaa"
+""
+"b"
+"ba"
+"bacd"
+"bacdc"
+"bacdcaa"
+""
+"b"
+"baa"
+"baaa"
+"baaacd"
+"baaacdc"
+""
+"aaa"
+"aaacd"
+"aaacdb"
+"aaacdbc"
+""
+
+===========================================================

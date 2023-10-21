@@ -50,11 +50,13 @@ void get_words (automaton a, int count){
    }
 }
 
-void test_automaton(automaton a, std::string input_regex, int col_words, std::ostream& fout){
+void test_automaton(automaton a, std::string input_regex, std::string output_regex, int col_words, std::ostream& fout){
     std::vector <std::string> problem_words;
     int col_true = 0;
     get_words(std::move(a), col_words);
     std::regex r(input_regex);
+    std::regex out_r(output_regex);
+
     for (const auto & word : words){
         bool res = regex_match(word, r);
         //std::cout << word << " " << res << std::endl;
@@ -67,15 +69,35 @@ void test_automaton(automaton a, std::string input_regex, int col_words, std::os
     fout << "Words true: " << col_true << "/" << col_words << std::endl;
     if (problem_words.empty()){
         fout << "OK" << std::endl;
+        fout << std::endl;
+        fout << "Test output regex " << output_regex << std::endl;
+        for (const auto & word : words){
+            bool res = regex_match(word, out_r);
+            //std::cout << word << " " << res << std::endl;
+            if (res) col_true++;
+            else{
+                problem_words.push_back(word);
+            }
+        }
+        if (problem_words.empty()) {
+            fout << "OK" << std::endl;
+        }
+        else{
+            fout << "Problem words for output regex:" << std::endl;
+            for (const auto& word : problem_words) {
+                fout << "\"" << word << "\"" << std::endl;
+            }
+        }
     }
     else{
         fout << "Problem words:" << std::endl;
         for (const auto& word : problem_words) {
-            std::cout << word << std::endl;
+            fout << "\"" << word << "\"" << std::endl;
         }
     }
     fout << std::endl;
     words.clear();
+    fout << "===========================================================" << std::endl;
 }
 
 int main() {
@@ -89,11 +111,11 @@ int main() {
         std::cout << "gen regex:" << std::endl;
         std::vector <std::string> regexes;
         for (int i = 0; i < 50; i++) {
-            regexes.push_back(regex_gen(3, 25, 0, 3));
+            regexes.push_back(regex_gen(3, 10, 0, 2));
             //std::cout << regexes.back() << std::endl;
         }
         for (const auto& regex : regexes){
-            //std::cout << regex << std::endl;
+            std::cout << regex << std::endl;
             std::vector <std::pair <std::string, std::string > > lexemes = lexer(regex);
             //std::cout << "Parse completed" << std::endl;
             std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
@@ -101,7 +123,8 @@ int main() {
             TreeNode* tree = build_tree(postfix);
             //std::cout << "Build tree completed" << std::endl;
             auto res = process_automaton_tree(tree);
-            test_automaton(res, regex, 25, fout);
+            auto out_regex = automaton_2_regex(res);
+            test_automaton(res, regex, out_regex, 25, fout);
             //res.show_automaton();
             //res.show_like_arrows();
             //printTree(tree, nullptr, false);
@@ -136,11 +159,11 @@ int main() {
 
 //    res.show();
 
-    auto res3 = process_automaton_tree(tree);
-    res3.show_automaton();
-    res3.show_like_arrows();
-    printTree(tree, nullptr, false);
-    test_automaton(res3, input_regex, 10, std::cout);
+//    auto res3 = process_automaton_tree(tree);
+//    res3.show_automaton();
+//    res3.show_like_arrows();
+//    printTree(tree, nullptr, false);
+//    test_automaton(res3, input_regex, 10, std::cout);
 
 
 
@@ -157,4 +180,6 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
     std::string test = automaton_2_regex(res4);
+    std::cout << test << std::endl;
+    test_automaton(res4, input_regex, test, 15, std::cout);
 }
