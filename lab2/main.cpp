@@ -156,11 +156,20 @@ int main() {
 
 //    res.show();
 
-    auto res3 = process_automaton_tree(tree);
-    res3.show_automaton();
-    res3.show_like_arrows();
-    printTree(tree, nullptr, false);
 
+
+
+//    auto res3 = process_automaton_tree(tree);
+//    res3.show_automaton();
+//    res3.show_like_arrows();
+//    printTree(tree, nullptr, false);
+//
+//    std::cout << std::endl;
+
+    auto res4 = process_automaton_tree(tree);
+    res4.show_automaton();
+    res4.show_like_arrows();
     std::cout << std::endl;
-
+    std::cout << std::endl;
+    std::string test = automaton_2_regex(res4);
 }

@@ -27,6 +27,7 @@ public:
     std::vector <std::vector <std::pair<std::string, bool>>> get_transition_matrix();
     std::vector<int> get_end_states();
     std::vector<bool> get_visited();
+    void set_transition_matrix(std::vector <std::vector <std::pair<std::string, bool>>> new_matrix);
     void print_start_vector();
     void print_transition_matrix();
     void print_end_vector();
@@ -183,6 +184,10 @@ void automaton::delete_traps() {
     }
 }
 
+void automaton::set_transition_matrix(std::vector<std::vector<std::pair<std::string, bool>>> new_matrix) {
+    this->transition_matrix = std::move(new_matrix);
+}
+
 automaton intersect_automatons(automaton& auto1, automaton& auto2){
     std::vector<int> start_states(auto1.get_start_states().size() * auto2.get_start_states().size(), 0);
     for (int i = 0; i < auto1.get_start_states().size(); i++){
@@ -315,6 +320,8 @@ automaton alternative_automatons(automaton& auto1, automaton& auto2){
 automaton concat_automatons(automaton& auto1, automaton& auto2){
     if (auto2.get_transition_matrix().empty()){
         return auto2;
+    } else if (auto1.get_transition_matrix().empty()){
+        return auto1;
     }
     std::vector<int> start_states(auto1.get_start_states().size() + auto2.get_start_states().size() - 1, 0);
     for (int i = 0; i < auto1.get_start_states().size(); i++){
@@ -398,6 +405,115 @@ automaton iteration_automaton(automaton& auto1){
     return {start_states, transition_matrix, end_states};
 }
 
-automaton delete_states(automaton& auto1){
+std::vector<int> get_ways_from_state(std::vector<std::vector<std::pair<std::string, bool>>> matrix, int i, std::vector<int> deleted){
+    std::vector<int> result;
+    for(int k = 0; k < matrix.size(); k++){
+        if (matrix[k][i].first != "0" && std::find(deleted.begin(), deleted.end(), k) == deleted.end() && k != i){
+            result.push_back(k);
+        }
+    }
+    return result;
+}
 
+std::vector<int> get_ways_to_state(std::vector<std::vector<std::pair<std::string, bool>>> matrix, int i, std::vector<int> deleted){
+    std::vector<int> result;
+    for (int j = 0; j < matrix.size(); j++){
+        if (matrix[i][j].first != "0" && std::find(deleted.begin(), deleted.end(), j) == deleted.end() && i != j){
+            result.push_back(j);
+        }
+    }
+    return result;
+}
+
+std::vector<std::vector<std::pair<std::string, bool>>> fill_state_with_zeroes(std::vector<std::vector<std::pair<std::string, bool>>> matrix, int i){
+    for (int j = 0; j < matrix[i].size(); j++){
+        matrix[i][j].first = "0";
+        matrix[j][i].first = "0";
+    }
+    return matrix;
+}
+
+void print_matrix(std::vector<std::vector<std::pair<std::string, bool>>> matrix){
+    for(auto & i : matrix){
+        for(auto & j: i){
+            std::cout << j.first << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+std::string automaton_2_regex(automaton& auto1){
+    if (auto1.get_transition_matrix().empty()){
+        return "^$";
+    }
+    std::vector<std::vector<std::pair<std::string, bool>>> ts_matrix = auto1.get_transition_matrix();
+    //control deleted states for no recursive
+    std::vector<int> deleted_states;
+
+    for (int i = 0; i < ts_matrix.size(); i++){
+        if (auto1.get_start_states()[i] == 0 && auto1.get_end_states()[i] == 0){
+            std::vector<int> to_states = get_ways_to_state(ts_matrix, i, deleted_states);
+            std::string to_transitions;
+            if (to_states.empty()){
+                continue;
+            } else if (to_states.size() == 1){
+                to_transitions = ts_matrix[i][to_states[0]].first;
+            } else {
+                to_transitions = "(";
+                for (int to_state : to_states){
+                    to_transitions += ts_matrix[i][to_state].first + "|";
+                }
+                to_transitions.pop_back();
+                to_transitions += ")";
+            }
+            std::vector<int> from_states = get_ways_from_state(ts_matrix, i, deleted_states);
+            std::string path_from_to;
+            if (ts_matrix[i][i].first != "0") {
+                for (int from_state: from_states) {
+                    std::string from_transit = ts_matrix[from_state][i].first;
+                    for (int to_state: to_states) {
+                        path_from_to += "(" + from_transit;
+                        path_from_to += "(" + (ts_matrix[i][i].first) + ")*";
+                        path_from_to += to_transitions + ")";
+                        if (!ts_matrix[from_state][to_state].second) {
+                            ts_matrix[from_state][to_state].first = path_from_to;
+                            ts_matrix[from_state][to_state].second = true;
+                        } else {
+                            ts_matrix[from_state][to_state].first =
+                                    "(" + ts_matrix[from_state][to_state].first + "|" + path_from_to + ")";
+                        }
+                        path_from_to = "";
+                    }
+                }
+            } else {
+                for (int from_state: from_states) {
+                    std::string from_transit = ts_matrix[from_state][i].first;
+                    for (int to_state: to_states) {
+                        path_from_to += "(" + from_transit;
+                        path_from_to += to_transitions + ")";
+                        if (!ts_matrix[from_state][to_state].second) {
+                            ts_matrix[from_state][to_state].first = path_from_to;
+                            ts_matrix[from_state][to_state].second = true;
+                        } else {
+                            ts_matrix[from_state][to_state].first =
+                                    "(" + ts_matrix[from_state][to_state].first + "|" + path_from_to + ")";
+                        }
+                        path_from_to = "";
+                    }
+                }
+            }
+            std::cout << std::endl;
+            ts_matrix = fill_state_with_zeroes(ts_matrix, i);
+            deleted_states.push_back(i);
+        }
+    }
+
+    std::vector<int> end_states = auto1.get_end_states();
+    int result_index;
+    for (int i = 0; i < end_states.size(); i++){
+        if (end_states[i] == 1){
+            result_index = i;
+        }
+    }
+    return ts_matrix[0][result_index].first;
 }
