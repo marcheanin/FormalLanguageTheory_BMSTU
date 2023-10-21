@@ -53,8 +53,7 @@ TreeNode* build_tree(const std::vector <std::pair <std::string, std::string > >&
     return s.top();
 }
 
-struct Trunk
-{
+struct Trunk{
     Trunk *prev;
     std::string str;
 
@@ -65,8 +64,7 @@ struct Trunk
     }
 };
 
-void showTrunks(Trunk *p)
-{
+void showTrunks(Trunk *p){
     if (p == nullptr) {
         return;
     }
@@ -75,8 +73,7 @@ void showTrunks(Trunk *p)
     std::cout << p->str;
 }
 
-void printTree(TreeNode* root, Trunk *prev, bool isLeft)
-{
+void printTree(TreeNode* root, Trunk *prev, bool isLeft){
     if (root == nullptr) {
         return;
     }
