@@ -111,7 +111,7 @@ int main() {
         std::cout << "gen regex:" << std::endl;
         std::vector <std::string> regexes;
         for (int i = 0; i < 50; i++) {
-            regexes.push_back(regex_gen(3, 10, 0, 2));
+            regexes.push_back(regex_gen(3, 5, 0, 2));
             //std::cout << regexes.back() << std::endl;
         }
         for (const auto& regex : regexes){
@@ -180,6 +180,6 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
     std::string test = automaton_2_regex(res4);
-    std::cout << test << std::endl;
-    test_automaton(res4, input_regex, test, 15, std::cout);
+//    std::cout << test << std::endl;
+//    test_automaton(res4, input_regex, test, 15, std::cout);
 }
