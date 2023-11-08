@@ -53,7 +53,7 @@ void get_words (automaton a, int count){
 void test_automaton(automaton a, std::string input_regex, std::string output_regex, int col_words, std::ostream& fout){
     std::vector <std::string> problem_words;
     int col_true = 0;
-    get_words(std::move(a), col_words);
+    get_words(a, col_words);
     std::regex r(input_regex);
     std::regex out_r(output_regex);
 
@@ -180,6 +180,7 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
     std::string test = automaton_2_regex(res4);
+    std::cout << input_regex << std::endl;
     std::cout << test << std::endl;
     test_automaton(res4, input_regex, test, 15, std::cout);
 }

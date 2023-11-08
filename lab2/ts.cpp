@@ -146,7 +146,7 @@ void automaton::dfs_transpon(int vertex) {
 }
 
 void automaton::delete_traps() {
-    // Будем проходить по транспонированной матрице из конечных состояний. Все, которые не покрасим - удаляем
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     for (int i = 0; i < this->visited.size(); i++){
         visited[i] = false;
     }
@@ -509,7 +509,8 @@ std::vector<int> get_start_states_indexes(automaton& auto1){
     return res;
 }
 
-std::string automaton_2_regex(automaton& auto1){
+std::string automaton_2_regex(const automaton& auto2){
+    auto auto1 = auto2;
     if (auto1.get_transition_matrix().empty()){
         return "^$";
     }
@@ -589,9 +590,9 @@ std::string automaton_2_regex(automaton& auto1){
                         } else {
                             auto new_matrix = auto1.get_transition_matrix();
                             if ((new_matrix[from_states[j]][i].first.find("(") != std::string::npos || new_matrix[from_states[j]][i].first.find(")") != std::string::npos) && new_matrix[from_states[j]][i].first.find("*") == std::string::npos && new_matrix[from_states[j]][i].first.find("|") == std::string::npos){
-                                new_matrix[from_states[j]][to_states[k]].first ="(" + auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.substr(1, auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.size() - 2) + "|" + auto1.get_transition_matrix()[from_states[j]][i].first.substr(1, auto1.get_transition_matrix()[from_states[j]][i].first.size() - 2) + "(" + auto1.get_transition_matrix()[i][i].first + ")*" + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
+                                new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.substr(1, auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.size() - 2) + "|" + auto1.get_transition_matrix()[from_states[j]][i].first.substr(1, auto1.get_transition_matrix()[from_states[j]][i].first.size() - 2) + "(" + auto1.get_transition_matrix()[i][i].first + ")*" + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
                             } else {
-                                new_matrix[from_states[j]][to_states[k]].first ="(" + auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.substr(1, auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.size() - 2) + "|" + auto1.get_transition_matrix()[from_states[j]][i].first + "(" + auto1.get_transition_matrix()[i][i].first + ")*" + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
+                                new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.substr(1, auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.size() - 2) + "|" + auto1.get_transition_matrix()[from_states[j]][i].first + "(" + auto1.get_transition_matrix()[i][i].first + ")*" + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
                             }
                             auto1.set_transition_matrix(new_matrix);
                         }
