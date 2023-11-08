@@ -175,11 +175,11 @@ int main() {
 //    std::cout << std::endl;
 
     auto res4 = process_automaton_tree(tree);
-    res4.show_automaton();
-    res4.show_like_arrows();
+//    res4.show_automaton();
+//    res4.show_like_arrows();
     std::cout << std::endl;
     std::cout << std::endl;
     std::string test = automaton_2_regex(res4);
-//    std::cout << test << std::endl;
-//    test_automaton(res4, input_regex, test, 15, std::cout);
+    std::cout << test << std::endl;
+    test_automaton(res4, input_regex, test, 15, std::cout);
 }
