@@ -40,17 +40,8 @@ int main() {
         return 0;
     }
     std::vector <std::pair <std::string, std::string > > lexemes = lexer(input_regex);
-    for (const auto& i : lexemes){
-        std::cout << i.first << " ";
-    }
 
     std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
-    std::cout << std::endl;
-    for (const auto& i : postfix){
-        std::cout << i.first << " ";
-    }
-
-    std::cout << std::endl;
 
     TreeNode* tree = build_tree(postfix);
 
@@ -59,7 +50,5 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
     std::string test = automaton_2_regex(res4);
-    std::cout << input_regex << std::endl;
-    std::cout << test << std::endl;
     test_automaton(res4, input_regex, test, 15, std::cout);
 }

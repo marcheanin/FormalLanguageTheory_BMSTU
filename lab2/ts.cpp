@@ -436,7 +436,7 @@ std::vector<int> get_to_states(std::vector<std::vector<std::pair<std::string, bo
     return result;
 }
 
-void print_matrix(std::vector<std::vector<std::pair<std::string, bool>>> matrix){
+void print_matrix(const std::vector<std::vector<std::pair<std::string, bool>>>& matrix){
     for(auto & i : matrix){
         for(auto & j: i){
             std::cout << j.first << " ";
