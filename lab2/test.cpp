@@ -31,7 +31,7 @@ std::string regex_gen(int terms_range, int terms_col, int la_num, int star_deep)
     }
     std::string op = ops[rand_term];
     if (op == "*"){
-        return "(" + regex_gen(terms_range, terms_col, la_num, star_deep - 1) + ")*";
+        return "(" + regex_gen(terms_range, terms_col, 0, star_deep - 1) + ")*";
     }
     if (op == CONCAT_OP){
         return regex_gen(terms_range, terms_col / 2 + 1, la_num, star_deep) + regex_gen(terms_range, terms_col / 2 - 1, la_num, star_deep);
@@ -41,7 +41,7 @@ std::string regex_gen(int terms_range, int terms_col, int la_num, int star_deep)
     }
     std::string symb;
     if (random_value(0, 1)) symb = "$";
-    return "(?=" + regex_gen(terms_range, terms_col / 3 + 1, la_num - 1, star_deep) + symb + ")" +
+    return "(?=" + regex_gen(terms_range, terms_col / 3 + 1, 0, star_deep) + symb + ")" +
            regex_gen(terms_range, terms_col / 3 * 2 - 1, la_num - 1, star_deep);
 }
 
