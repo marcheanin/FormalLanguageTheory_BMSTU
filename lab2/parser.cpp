@@ -142,10 +142,6 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
             res.insert(res.begin()+i+1, {CONCAT_OP, "CONCAT"});
         }
     }
-    //for (const auto& i : res){
-   //     std::cout << i.first << " ";
-    //}
-    //std::cout << std::endl;
 
     bool f;
     while(true){
@@ -159,10 +155,6 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
         }
         if (!f) break;
     }
-    //for (const auto& i : res){
-    //    std::cout << i.first << " ";
-   // }
-    //std::cout << std::endl;
     replace_dots(res);
 
     return res;
