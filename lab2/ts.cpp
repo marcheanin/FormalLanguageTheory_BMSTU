@@ -422,11 +422,6 @@ std::vector<int> get_from_states(std::vector<std::vector<std::pair<std::string, 
             result.push_back(k);
         }
     }
-//    std::cout << std::endl << "From: ";
-//    for (int i = 0; i < result.size(); i++){
-//        std::cout << result[i];
-//    }
-//    std::cout << std::endl;
     return result;
 }
 
@@ -438,11 +433,6 @@ std::vector<int> get_to_states(std::vector<std::vector<std::pair<std::string, bo
             result.push_back(j);
         }
     }
-//    std::cout << std::endl << "To: ";
-//    for (int i = 0; i < result.size(); i++){
-//        std::cout << result[i];
-//    }
-//    std::cout << std::endl;
     return result;
 }
 
@@ -511,7 +501,6 @@ std::vector<int> get_start_states_indexes(automaton& auto1){
 
 std::string automaton_2_regex(const automaton& auto2){
     auto auto1 = auto2;
-    auto1.show_like_arrows();
     if (auto1.get_transition_matrix().empty()){
         return "^$";
     }
@@ -556,17 +545,6 @@ std::string automaton_2_regex(const automaton& auto2){
         } else {
             std::vector<int> from_states = get_from_states(auto1.get_transition_matrix(), i);
             std::vector<int> to_states = get_to_states(auto1.get_transition_matrix(), i);
-
-//            std::cout << std::endl << "FOR: " << i;
-//            std::cout << std::endl << "FROM: ";
-//            for(int i = 0; i < from_states.size(); i++){
-//                std::cout << from_states[i] << " ";
-//            }
-//            std::cout << std::endl << "TO: ";
-//            for(int i = 0; i < to_states.size(); i++){
-//                std::cout << to_states[i] << " ";
-//            }
-//            std::cout << std::endl;
 
             for (int j = 0; j < from_states.size(); j++){
                 for (int k = 0; k < to_states.size(); k++){
