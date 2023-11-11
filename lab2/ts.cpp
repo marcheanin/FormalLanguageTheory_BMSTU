@@ -511,11 +511,11 @@ std::vector<int> get_start_states_indexes(automaton& auto1){
 
 std::string automaton_2_regex(const automaton& auto2){
     auto auto1 = auto2;
+    auto1.show_like_arrows();
     if (auto1.get_transition_matrix().empty()){
         return "^$";
     }
     if (check_start_state(auto1)){
-
         std::vector <std::vector <std::pair<std::string, bool>>> new_transition_matrix = auto1.get_transition_matrix();
         for(auto & i : new_transition_matrix){
             i.emplace_back("0", false);
@@ -547,7 +547,6 @@ std::string automaton_2_regex(const automaton& auto2){
     std::vector <int> new_start_states = auto1.get_start_states();
     new_start_states.push_back(0);
     auto1.set_start_states(new_start_states);
-
     // remove states
     int i = 0;
     while (auto1.get_transition_matrix().size() != 2){
@@ -557,43 +556,38 @@ std::string automaton_2_regex(const automaton& auto2){
         } else {
             std::vector<int> from_states = get_from_states(auto1.get_transition_matrix(), i);
             std::vector<int> to_states = get_to_states(auto1.get_transition_matrix(), i);
+
+//            std::cout << std::endl << "FOR: " << i;
+//            std::cout << std::endl << "FROM: ";
+//            for(int i = 0; i < from_states.size(); i++){
+//                std::cout << from_states[i] << " ";
+//            }
+//            std::cout << std::endl << "TO: ";
+//            for(int i = 0; i < to_states.size(); i++){
+//                std::cout << to_states[i] << " ";
+//            }
+//            std::cout << std::endl;
+
             for (int j = 0; j < from_states.size(); j++){
                 for (int k = 0; k < to_states.size(); k++){
                     if (auto1.get_transition_matrix()[from_states[j]][to_states[k]].first == "0") {
                         if (auto1.get_transition_matrix()[i][i].first == "0") {
                             auto new_matrix = auto1.get_transition_matrix();
-                            if ((new_matrix[from_states[j]][i].first.find("(") != std::string::npos || new_matrix[from_states[j]][i].first.find(")") != std::string::npos) && new_matrix[from_states[j]][i].first.find("*") == std::string::npos && new_matrix[from_states[j]][i].first.find("|") == std::string::npos){
-                                new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][i].first.substr(1, auto1.get_transition_matrix()[from_states[j]][i].first.size() - 2) + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
-                            } else {
-                                new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][i].first + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
-                            }
+                            new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][i].first + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
                             auto1.set_transition_matrix(new_matrix);
                         } else {
                             auto new_matrix = auto1.get_transition_matrix();
-                            if ((new_matrix[from_states[j]][i].first.find("(") != std::string::npos || new_matrix[from_states[j]][i].first.find(")") != std::string::npos) && new_matrix[from_states[j]][i].first.find("*") == std::string::npos && new_matrix[from_states[j]][i].first.find("|") == std::string::npos){
-                                new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][i].first.substr(1, auto1.get_transition_matrix()[from_states[j]][i].first.size() - 2) + "(" + auto1.get_transition_matrix()[i][i].first + ")*" + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
-                            } else {
-                                new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][i].first + "(" + auto1.get_transition_matrix()[i][i].first + ")*" + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
-                            }
                             new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][i].first + "(" + auto1.get_transition_matrix()[i][i].first + ")*" + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
                             auto1.set_transition_matrix(new_matrix);
                         }
                     } else {
                         if (auto1.get_transition_matrix()[i][i].first == "0") {
                             auto new_matrix = auto1.get_transition_matrix();
-                            if ((new_matrix[from_states[j]][i].first.find("(") != std::string::npos || new_matrix[from_states[j]][i].first.find(")") != std::string::npos) && new_matrix[from_states[j]][i].first.find("*") == std::string::npos && new_matrix[from_states[j]][i].first.find("|") == std::string::npos){
-                                new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.substr(1, auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.size() - 2) + "|" + auto1.get_transition_matrix()[from_states[j]][i].first.substr(1, auto1.get_transition_matrix()[from_states[j]][i].first.size() - 2) + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
-                            } else {
-                                new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.substr(1, auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.size() - 2) + "|" + auto1.get_transition_matrix()[from_states[j]][i].first + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
-                            }
+                            new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][to_states[k]].first + "|" + auto1.get_transition_matrix()[from_states[j]][i].first + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
                             auto1.set_transition_matrix(new_matrix);
                         } else {
                             auto new_matrix = auto1.get_transition_matrix();
-                            if ((new_matrix[from_states[j]][i].first.find("(") != std::string::npos || new_matrix[from_states[j]][i].first.find(")") != std::string::npos) && new_matrix[from_states[j]][i].first.find("*") == std::string::npos && new_matrix[from_states[j]][i].first.find("|") == std::string::npos){
-                                new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.substr(1, auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.size() - 2) + "|" + auto1.get_transition_matrix()[from_states[j]][i].first.substr(1, auto1.get_transition_matrix()[from_states[j]][i].first.size() - 2) + "(" + auto1.get_transition_matrix()[i][i].first + ")*" + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
-                            } else {
-                                new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.substr(1, auto1.get_transition_matrix()[from_states[j]][to_states[k]].first.size() - 2) + "|" + auto1.get_transition_matrix()[from_states[j]][i].first + "(" + auto1.get_transition_matrix()[i][i].first + ")*" + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
-                            }
+                            new_matrix[from_states[j]][to_states[k]].first = "(" + auto1.get_transition_matrix()[from_states[j]][to_states[k]].first + "|" + auto1.get_transition_matrix()[from_states[j]][i].first + "(" + auto1.get_transition_matrix()[i][i].first + ")*" + auto1.get_transition_matrix()[i][to_states[k]].first + ")";
                             auto1.set_transition_matrix(new_matrix);
                         }
                     }

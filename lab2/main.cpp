@@ -53,6 +53,10 @@ void get_words (automaton a, int count){
 void test_automaton(automaton a, std::string input_regex, std::string output_regex, int col_words, std::ostream& fout){
     std::vector <std::string> problem_words;
     int col_true = 0;
+    if (a.get_end_states().empty()){
+        fout << "Empty regex" << std::endl;
+        return;
+    }
     get_words(a, col_words);
     std::regex r(input_regex);
     std::regex out_r(output_regex);
@@ -111,7 +115,7 @@ int main() {
         std::cout << "gen regex:" << std::endl;
         std::vector <std::string> regexes;
         for (int i = 0; i < 50; i++) {
-            regexes.push_back(regex_gen(3, 5, 0, 2));
+            regexes.push_back(regex_gen(3, 10, 2, 2));
             //std::cout << regexes.back() << std::endl;
         }
         for (const auto& regex : regexes){
