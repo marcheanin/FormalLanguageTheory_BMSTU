@@ -35,7 +35,7 @@ int main() {
 
             auto res = process_automaton_tree(tree);
             auto out_regex = automaton_2_regex(res);
-            test_automaton(res, regex, out_regex, 25, fout);
+            test_automaton(res, regex, out_regex, 100, fout);
         }
         return 0;
     }
@@ -50,5 +50,5 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
     std::string test = automaton_2_regex(res4);
-    test_automaton(res4, input_regex, test, 15, std::cout);
+    test_automaton(res4, input_regex, test, 100, std::cout);
 }
