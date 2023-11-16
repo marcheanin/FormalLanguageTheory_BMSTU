@@ -41,6 +41,11 @@ int main() {
     }
     std::vector <std::pair <std::string, std::string > > lexemes = lexer(input_regex);
 
+    for (const auto& elem : lexemes) {
+        std::cout << elem.first <<  " ";
+    }
+    std::cout << std::endl;
+
     std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
 
     TreeNode* tree = build_tree(postfix);
