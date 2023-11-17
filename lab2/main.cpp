@@ -23,7 +23,7 @@ int main() {
         std::cout << "gen regex:" << std::endl;
         std::vector <std::string> regexes;
         for (int i = 0; i < 250; i++) {
-            regexes.push_back(regex_gen(3, 15, 3, 3));
+            regexes.push_back(regex_gen(3, 15, 2, 2,3));
         }
         for (const auto& regex : regexes){
             std::cout << regex << std::endl;
@@ -36,10 +36,16 @@ int main() {
             auto res = process_automaton_tree(tree);
             auto out_regex = automaton_2_regex(res);
             test_automaton(res, regex, out_regex, 100, fout);
+            delete tree;
         }
         return 0;
     }
     std::vector <std::pair <std::string, std::string > > lexemes = lexer(input_regex);
+
+    for (const auto& elem : lexemes) {
+        std::cout << elem.first <<  " ";
+    }
+    std::cout << std::endl;
 
     std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
 
@@ -51,4 +57,5 @@ int main() {
     std::cout << std::endl;
     std::string test = automaton_2_regex(res4);
     test_automaton(res4, input_regex, test, 100, std::cout);
+    delete tree;
 }
