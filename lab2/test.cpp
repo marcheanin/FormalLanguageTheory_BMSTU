@@ -2,6 +2,8 @@
 // Created by march on 09.10.2023.
 //
 
+#include <boost/regex.hpp>
+
 std::random_device rd;
 std::mt19937 gen(rd());
 
@@ -86,16 +88,31 @@ void get_words (automaton a, int count){
     }
 }
 
-bool if_regex_consists_lb(const std::string & regex){
+bool check_lb(const std::string& regex, int pos){
+    int balance = 1;
+    for (int i = pos; i < regex.size(); i++){
+        if (balance == 0) break;
+        if (regex[i] == '(') balance++;
+        if (regex[i] == ')') balance--;
+        if (regex[i] == '*' || regex[i] == '|') return false;
+    }
+    return true;
+}
+
+bool find_lb_with_ops(const std::string & regex){
+    bool f = false;
     for (int i = 0; i < regex.size() - 1; i++){
-        if (regex[i] == '?' && regex[i + 1] == '<') return true;
+        if (regex[i] == '?' && regex[i + 1] == '<') {
+            if (!check_lb(regex, i)) return true;
+        }
     }
     return false;
 }
 
 void test_automaton(automaton a, const std::string& input_regex, const std::string& output_regex, int col_words, std::ostream& fout){
     std::vector <std::string> problem_words;
-    bool lb_flag = if_regex_consists_lb(input_regex);
+    bool lb_flag = find_lb_with_ops(input_regex);
+    boost::smatch match;
     int col_true = 0;
     if (a.get_end_states().empty()){
         fout << "Results for " << input_regex << ": " << std::endl;
@@ -104,12 +121,12 @@ void test_automaton(automaton a, const std::string& input_regex, const std::stri
         return;
     }
     get_words(a, col_words);
-    std::regex r;
-    if (!lb_flag) r = std::regex(input_regex);
-    std::regex out_r(output_regex);
+    boost::regex r;
+    if (!lb_flag) r = boost::regex(input_regex);
+    boost::regex out_r(output_regex);
     if (!lb_flag) {
         for (const auto &word: words) {
-            bool res = regex_match(word, r);
+            bool res = boost::regex_match(word, match, r);
             if (res) col_true++;
             else {
                 problem_words.push_back(word);
@@ -120,15 +137,14 @@ void test_automaton(automaton a, const std::string& input_regex, const std::stri
     }
     else{
         fout << "Results for " << input_regex << ": " << std::endl;
-        fout << "This is regex with lookbehind, automaton won't be tested" << std::endl;
+        fout << "This is regex with lookbehind with *, automaton won't be tested" << std::endl;
     }
     if (problem_words.empty()){
         fout << "OK" << std::endl;
         fout << std::endl;
         fout << "Test output regex " << output_regex << std::endl;
         for (const auto & word : words){
-            bool res = regex_match(word, out_r);
-            //std::cout << word << " " << res << std::endl;
+            bool res = boost::regex_match(word, match, out_r);
             if (res) col_true++;
             else{
                 problem_words.push_back(word);
