@@ -1,36 +1,415 @@
-Results for (((c|b)*|c|b|c(?<=(bd|b|c)*))*)*: 
+Results for (?=cc|bd$)((dc)*c)*b(?<=^a): 
+Empty regex
+===========================================================
+Results for (a(?<=^a)(d|b)*|d(?<=d)(?<=^bb))*: 
 This is regex with lookbehind, automaton won't be tested
 OK
 
-Test output regex ((((((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))))|((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))))(((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))))*((((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*)))))|(((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))))|((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))))(((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))))*((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))))((((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))))|((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))))(((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))))*((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))))))*(((((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))))|((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))))(((((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))))*((((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*)))|(((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b)))((((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((b|c(c)*b)|(b|c(c)*b)((b|c(c)*b))*(b|c(c)*b))))*(((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))|((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c))(((c|c(c)*c)|(b|c(c)*b)((b|c(c)*b))*(c|c(c)*c)))*((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))))))
+Test output regex (((|a(a)*)|(a(a)*d)((d|a(a)*d))*(|a(a)*))|((a(a)*b)|(a(a)*d)((d|a(a)*d))*(b|a(a)*b))(((b|a(a)*b)|(d|a(a)*d)((d|a(a)*d))*(b|a(a)*b)))*((|a(a)*)|(d|a(a)*d)((d|a(a)*d))*(|a(a)*)))
 100 words checked, 
 OK
 ===========================================================
-Results for (?=b)c(b(?<=c))*|((c|ab)*|a)*: 
+Results for dc(?<=^(ad)*)|ac(?<=(b|b)*): 
 This is regex with lookbehind, automaton won't be tested
 OK
 
-Test output regex (((|c(c)*)|((a|c(c)*a)b)(((a|c(c)*a)b))*(|c(c)*))|((a|c(c)*a)|((a|c(c)*a)b)(((a|c(c)*a)b))*(a|c(c)*a))(((a|c(c)*a)|((a|c(c)*a)b)(((a|c(c)*a)b))*(a|c(c)*a)))*((|c(c)*)|((a|c(c)*a)b)(((a|c(c)*a)b))*(|c(c)*)))
+Test output regex ((ac))
 100 words checked, 
 OK
 ===========================================================
-Results for (ba|a(?<=^b|c|c)(?<=((a|d)*|b)*|a))*: 
+Results for a|c|b(c|d)*(a(?<=^a)(?<=cb))*: 
 This is regex with lookbehind, automaton won't be tested
 OK
 
-Test output regex (|(ba)((ba))*)
+Test output regex ((|a)|c)
 100 words checked, 
 OK
 ===========================================================
-Results for (((b|c|ca|a)*)*(?<=^(dc|ba)*))*: 
+Results for (?=ca$)((d(?<=^d))*)*|(?=(((b|a)*)*)*$)a|b: 
 This is regex with lookbehind, automaton won't be tested
 OK
 
-Test output regex (|(ba)((ba))*)
+Test output regex ((a)|b)
 100 words checked, 
 OK
 ===========================================================
-Results for (?=d|d|c|d$)(?=(b|db)*)ad|c: 
+Results for ((b(?<=^a))*(?<=c|a))*|d|c|ba: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((|d)|c)|(ba))
+100 words checked, 
+OK
+===========================================================
+Results for (c|a(?<=(cc)*)|(b(?<=^c)|d)*)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((|c(c)*)|(a|c(c)*a)((a|c(c)*a))*(|c(c)*))|((d|c(c)*d)|(a|c(c)*a)((a|c(c)*a))*(d|c(c)*d))(((d|c(c)*d)|(a|c(c)*a)((a|c(c)*a))*(d|c(c)*d)))*((|c(c)*)|(a|c(c)*a)((a|c(c)*a))*(|c(c)*)))
+100 words checked, 
+OK
+===========================================================
+Results for b|dc(a(?<=^a))*|(((cba)*)*)*a: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((((b)|(dc))|((dc)a)(a)*)|(a|((cb)a)(((cb)a))*a))
+100 words checked, 
+OK
+===========================================================
+Results for c(?<=d)(?=c$)d((aa)*)*(?<=^c|b): 
+Empty regex
+===========================================================
+Results for (?=a$)a|c|c(?<=^d)ac|cb: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((a)|c)|(cb))
+100 words checked, 
+OK
+===========================================================
+Results for ((b(?<=^b)|bd|a)*(?<=^(ac|d|c)*))*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex 
+100 words checked, 
+OK
+===========================================================
+Results for ((d(?<=a))*(?<=^bc)c(?<=c)b)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex 
+100 words checked, 
+OK
+===========================================================
+Results for (?=a$)a(?<=^dc)|(((a(?<=d))*|a)*)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (|a(a)*)
+100 words checked, 
+OK
+===========================================================
+Results for (a|b|dda|(a(?<=^b)|c)*|d)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((((|a(a)*)|(b|a(a)*b)((b|a(a)*b))*(|a(a)*))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((|a(a)*)|(b|a(a)*b)((b|a(a)*b))*(|a(a)*)))|(((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c)))((((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))))*(((|a(a)*)|(b|a(a)*b)((b|a(a)*b))*(|a(a)*))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((|a(a)*)|(b|a(a)*b)((b|a(a)*b))*(|a(a)*))))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d)))|(((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c)))((((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))))*(((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))))(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d)))|(((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c)))((((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))))*(((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d)))))*((((|a(a)*)|(b|a(a)*b)((b|a(a)*b))*(|a(a)*))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((|a(a)*)|(b|a(a)*b)((b|a(a)*b))*(|a(a)*)))|(((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c)))((((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((c|a(a)*c)|(b|a(a)*b)((b|a(a)*b))*(c|a(a)*c))))*(((|a(a)*)|(b|a(a)*b)((b|a(a)*b))*(|a(a)*))|((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a)(((((d|a(a)*d)|(b|a(a)*b)((b|a(a)*b))*(d|a(a)*d))d)a))*((|a(a)*)|(b|a(a)*b)((b|a(a)*b))*(|a(a)*)))))
+100 words checked, 
+OK
+===========================================================
+Results for (((bc(?<=bb))*|(c(?<=^a)c|d)*)*)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (|d(d)*)
+100 words checked, 
+OK
+===========================================================
+Results for (?=c|cbc)(b(?<=^a))*|cc|a: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((cc))|a)
+100 words checked, 
+OK
+===========================================================
+Results for (?=b|a)d|d|b(?<=^d)a: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (d)
+100 words checked, 
+OK
+===========================================================
+Results for (cda(b|d)*|((d(?<=^c))*|a)*d)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((((|((cd)a)(((cd)a))*)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(|((cd)a)(((cd)a))*))|((((cd)a)(((cd)a))*d)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d))(((d|((cd)a)(((cd)a))*d)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d)))*((|((cd)a)(((cd)a))*)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(|((cd)a)(((cd)a))*)))|((((d|((cd)a)(((cd)a))*d)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d))|((((cd)a)(((cd)a))*d)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d))(((d|((cd)a)(((cd)a))*d)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d)))*((d|((cd)a)(((cd)a))*d)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d)))|(((a|((cd)a)(((cd)a))*a)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(a|((cd)a)(((cd)a))*a))|((((cd)a)(((cd)a))*d)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d))(((d|((cd)a)(((cd)a))*d)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d)))*((a|((cd)a)(((cd)a))*a)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(a|((cd)a)(((cd)a))*a)))(a)*d)(((((d|((cd)a)(((cd)a))*d)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d))|((((cd)a)(((cd)a))*d)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d))(((d|((cd)a)(((cd)a))*d)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d)))*((d|((cd)a)(((cd)a))*d)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d)))|(((a|((cd)a)(((cd)a))*a)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(a|((cd)a)(((cd)a))*a))|((((cd)a)(((cd)a))*d)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d))(((d|((cd)a)(((cd)a))*d)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d)))*((a|((cd)a)(((cd)a))*a)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(a|((cd)a)(((cd)a))*a)))(a)*d))*(((|((cd)a)(((cd)a))*)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(|((cd)a)(((cd)a))*))|((((cd)a)(((cd)a))*d)|(((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d))(((d|((cd)a)(((cd)a))*d)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(d|((cd)a)(((cd)a))*d)))*((|((cd)a)(((cd)a))*)|(b|((cd)a)(((cd)a))*b)((b|((cd)a)(((cd)a))*b))*(|((cd)a)(((cd)a))*))))
+100 words checked, 
+OK
+===========================================================
+Results for ((cb)*d(d(?<=^c))*)*(((d|b|b)*)*b)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((|(d|(cb)((cb))*d)((d|(cb)((cb))*d))*)|((((b|(d|(cb)((cb))*d)((d|(cb)((cb))*d))*b)|(d|(d|(cb)((cb))*d)((d|(cb)((cb))*d))*d)(d)*b)|((b|(d|(cb)((cb))*d)((d|(cb)((cb))*d))*b)|(d|(d|(cb)((cb))*d)((d|(cb)((cb))*d))*d)(d)*b)((b|d(d)*b))*(b|d(d)*b))|(((b|(d|(cb)((cb))*d)((d|(cb)((cb))*d))*b)|(d|(d|(cb)((cb))*d)((d|(cb)((cb))*d))*d)(d)*b)|((b|(d|(cb)((cb))*d)((d|(cb)((cb))*d))*b)|(d|(d|(cb)((cb))*d)((d|(cb)((cb))*d))*d)(d)*b)((b|d(d)*b))*(b|d(d)*b))(((b|d(d)*b)|(b|d(d)*b)((b|d(d)*b))*(b|d(d)*b)))*((b|d(d)*b)|(b|d(d)*b)((b|d(d)*b))*(b|d(d)*b)))((((b|d(d)*b)|(b|d(d)*b)((b|d(d)*b))*(b|d(d)*b))|((b|d(d)*b)|(b|d(d)*b)((b|d(d)*b))*(b|d(d)*b))(((b|d(d)*b)|(b|d(d)*b)((b|d(d)*b))*(b|d(d)*b)))*((b|d(d)*b)|(b|d(d)*b)((b|d(d)*b))*(b|d(d)*b))))*)
+100 words checked, 
+OK
+===========================================================
+Results for c(?<=c)ba|d|bb|c|a: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((((((cb)a))|d)|(bb))|c)|a)
+100 words checked, 
+OK
+===========================================================
+Results for ((d|a(?<=cd))*)*|(?=d)a|a: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((|d(d)*)|a)
+100 words checked, 
+OK
+===========================================================
+Results for a(?<=d)b|d|(d|b|c)*c: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((d)|(((c|d(d)*c)|(b|d(d)*b)((b|d(d)*b))*(c|d(d)*c))|((c|d(d)*c)|(b|d(d)*b)((b|d(d)*b))*(c|d(d)*c))(((c|d(d)*c)|(b|d(d)*b)((b|d(d)*b))*(c|d(d)*c)))*((c|d(d)*c)|(b|d(d)*b)((b|d(d)*b))*(c|d(d)*c))))
+100 words checked, 
+OK
+===========================================================
+Results for (?=((c|cb)*)*a)(c(?<=^b)d(b|c)*)*: 
+Empty regex
+===========================================================
+Results for (((c(?<=^a))*(?<=^cc))*)*(a(?<=a))*|c: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((|a(a)*)|c)
+100 words checked, 
+OK
+===========================================================
+Results for (?=((ab)*ad)*)(d(?<=^c))*|(a|d)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((|a(a)*)|(d|a(a)*d)((d|a(a)*d))*(|a(a)*))
+100 words checked, 
+OK
+===========================================================
+Results for a|b|c|cb((a(?<=^d))*(?<=^bb))*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((|a)|b)|c)
+100 words checked, 
+OK
+===========================================================
+Results for ((b|c|c)*|(bb)*)*|(c(?<=^b)|a)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((((|b(b)*)|(c|b(b)*c)((c|b(b)*c))*(|b(b)*))|((c|b(b)*c)|(c|b(b)*c)((c|b(b)*c))*(c|b(b)*c))(((c|b(b)*c)|(c|b(b)*c)((c|b(b)*c))*(c|b(b)*c)))*((|b(b)*)|(c|b(b)*c)((c|b(b)*c))*(|b(b)*)))|((((b|b(b)*b)|(c|b(b)*c)((c|b(b)*c))*(b|b(b)*b))|((c|b(b)*c)|(c|b(b)*c)((c|b(b)*c))*(c|b(b)*c))(((c|b(b)*c)|(c|b(b)*c)((c|b(b)*c))*(c|b(b)*c)))*((b|b(b)*b)|(c|b(b)*c)((c|b(b)*c))*(b|b(b)*b)))b)(((((b|b(b)*b)|(c|b(b)*c)((c|b(b)*c))*(b|b(b)*b))|((c|b(b)*c)|(c|b(b)*c)((c|b(b)*c))*(c|b(b)*c))(((c|b(b)*c)|(c|b(b)*c)((c|b(b)*c))*(c|b(b)*c)))*((b|b(b)*b)|(c|b(b)*c)((c|b(b)*c))*(b|b(b)*b)))b))*(((|b(b)*)|(c|b(b)*c)((c|b(b)*c))*(|b(b)*))|((c|b(b)*c)|(c|b(b)*c)((c|b(b)*c))*(c|b(b)*c))(((c|b(b)*c)|(c|b(b)*c)((c|b(b)*c))*(c|b(b)*c)))*((|b(b)*)|(c|b(b)*c)((c|b(b)*c))*(|b(b)*))))|a(a)*)
+100 words checked, 
+OK
+===========================================================
+Results for (?=b$)c|(dd)*(?<=^d|aa|c): 
+Empty regex
+===========================================================
+Results for d|b(?<=d|b)|c(?<=^a)(?<=cc): 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((d)|b)
+100 words checked, 
+OK
+===========================================================
+Results for (((d(?<=^b)b)*c(?<=^a))*|aa(?<=((bd)*)*))*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (|(aa)((aa))*)
+100 words checked, 
+OK
+===========================================================
+Results for (?=(a|c)*|ac$)(ad|a|d(?<=^d))*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (|a(a)*)
+100 words checked, 
+OK
+===========================================================
+Results for (((d(?<=d))*)*|b(?<=^d))*|(?=(((b|b)*)*)*$)(?=b)c: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (|d(d)*)
+100 words checked, 
+OK
+===========================================================
+Results for (((ba)*(?<=^(aa)*)|ad|d|b)*)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((|(ad)((ad))*)|(d|(ad)((ad))*d)((d|(ad)((ad))*d))*(|(ad)((ad))*))|((b|(ad)((ad))*b)|(d|(ad)((ad))*d)((d|(ad)((ad))*d))*(b|(ad)((ad))*b))(((b|(ad)((ad))*b)|(d|(ad)((ad))*d)((d|(ad)((ad))*d))*(b|(ad)((ad))*b)))*((|(ad)((ad))*)|(d|(ad)((ad))*d)((d|(ad)((ad))*d))*(|(ad)((ad))*)))
+100 words checked, 
+OK
+===========================================================
+Results for (c(?<=c))*c|(b(?<=d))*a|c(?<=^ca): 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((c|c(c)*c))|a)
+100 words checked, 
+OK
+===========================================================
+Results for (?=(b|b)*)d|d|(((ca(?<=bd))*)*)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((|d)|d)
+100 words checked, 
+OK
+===========================================================
+Results for (d(?<=a))*(d(?<=^a))*((a|b)*b)*c: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((c|((b|a(a)*b)|(b|a(a)*b)((b|a(a)*b))*(b|a(a)*b))(((b|a(a)*b)|(b|a(a)*b)((b|a(a)*b))*(b|a(a)*b)))*c))
+100 words checked, 
+OK
+===========================================================
+Results for ((b(?<=^c))*(?<=^(a|a)*)|(d(?<=^d)b)*)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (|(db)((db))*)
+100 words checked, 
+OK
+===========================================================
+Results for (?=b|cb|d)cdd|b(?<=c): 
+Empty regex
+===========================================================
+Results for (ada(?<=c|da))*(?<=(ccb)*|a): 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((|((ad)a)(((ad)a))*)|(((ad)a)|((ad)a)(((ad)a))*((ad)a)))
+100 words checked, 
+OK
+===========================================================
+Results for a(?<=c)|c|((c(?<=d))*)*(?=ba)a(?<=^b): 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (c)
+100 words checked, 
+OK
+===========================================================
+Results for (bb)*a|(b(?<=b))*(?<=^da|a|c): 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((a|(bb)((bb))*a))
+100 words checked, 
+OK
+===========================================================
+Results for (?=(ac)*|c$)(?=c)aa(?<=^bc|ba): 
+Empty regex
+===========================================================
+Results for cabaa(?<=^((aad)*)*d): 
+Empty regex
+===========================================================
+Results for c|a|bb|a(?<=^(ba|cc)*): 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((c)|a)|(bb))
+100 words checked, 
+OK
+===========================================================
+Results for (((da(?<=^ba))*|b(?<=b)(?<=^d|b))*)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (|b(b)*)
+100 words checked, 
+OK
+===========================================================
+Results for ((c(?<=^c)a(?<=d))*(?<=^((ab|a|d)*)*))*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex 
+100 words checked, 
+OK
+===========================================================
+Results for (((a(?<=^a)|c(?<=^c))*|(a(?<=^b))*|dd)*)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (((|a(a)*)|(c|a(a)*c)((c|a(a)*c))*(|a(a)*))|(((d|a(a)*d)|(c|a(a)*c)((c|a(a)*c))*(d|a(a)*d))d)((((d|a(a)*d)|(c|a(a)*c)((c|a(a)*c))*(d|a(a)*d))d))*((|a(a)*)|(c|a(a)*c)((c|a(a)*c))*(|a(a)*)))
+100 words checked, 
+OK
+===========================================================
+Results for (?=b|b$)c(?<=^b)(?=dc)(?=b$)a: 
+Empty regex
+===========================================================
+Results for c|b|dcc(b|b)*|b|c: 
+Words true: 100/100
+OK
+
+Test output regex (((((((c)|b)|((dc)c))|(((dc)c)b)(b)*)|((((dc)c)b)|(((dc)c)b)(b)*b)((b|b(b)*b))*(|b(b)*))|b)|c)
+100 words checked, 
+OK
+===========================================================
+Results for ((da)*c)*|(?=c)d(?<=^d|bdc): 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex (|(c|(da)((da))*c)((c|(da)((da))*c))*)
+100 words checked, 
+OK
+===========================================================
+Results for (b(?<=^a)c)*|(aa)*dc(?<=^aa): 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex 
+100 words checked, 
+OK
+===========================================================
+Results for ((c(?<=^b)dd)*)*|(b|b(?<=(a|a)*))*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((|b(b)*)|(b|b(b)*b)((b|b(b)*b))*(|b(b)*))
+100 words checked, 
+OK
+===========================================================
+Results for (?=(a|bc|a)*$)a(?<=^b)|d((b(?<=b))*)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((d)|(db)(b)*)
+100 words checked, 
+OK
+===========================================================
+Results for (cad(ad)*(c(?<=c)|d)*)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((((|((ca)d)(((ca)d))*)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(|((ca)d)(((ca)d))*))|((((ca)d)(((ca)d))*c)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(c|((ca)d)(((ca)d))*c))(((c|((ca)d)(((ca)d))*c)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(c|((ca)d)(((ca)d))*c)))*((|((ca)d)(((ca)d))*)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(|((ca)d)(((ca)d))*)))|(((((ca)d)(((ca)d))*d)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(d|((ca)d)(((ca)d))*d))|((((ca)d)(((ca)d))*c)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(c|((ca)d)(((ca)d))*c))(((c|((ca)d)(((ca)d))*c)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(c|((ca)d)(((ca)d))*c)))*((d|((ca)d)(((ca)d))*d)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(d|((ca)d)(((ca)d))*d)))((((d|((ca)d)(((ca)d))*d)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(d|((ca)d)(((ca)d))*d))|((c|((ca)d)(((ca)d))*c)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(c|((ca)d)(((ca)d))*c))(((c|((ca)d)(((ca)d))*c)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(c|((ca)d)(((ca)d))*c)))*((d|((ca)d)(((ca)d))*d)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(d|((ca)d)(((ca)d))*d))))*(((|((ca)d)(((ca)d))*)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(|((ca)d)(((ca)d))*))|((c|((ca)d)(((ca)d))*c)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(c|((ca)d)(((ca)d))*c))(((c|((ca)d)(((ca)d))*c)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(c|((ca)d)(((ca)d))*c)))*((|((ca)d)(((ca)d))*)|((((ca)d)(((ca)d))*a)d)(((a|((ca)d)(((ca)d))*a)d))*(|((ca)d)(((ca)d))*))))
+100 words checked, 
+OK
+===========================================================
+Results for (c(?<=c))*(ca)*|d(?<=^a)|b|d: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((((|c(c)*)|((c|c(c)*c)a)((ca))*)|b)|d)
+100 words checked, 
+OK
+===========================================================
+Results for (d|a)*|baa(?=c$)a|a: 
+Words true: 100/100
+OK
+
+Test output regex (((|d(d)*)|(a|d(d)*a)((a|d(d)*a))*(|d(d)*))|a)
+100 words checked, 
+OK
+===========================================================
+Results for (?=(aa|dc)*)bbb(?<=d|cb): 
+Empty regex
+===========================================================
+Results for (?=c|d|bb$)(cd|c)*(a|a)*: 
 Words true: 100/100
 OK
 
@@ -38,38 +417,63 @@ Test output regex (c)
 100 words checked, 
 OK
 ===========================================================
-Results for (((c|b|a)*|a|a(?<=d|b|d|d))*)*: 
+Results for (((b(?<=d))*)*(?<=cb))*|(?=bb)d|d: 
 This is regex with lookbehind, automaton won't be tested
 OK
 
-Test output regex ((((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))|((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a))(((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a)))*((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*)))|(((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a))|((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a))(((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a)))*((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a)))((((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a))|((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a))(((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a)))*((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a))))*(((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))|((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a))(((a|c(c)*a)|(b|c(c)*b)((b|c(c)*b))*(a|c(c)*a)))*((|c(c)*)|(b|c(c)*b)((b|c(c)*b))*(|c(c)*))))
+Test output regex (|d)
 100 words checked, 
 OK
 ===========================================================
-Results for (?=(((cda|b)*)*)*)c(?<=^b)c(?<=(c|ad)*): 
+Results for (aa(?<=^dd)d|d|ab)*: 
+This is regex with lookbehind, automaton won't be tested
+OK
+
+Test output regex ((|d(d)*)|((a|d(d)*a)b)(((a|d(d)*a)b))*(|d(d)*))
+100 words checked, 
+OK
+===========================================================
+Results for a(?<=^d)(?<=db)(?=(b|a)*)(ca)*: 
 Empty regex
 ===========================================================
-Results for (?=db|c|a$)((d(?<=^b)c)*d|b)*: 
-This is regex with lookbehind, automaton won't be tested
-OK
-
-Test output regex ((db))
-100 words checked, 
-OK
+Results for (?=(((da|c)*)*|b)*$)(?=((b|c)*)*|c$)b(?<=d): 
+Empty regex
 ===========================================================
-Results for (?=b$)a|c|a(?<=b)(?<=^bba|c): 
-This is regex with lookbehind, automaton won't be tested
+Results for (?=a$)d(?<=(ab|b)*)(?<=^(c|c|dc)*): 
+Empty regex
+===========================================================
+Results for (a|db)*(?=b$)a(?=b$)c|c: 
+Words true: 100/100
 OK
 
 Test output regex (c)
 100 words checked, 
 OK
 ===========================================================
-Results for (((dc|bc|d)*|(c(?<=^d))*(?<=^b|b))*)*: 
+Results for (?=ba$)c|c|(?=c)ac: 
+Words true: 100/100
+OK
+
+Test output regex (c)
+100 words checked, 
+OK
+===========================================================
+Results for (b(?<=a))*d(?=a$)a(db|c|c)*: 
 This is regex with lookbehind, automaton won't be tested
 OK
 
-Test output regex (((|(dc)((dc))*)|((b|(dc)((dc))*b)c)(((b|(dc)((dc))*b)c))*(|(dc)((dc))*))|((d|(dc)((dc))*d)|((b|(dc)((dc))*b)c)(((b|(dc)((dc))*b)c))*(d|(dc)((dc))*d))(((d|(dc)((dc))*d)|((b|(dc)((dc))*b)c)(((b|(dc)((dc))*b)c))*(d|(dc)((dc))*d)))*((|(dc)((dc))*)|((b|(dc)((dc))*b)c)(((b|(dc)((dc))*b)c))*(|(dc)((dc))*)))
+Test output regex ((da))
+100 words checked, 
+OK
+===========================================================
+Results for (d|b)*(?<=cd)a(?<=^c)a: 
+Empty regex
+===========================================================
+Results for a|b|d(bb)*(a|bc|c)*: 
+Words true: 100/100
+OK
+
+Test output regex (((((((a)|b)|d)|((db)b)((bb))*)|((da)|((db)b)((bb))*a)(a)*)|((((db)|((db)b)((bb))*b)|((da)|((db)b)((bb))*a)(a)*b)c)(((b|a(a)*b)c))*(|a(a)*))|((((dc)|((db)b)((bb))*c)|((da)|((db)b)((bb))*a)(a)*c)|((((db)|((db)b)((bb))*b)|((da)|((db)b)((bb))*a)(a)*b)c)(((b|a(a)*b)c))*(c|a(a)*c))(((c|a(a)*c)|((b|a(a)*b)c)(((b|a(a)*b)c))*(c|a(a)*c)))*((|a(a)*)|((b|a(a)*b)c)(((b|a(a)*b)c))*(|a(a)*)))
 100 words checked, 
 OK
 ===========================================================
