@@ -137,7 +137,7 @@ void test_automaton(automaton a, const std::string& input_regex, const std::stri
     }
     else{
         fout << "Results for " << input_regex << ": " << std::endl;
-        fout << "This is regex with lookbehind with *, automaton won't be tested" << std::endl;
+        fout << "This is regex with lookbehind with * or |, automaton won't be tested" << std::endl;
     }
     if (problem_words.empty()){
         fout << "OK" << std::endl;
