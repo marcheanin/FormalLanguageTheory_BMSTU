@@ -22,8 +22,8 @@ int main() {
         std::ofstream fout("test_results.txt");
         std::cout << "gen regex:" << std::endl;
         std::vector <std::string> regexes;
-        for (int i = 0; i < 250; i++) {
-            regexes.push_back(regex_gen(3, 15, 3, 3));
+        for (int i = 0; i < 40; i++) {
+            regexes.push_back(regex_gen(3, 8, 3, 1,2));
         }
         for (const auto& regex : regexes){
             std::cout << regex << std::endl;

@@ -7,14 +7,15 @@ std::mt19937 gen(rd());
 
 std::map <int, std::string> ops = {{0, "|"},
                                    {1, CONCAT_OP},
-                                   {2, "?="},
+                                   {2, "?"},
                                    {3, "*"}};
 int random_value(int low, int high){
     std::uniform_int_distribution<> dist(low, high);
     return dist(gen);
 }
 
-std::string regex_gen(int terms_range, int terms_col, int la_num, int star_deep){
+std::string regex_gen(int terms_range, int terms_col, int la_num, int lb_num, int star_deep) {
+    std::string symb;
     if (terms_col <= 0) terms_col = 1;
     std::string s;
     if (terms_col == 1 || terms_col == 2) {
@@ -23,26 +24,35 @@ std::string regex_gen(int terms_range, int terms_col, int la_num, int star_deep)
         return s;
     }
     int range = 3;
-    if (la_num == 0 && star_deep == 0) range-= 2;
+    if (la_num == 0 && star_deep == 0) range -= 2;
     else if (la_num == 0 || star_deep == 0) range -= 1;
     int rand_term = random_value(0, range);
-    if (range == 2 && rand_term == 2 && star_deep != 0){
+    if (range == 2 && rand_term == 2 && star_deep != 0) {
         rand_term = 3;
     }
     std::string op = ops[rand_term];
-    if (op == "*"){
-        return "(" + regex_gen(terms_range, terms_col, 0, star_deep - 1) + ")*";
+    if (op == "*") {
+        return "(" + regex_gen(terms_range, terms_col, 0, lb_num, star_deep - 1) + ")*";
     }
-    if (op == CONCAT_OP){
-        return regex_gen(terms_range, terms_col / 2 + 1, la_num, star_deep) + regex_gen(terms_range, terms_col / 2 - 1, la_num, star_deep);
+    if (op == CONCAT_OP) {
+        return regex_gen(terms_range, terms_col / 2 + 1, la_num, lb_num, star_deep) +
+               regex_gen(terms_range, terms_col / 2 - 1, la_num, lb_num, star_deep);
     }
     if (op == "|") {
-        return regex_gen(terms_range, terms_col / 2 + 1, la_num, star_deep) + "|" + regex_gen(terms_range, terms_col / 2 - 1, la_num, star_deep);
+        return regex_gen(terms_range, terms_col / 2 + 1, la_num, lb_num, star_deep) + "|" +
+               regex_gen(terms_range, terms_col / 2 - 1, la_num, lb_num, star_deep);
     }
-    std::string symb;
-    if (random_value(0, 1)) symb = "$";
-    return "(?=" + regex_gen(terms_range, terms_col / 3 + 1, 0, star_deep) + symb + ")" +
-           regex_gen(terms_range, terms_col / 3 * 2 - 1, la_num - 1, star_deep);
+    bool la_or_lb = random_value(0, 1);
+    if ((!la_or_lb || lb_num == 0) && la_num != 0) {
+        if (random_value(0, 1)) symb = "$";
+        return "(?=" + regex_gen(terms_range, terms_col / 3 + 1, 0, 0, star_deep) + symb + ")" +
+               regex_gen(terms_range, terms_col / 3 * 2 - 1, la_num - 1, lb_num, star_deep);
+    }
+    else{
+        if (random_value(0, 1)) symb = "^";
+        return regex_gen(terms_range, terms_col / 3 * 2 - 1, la_num, lb_num - 1, star_deep) +
+               "(?<=" + symb + regex_gen(terms_range, terms_col / 3 + 1, 0, 0, star_deep) + ")";
+    }
 }
 
 std::vector <std::string> words;
@@ -76,8 +86,16 @@ void get_words (automaton a, int count){
     }
 }
 
+bool if_regex_consists_lb(const std::string & regex){
+    for (int i = 0; i < regex.size() - 1; i++){
+        if (regex[i] == '?' && regex[i + 1] == '<') return true;
+    }
+    return false;
+}
+
 void test_automaton(automaton a, const std::string& input_regex, const std::string& output_regex, int col_words, std::ostream& fout){
     std::vector <std::string> problem_words;
+    bool lb_flag = if_regex_consists_lb(input_regex);
     int col_true = 0;
     if (a.get_end_states().empty()){
         fout << "Results for " << input_regex << ": " << std::endl;
@@ -86,18 +104,24 @@ void test_automaton(automaton a, const std::string& input_regex, const std::stri
         return;
     }
     get_words(a, col_words);
-    std::regex r(input_regex);
+    std::regex r;
+    if (!lb_flag) r = std::regex(input_regex);
     std::regex out_r(output_regex);
-
-    for (const auto & word : words){
-        bool res = regex_match(word, r);
-        if (res) col_true++;
-        else{
-            problem_words.push_back(word);
+    if (!lb_flag) {
+        for (const auto &word: words) {
+            bool res = regex_match(word, r);
+            if (res) col_true++;
+            else {
+                problem_words.push_back(word);
+            }
         }
+        fout << "Results for " << input_regex << ": " << std::endl;
+        fout << "Words true: " << col_true << "/" << col_words << std::endl;
     }
-    fout << "Results for " << input_regex << ": " << std::endl;
-    fout << "Words true: " << col_true << "/" << col_words << std::endl;
+    else{
+        fout << "Results for " << input_regex << ": " << std::endl;
+        fout << "This is regex with lookbehind, automaton won't be tested" << std::endl;
+    }
     if (problem_words.empty()){
         fout << "OK" << std::endl;
         fout << std::endl;

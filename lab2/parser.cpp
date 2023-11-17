@@ -103,10 +103,13 @@ void replace_lookahead(std::vector <std::pair <std::string, std::string > >& lex
 
 void replace_lookbehind(std::vector <std::pair <std::string, std::string > >& lexemes, int pos){
     int balance = 1;
-    bool end_line_flag = false;
-
-    //удаление знака lookbehind
+    bool start_line_flag = false;
+    if (lexemes[pos + 1].first == "^"){
+        start_line_flag = true;
+    }
+    //удаление знака lookbehind и знака ^
     lexemes.erase(lexemes.begin()+pos);
+    if (start_line_flag) lexemes.erase(lexemes.begin()+pos);
 
     //удаление '$' и добавление правой скобки
     for (int i = pos; i < lexemes.size(); i++){
@@ -120,30 +123,39 @@ void replace_lookbehind(std::vector <std::pair <std::string, std::string > >& le
             lexemes.insert(lexemes.begin() + i + 1, {")", "BRACKET"});
             break;
         }
-        if (lexemes[i].first == "$"){
-            end_line_flag = true;
-            lexemes.erase(lexemes.begin() + i);
-            lexemes.insert(lexemes.begin() + i + 1, {")", "BRACKET"});
-            break;
-        }
+//        if (lexemes[i].first == "$"){
+//            end_line_flag = true;
+//            lexemes.erase(lexemes.begin() + i);
+//            lexemes.insert(lexemes.begin() + i + 1, {")", "BRACKET"});
+//            break;
+//        }
 
     }
     int pos2 = pos - 2;
     lexemes.erase(lexemes.begin() + pos2);
     int pos3 = pos2;
-    if (!end_line_flag){
-        lexemes.insert(lexemes.begin()+pos2, {CONCAT_OP, "CONCAT"});
-        pos2++;
+//    if (!start_line_flag){
+//        lexemes.insert(lexemes.begin()+pos2, {CONCAT_OP, "CONCAT"});
+//        pos2++;
+//        lexemes.insert(lexemes.begin()+pos2, {".", "DOT"});
+//        pos2++;
+//        lexemes.insert(lexemes.begin()+pos2, {"*", "UNARY"});
+//        pos2++;
+//        lexemes.insert(lexemes.begin() + pos2, {INTERSECT_OP, "INTERSECT"});
+//    }
+//    else {
+    lexemes.insert(lexemes.begin() + pos2, {INTERSECT_OP, "INTERSECT"});
+    pos2++;
+    if (!start_line_flag){
         lexemes.insert(lexemes.begin()+pos2, {".", "DOT"});
         pos2++;
         lexemes.insert(lexemes.begin()+pos2, {"*", "UNARY"});
         pos2++;
-        lexemes.insert(lexemes.begin() + pos2, {INTERSECT_OP, "INTERSECT"});
+        lexemes.insert(lexemes.begin()+pos2, {CONCAT_OP, "CONCAT"});
+        pos2++;
     }
-    else {
-        lexemes.insert(lexemes.begin() + pos2, {INTERSECT_OP, "INTERSECT"});
-        pos3--;
-    }
+    pos3--;
+
 //    for (const auto& elem : lexemes) {
 //        std::cout << elem.first <<  " ";
 //    }
@@ -177,8 +189,9 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
 
     for (int i = 0; i < regex.size(); i++) {
         s = regex[i];
-        if (s == "^") continue;
-        else if (s == ")" or s == "(") {
+        if (s == "^"){
+            res.emplace_back("^", "START-LINE");
+        } else if (s == ")" or s == "(") {
             res.emplace_back(s, "BRACKET");
             if (s == "(") balance++;
             if (s == ")") balance--;
@@ -202,6 +215,8 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
             res.emplace_back(s, "TERM");
         }
     }
+    if (res[0].first == "^")
+        res.erase(res.begin());
     if (balance != 0) throw std::invalid_argument("Bad bracket balance");
 
     for (int i = 0; i < res.size() - 1; i++){
