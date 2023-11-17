@@ -22,8 +22,8 @@ int main() {
         std::ofstream fout("test_results.txt");
         std::cout << "gen regex:" << std::endl;
         std::vector <std::string> regexes;
-        for (int i = 0; i < 40; i++) {
-            regexes.push_back(regex_gen(3, 8, 3, 1,2));
+        for (int i = 0; i < 10; i++) {
+            regexes.push_back(regex_gen(3, 15, 2, 2,3));
         }
         for (const auto& regex : regexes){
             std::cout << regex << std::endl;
@@ -36,6 +36,7 @@ int main() {
             auto res = process_automaton_tree(tree);
             auto out_regex = automaton_2_regex(res);
             test_automaton(res, regex, out_regex, 100, fout);
+            delete tree;
         }
         return 0;
     }
@@ -56,4 +57,5 @@ int main() {
     std::cout << std::endl;
     std::string test = automaton_2_regex(res4);
     test_automaton(res4, input_regex, test, 100, std::cout);
+    delete tree;
 }

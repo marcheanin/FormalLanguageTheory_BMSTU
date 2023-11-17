@@ -24,8 +24,8 @@ std::string regex_gen(int terms_range, int terms_col, int la_num, int lb_num, in
         return s;
     }
     int range = 3;
-    if (la_num == 0 && star_deep == 0) range -= 2;
-    else if (la_num == 0 || star_deep == 0) range -= 1;
+    if (la_num == 0 && lb_num == 0 && star_deep == 0) range -= 2;
+    else if ((la_num == 0 && lb_num == 0) || star_deep == 0) range -= 1;
     int rand_term = random_value(0, range);
     if (range == 2 && rand_term == 2 && star_deep != 0) {
         rand_term = 3;
@@ -135,7 +135,7 @@ void test_automaton(automaton a, const std::string& input_regex, const std::stri
             }
         }
         if (problem_words.empty()) {
-            fout << "OK" << std::endl;
+            fout << col_words << " words checked, " <<  std::endl << "OK" << std::endl;
         }
         else{
             fout << "Problem words for output regex:" << std::endl;
