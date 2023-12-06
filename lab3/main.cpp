@@ -1,4 +1,5 @@
 #include "automaton.cpp"
+#include "oracle_base.cpp"
 
 int main() {
     std::vector<int> start_states = {1, 0, 0, 0, 0, 0};
@@ -24,4 +25,11 @@ int main() {
         }
         std::cout << std::endl;
     }
+
+    AutomatonOracle orac;
+    orac.setAutomaton(test);
+    std::cout << orac.checkMembership("aa") << std::endl; // 1
+    std::cout << orac.checkMembership("a") << std::endl; // 0
+    std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
+
 }
