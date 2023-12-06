@@ -56,6 +56,7 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
     std::string test = automaton_2_regex(res4);
+    res4.show_like_arrows();
     test_automaton(res4, input_regex, test, 100, std::cout);
     delete tree;
 }
