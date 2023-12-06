@@ -36,9 +36,19 @@ private:
         }
     }
 
+    void get_alphabet() {
+        auto m = oracle_automaton.get_transition_matrix();
+        for (int i = 0; i < m.size(); i++){
+            for (int j = 0; j < m[0].size(); j++){
+                if (m[i][j] != "0") alphabet.insert(m[i][j][0]);
+            }
+        }
+    }
+
 public:
     void setAutomaton(const automaton &input_automaton){
         oracle_automaton = input_automaton;
+        get_alphabet();
     }
 
     std::string checkEqual(const automaton &input_automaton) override {}
