@@ -3,6 +3,7 @@
 #include <vector>
 #include <iterator>
 #include <map>
+#include <algorithm>
 
 class automaton {
 private:
@@ -24,6 +25,7 @@ public:
     std::vector<int> get_start_states();
     std::vector <std::vector <std::string>> get_transition_matrix();
     std::vector<int> get_end_states();
+    std::vector<int> get_start_cycle_vertexes();
     void print_start_vector();
     void print_transition_matrix();
     void print_end_vector();
@@ -33,6 +35,9 @@ public:
     //new funcs
     std::map<int, std::vector<std::string>> get_cycles();
     void get_cycle(std::string res_str, int current_state, int start_state, std::vector<std::string> &result);
+    void get_all_ways_to_vertex(int to_vertex, int current_vertex, std::string res_str, std::vector<std::string> &result, std::string way);
+    std::map<int, std::vector<std::string>> get_all_ways_to_all_vertexes();
+    void get_all_ways_from_vertex(int from_vertex, std::string res_str, std::map<int, std::vector<std::string>> &result);
     void clear_visited_states();
 };
 
@@ -55,6 +60,17 @@ std::vector <std::vector <std::string>> automaton::get_transition_matrix(){
 
 std::vector<int> automaton::get_end_states(){
     return end_states;
+}
+
+std::vector<int> get_to_states(std::vector<std::vector<std::string>> matrix, int i){
+    std::vector<int> result;
+
+    for (int j = 0; j < matrix.size(); j++){
+        if (matrix[i][j] != "0" && i != j){
+            result.push_back(j);
+        }
+    }
+    return result;
 }
 
 void automaton::print_start_vector() {
@@ -137,13 +153,43 @@ std::map<int, std::vector<std::string>> automaton::get_cycles() {
         this->get_cycle("", i, i, val);
         this->clear_visited_states();
         result[i] = val;
-//        for(int i = 0; i < this->transition_matrix.size(); i++){
-//            std::cout << "State " << i << std::endl;
-//            for (int j = 0; j < result[i].size(); j++){
-//                std::cout << result[i][j] << std::endl;
-//            }
-//            std::cout << std::endl;
-//        }
+    }
+    return result;
+}
+
+void automaton::get_all_ways_to_vertex(int to_vertex, int current_vertex, std::string res_str, std::vector<std::string> &result, std::string way){
+    if (current_vertex == to_vertex){
+        if (result.empty()){
+            if (!res_str.empty()){
+                result.push_back(res_str);
+            }
+        } else {
+            if (!(*std::find(result.begin(), result.end(), res_str) == res_str) && !res_str.empty()){
+                result.push_back(res_str);
+            }
+        }
+        return;
+    }
+
+    for (int i = 0; i < this->transition_matrix.size(); i++){
+        if (this->transition_matrix[current_vertex][i] != "0"){
+            if (way.find(std::to_string(i)) == std::string::npos){
+                this->get_all_ways_to_vertex(to_vertex, i, res_str + this->transition_matrix[current_vertex][i], result, way + std::to_string(i));
+            }
+        }
+    }
+}
+
+std::map<int, std::vector<std::string>> automaton::get_all_ways_to_all_vertexes(){
+    std::map<int, std::vector<std::string>> result;
+    for(int i = 0; i < this->transition_matrix.size(); i++){
+        std::vector<std::string> val;
+        for (int j = 0; j < this->start_states.size(); j++){
+            if (this->start_states[j]){
+                this->get_all_ways_to_vertex(i, j, "", val, "");
+                result[i] = val;
+            }
+        }
     }
     return result;
 }
