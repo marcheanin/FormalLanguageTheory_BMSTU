@@ -8,6 +8,7 @@ class Oracle{
 public:
     virtual std::string checkEqual(const automaton& input_automaton) = 0;
     virtual bool checkMembership(const std::string& word) = 0;
+    virtual std::set <char> getAlphabet() = 0;
 };
 
 class AutomatonOracle : public Oracle {
@@ -36,7 +37,7 @@ private:
         }
     }
 
-    void get_alphabet() {
+    void set_alphabet() {
         auto m = oracle_automaton.get_transition_matrix();
         for (int i = 0; i < m.size(); i++){
             for (int j = 0; j < m[0].size(); j++){
@@ -48,7 +49,11 @@ private:
 public:
     void setAutomaton(const automaton &input_automaton){
         oracle_automaton = input_automaton;
-        get_alphabet();
+        set_alphabet();
+    }
+
+    std::set <char> getAlphabet() override {
+        return alphabet;
     }
 
     std::string checkEqual(const automaton &input_automaton) override {}

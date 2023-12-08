@@ -1,5 +1,6 @@
 #include "automaton.cpp"
 #include "oracle_base.cpp"
+#include "NL_star.cpp"
 
 int main() {
     std::vector<int> start_states = {1, 0, 0, 0, 0, 0};
@@ -31,5 +32,6 @@ int main() {
     std::cout << orac.checkMembership("aa") << std::endl; // 1
     std::cout << orac.checkMembership("a") << std::endl; // 0
     std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
+
 
 }
