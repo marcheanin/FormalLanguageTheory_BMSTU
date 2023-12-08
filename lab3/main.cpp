@@ -16,24 +16,9 @@ int main() {
     test.show_automaton();
     test.show_like_arrows();
 
-    std::map<int, std::vector<std::string>> test_cycles = test.get_cycles();
-//    for(int i = 0; i < test.get_transition_matrix().size(); i++){
-//        std::cout << "State " << i << std::endl;
-//        for (int j = 0; j < test_cycles[i].size(); j++){
-//            std::cout << test_cycles[i][j] << std::endl;
-//        }
-//        std::cout << std::endl;
-//    }
-
-    std::map<int, std::vector<std::string>> a = test.get_all_ways_to_all_vertexes();
-    for (int i = 0; i < test.get_transition_matrix().size(); i++){
-        std::cout << "To vertex " << i << ": ";
-        for(int j = 0; j < a[i].size(); j++){
-            std::cout << a[i][j] << " ";
-        }
-        std::cout << std::endl << std::endl;
-    }
-
+    test.print_all_ways_to_all_vertexes();
+    std::cout << std::endl;
+    test.print_all_ways_from_all_vertexes();
 
 
 //    AutomatonOracle orac;
