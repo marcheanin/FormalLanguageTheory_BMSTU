@@ -26,6 +26,7 @@ private:
     void moveToTop(int pos);
     static bool checkAbsorb(std::vector <int> a, std::vector <int> b); //a >= b
     bool check_coverable(int pos, int table_num);
+    void printCurrentState();
 
     automaton buildAutomaton();
 public:
@@ -40,12 +41,17 @@ public:
 automaton NL::getAutomaton() {
     E.emplace_back("");
     S.emplace_back("");
+    SxE.emplace_back();
 
     for (auto elem : alphabet) {
         Sa.emplace_back(1, elem);
+        SaxE.emplace_back();
     }
     extendTables();
     fillTables();
+
+    std::cout << "Tables inited" << std::endl;
+    printCurrentState();
 
     automaton last_automaton;
 
@@ -53,6 +59,7 @@ automaton NL::getAutomaton() {
         bool f_complete = false, f_consist = false;
         while (!f_complete || !f_consist) {
             if (!isComplete()) {
+                std::cout << "Not complete" << std::endl;
                 moveToTop(problem_row_pos);     //переносим непокрытую строку из нижней таблицы в верхнюю
                 std::string prefix = Sa[problem_row_pos];
                 problem_row_pos = -1;
@@ -61,27 +68,35 @@ automaton NL::getAutomaton() {
                     SaxE.emplace_back(E.size());
                 }
                 fillTables();               // дозаполняем таблицы
+                printCurrentState();
                 continue;
             } else {
                 f_complete = true;
             }
             if (!isConsistent()) {
+                std::cout << "Not consistant" << std::endl;
                 E.emplace_back(problem_suffix);             // добавляем суффикс, на котором произошло противоречие
                 extendTables();                             // увеличиваем размер таблиц
                 fillTables();                               // дозаполняем таблицы
+                printCurrentState();
             } else {
                 f_consist = true;
             }
         }
+        std::cout << "Building automaton" << std::endl;
         last_automaton = buildAutomaton();
+        std::cout << "Checking equal" << std::endl;
         std::string eq_result = orac->checkEqual(last_automaton);
         if (eq_result == "None") break;
         else{
-            for (int i = 1; i < eq_result.size(); i++) {
+            std::cout << "Have example " << eq_result << std::endl;
+            for (int i = 1; i < eq_result.size() + 1; i++) {
                 E.push_back(eq_result.substr(0, i));
             }
             extendTables();
             fillTables();
+            std::cout << "After adding example" << std::endl;
+            printCurrentState();
         }
     }
     std::cout << "Building tables complete" << std::endl;
@@ -124,8 +139,8 @@ bool NL::isConsistent() {
                         b2 = S[j2];
                         row_b2 = SxE[j2];
                     } else {
-                        b2 = Sa[j2];
-                        row_b2 = SaxE[j2];
+                        b2 = Sa[j2 - S.size()];
+                        row_b2 = SaxE[j2 - S.size()];
                     }
                     auto suffix2 = b2.back();
                     b2.pop_back();
@@ -190,7 +205,7 @@ bool NL::isComplete() {
 
 void NL::fillTables() {
     for (int i = 0; i < S.size(); i++){
-        for (int j = 0; j < E[0].size(); j++){
+        for (int j = 0; j < E.size(); j++){
             if (SxE[i][j] == -1) {
                 if (orac->checkMembership(S[i] + E[j])) SxE[i][j] = 1;
                 else SxE[i][j] = 0;
@@ -198,8 +213,8 @@ void NL::fillTables() {
         }
     }
 
-    for (int i = 0; i < SaxE.size(); i++){
-        for (int j = 0; j < SaxE[0].size(); j++){
+    for (int i = 0; i < Sa.size(); i++){
+        for (int j = 0; j < E.size(); j++){
             if (SaxE[i][j] == -1) {
                 if (orac->checkMembership(Sa[i] + E[j])) SaxE[i][j] = 1;
                 else SaxE[i][j] = 0;
@@ -238,7 +253,7 @@ automaton NL::buildAutomaton() {
     std::vector <std::pair <std::string , std::vector <int> > > states;
     // заполняем список состояний - строки из SxE, не накрываемые остальными из SxE
     for (int i = 0; i < S.size(); i++){
-        if (check_coverable(i, 1))
+        if (!check_coverable(i, 1))
             states.emplace_back(S[i], SxE[i]);
     }
 
@@ -252,15 +267,20 @@ automaton NL::buildAutomaton() {
 
     for (int i = 0; i < S.size(); i++){             //S[i] = u
         for (int j = 0; j < S.size() + Sa.size(); j++){            //Sa[j] = uy
+            int index = j;
             std::string row;
             if (j < S.size())
                 row = S[j];
-            else row = Sa[j - S.size()];
+            else {
+                index = j - S.size();
+                row = Sa[index];
+            }
+
             auto y = row.back();
             row.pop_back();
             if (S[i] != row) continue;
             for (int k = 0; k < S.size(); k++){         //S[k] = v
-                if (checkAbsorb(SxE[k], SaxE[j])) {     // если v поглощает uy, добавляем u -> v по y.
+                if (checkAbsorb(SxE[k], SaxE[index])) {     // если v поглощает uy, добавляем u -> v по y.
                     matrix[i][k] = y;
                 }
             }
@@ -268,4 +288,29 @@ automaton NL::buildAutomaton() {
     }
 
     return {std::vector <int> (1, 1), matrix, end_states};
+}
+
+void NL::printCurrentState() {
+    for (const auto & i : E){
+        if (i.empty()) std::cout << "eps" << " ";
+        else std::cout << i << " ";
+    }
+    std::cout << std::endl;
+    for (int i = 0; i < S.size(); i++){
+        if (S[i].empty()) std::cout << "eps" << " ";
+        else std::cout << S[i] << " ";
+        for (int j = 0; j < E.size(); j++){
+            std::cout << SxE[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    for (int i = 0; i < Sa.size(); i++){
+        if (Sa[i].empty()) std::cout << "eps" << " ";
+        else std::cout << Sa[i] << " ";
+        for (int j = 0; j < E.size(); j++){
+            std::cout << SaxE[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
 }

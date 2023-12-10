@@ -118,7 +118,7 @@ void AutomatonOracle::buildPostfixAutomaton() {
 
 void AutomatonOracle::generate_words_rec(const std::string& s, int n) {
     if (s.size() == n ) {
-        std::cout << s << std::endl;
+       // std::cout << s << std::endl;
         if (checkMembership(s )) words_oracle.insert(s);
         C_const--;
     }
