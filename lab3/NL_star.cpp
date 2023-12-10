@@ -60,13 +60,15 @@ automaton NL::getAutomaton() {
         while (!f_complete || !f_consist) {
             if (!isComplete()) {
                 std::cout << "Not complete" << std::endl;
-                moveToTop(problem_row_pos);     //переносим непокрытую строку из нижней таблицы в верхнюю
                 std::string prefix = Sa[problem_row_pos];
+                moveToTop(problem_row_pos);     //переносим непокрытую строку из нижней таблицы в верхнюю
+
                 problem_row_pos = -1;
                 for (auto elem : alphabet) {        // дополняем расширенную таблицу приписанными к новой строке буквами из алфавита
                     Sa.emplace_back(prefix + std::string(1, elem));
-                    SaxE.emplace_back(E.size());
+                    SaxE.emplace_back();
                 }
+                extendTables();
                 fillTables();               // дозаполняем таблицы
                 printCurrentState();
                 continue;
@@ -171,7 +173,7 @@ bool NL::check_coverable(int pos, int table_num) {
     }
 
 
-    for (int i = 0; i < SxE[0].size(); i++){
+    for (int i = 0; i < E.size(); i++){
         int val = row[i];
         if (val == 1) continue;
         for (int j = 0; j < SxE.size(); j++){
@@ -187,8 +189,7 @@ bool NL::check_coverable(int pos, int table_num) {
     }
     if (res == row) return true;
     else {
-        std::cout << "Strange result in row " << pos << std::endl;
-        return true;
+        return false;
     }
 }
 
@@ -304,6 +305,11 @@ void NL::printCurrentState() {
         }
         std::cout << std::endl;
     }
+
+    for (int i = 0; i < E.size() * 2; i++){
+        std::cout << "-";
+    }
+    std::cout << std::endl;
 
     for (int i = 0; i < Sa.size(); i++){
         if (Sa[i].empty()) std::cout << "eps" << " ";
