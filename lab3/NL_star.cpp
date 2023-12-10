@@ -24,7 +24,7 @@ private:
     void fillTables();
     void extendTables();
     void moveToTop(int pos);
-    bool checkAbsorb(std::vector <int> a, std::vector <int> b); //a >= b
+    static bool checkAbsorb(std::vector <int> a, std::vector <int> b); //a >= b
     bool check_coverable(int pos);
 public:
     explicit NL(AutomatonOracle _orac, std::set <char> _alphabet) {
@@ -63,13 +63,15 @@ automaton NL::getAutomaton() {
             }
             if (!isConsistent()) {
                 E.emplace_back(problem_suffix);             // добавляем суффикс, на котором произошло противоречие
-                extendTables()                             // увеличиваем размер таблиц
-                fillTables();     // дозаполняем таблицы
+                extendTables();                             // увеличиваем размер таблиц
+                fillTables();                               // дозаполняем таблицы
             } else {
                 f_consist = true;
             }
         }
     }
+    std::cout << "Building tables complete" << std::endl;
+    return automaton();
 }
 
 bool NL::isConsistent() {

@@ -21,21 +21,12 @@ int main() {
     test.print_all_ways_from_all_vertexes();
 
 
-//    AutomatonOracle orac;
-//    orac.setAutomaton(test);
-//    std::cout << orac.checkMembership("aa") << std::endl; // 1
-//    std::cout << orac.checkMembership("a") << std::endl; // 0
-//    std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
+    AutomatonOracle orac;
+    orac.setAutomaton(test, 1000);
+    std::cout << orac.checkMembership("aa") << std::endl; // 1
+    std::cout << orac.checkMembership("a") << std::endl; // 0
+    std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
 
-
-    // tests
-    std::vector <int> a {1, 2, 3};
-    std::vector <std::vector <int> > b;
-    b.push_back(a);
-    b[0].resize(4, -1);
-    for (int i = 0; i < b[0].size(); i++){
-        std::cout << b[0][i] << " ";
-    }
-
+    std::cout << orac.checkEqual(test) << std::endl;
 
 }
