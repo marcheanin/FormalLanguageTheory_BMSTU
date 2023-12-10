@@ -25,7 +25,9 @@ private:
     void extendTables();
     void moveToTop(int pos);
     static bool checkAbsorb(std::vector <int> a, std::vector <int> b); //a >= b
-    bool check_coverable(int pos);
+    bool check_coverable(int pos, int table_num);
+
+    automaton buildAutomaton();
 public:
     explicit NL(AutomatonOracle _orac, std::set <char> _alphabet) {
         orac = new AutomatonOracle(std::move(_orac));
@@ -44,6 +46,8 @@ automaton NL::getAutomaton() {
     }
     extendTables();
     fillTables();
+
+    automaton last_automaton;
 
     while(1) {
         bool f_complete = false, f_consist = false;
@@ -69,9 +73,19 @@ automaton NL::getAutomaton() {
                 f_consist = true;
             }
         }
+        last_automaton = buildAutomaton();
+        std::string eq_result = orac->checkEqual(last_automaton);
+        if (eq_result == "None") break;
+        else{
+            for (int i = 1; i < eq_result.size(); i++) {
+                E.push_back(eq_result.substr(0, i));
+            }
+            extendTables();
+            fillTables();
+        }
     }
     std::cout << "Building tables complete" << std::endl;
-    return automaton();
+    return last_automaton;
 }
 
 bool NL::isConsistent() {
@@ -97,8 +111,8 @@ bool NL::isConsistent() {
                     a2 = S[j1];
                     row_a2 = SxE[j1];
                 } else {
-                    a2 = Sa[j1];
-                    row_a2 = SaxE[j1];
+                    a2 = Sa[j1 - S.size()];
+                    row_a2 = SaxE[j1 - S.size()];
                 }
                 auto suffix = a2.back();
                 a2.pop_back();
@@ -128,12 +142,19 @@ bool NL::isConsistent() {
     return true;
 }
 
-bool NL::check_coverable(int pos) {
+bool NL::check_coverable(int pos, int table_num) {
+    std::vector <int> row;
+    if (table_num == 2)
+        row = SaxE[pos];
+    if (table_num == 1)
+        row = SxE[pos];
+
     std::set <int> right_rows;
     for (int i = 0; i < S.size(); i++){
+        if (table_num == 1 && i == pos) continue; // если строка входная из первой таблицы, то не добавляем ее в правильные
         right_rows.insert(i);
     }
-    std::vector <int> row = SaxE[pos];
+
 
     for (int i = 0; i < SxE[0].size(); i++){
         int val = row[i];
@@ -158,7 +179,7 @@ bool NL::check_coverable(int pos) {
 
 bool NL::isComplete() {
     for (int i = 0; i < SaxE.size(); i++) {
-        bool f = check_coverable(i);
+        bool f = check_coverable(i, 2);
         if (!f) {
             problem_row_pos = i;
             return false;
@@ -211,4 +232,40 @@ void NL::extendTables() {
     for (auto & row : SaxE){
         row.resize(E.size(), -1);
     }
+}
+
+automaton NL::buildAutomaton() {
+    std::vector <std::pair <std::string , std::vector <int> > > states;
+    // заполняем список состояний - строки из SxE, не накрываемые остальными из SxE
+    for (int i = 0; i < S.size(); i++){
+        if (check_coverable(i, 1))
+            states.emplace_back(S[i], SxE[i]);
+    }
+
+    std::vector <int> end_states (states.size());
+    // состояние финальное, если по суффиксу eps ("") у него 1
+    for (int i = 0; i < states.size(); i++){
+        if (states[i].second[0] == 1) end_states[i] = 1;
+    }
+
+    std::vector <std::vector <std::string> > matrix (states.size(), std::vector <std::string> (states.size()));
+
+    for (int i = 0; i < S.size(); i++){             //S[i] = u
+        for (int j = 0; j < S.size() + Sa.size(); j++){            //Sa[j] = uy
+            std::string row;
+            if (j < S.size())
+                row = S[j];
+            else row = Sa[j - S.size()];
+            auto y = row.back();
+            row.pop_back();
+            if (S[i] != row) continue;
+            for (int k = 0; k < S.size(); k++){         //S[k] = v
+                if (checkAbsorb(SxE[k], SaxE[j])) {     // если v поглощает uy, добавляем u -> v по y.
+                    matrix[i][k] = y;
+                }
+            }
+        }
+    }
+
+    return {std::vector <int> (1, 1), matrix, end_states};
 }

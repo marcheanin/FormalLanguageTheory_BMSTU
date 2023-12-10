@@ -27,6 +27,8 @@ int main() {
     std::cout << orac.checkMembership("a") << std::endl; // 0
     std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
 
-    std::cout << orac.checkEqual(test) << std::endl;
+    auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
+    auto result = nl_algo.getAutomaton();
+    result.show_like_arrows();
 
 }

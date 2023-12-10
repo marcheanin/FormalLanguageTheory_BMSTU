@@ -6,7 +6,7 @@
 
 class Oracle{
 public:
-    virtual std::string checkEqual(automaton& input_automaton) = 0;
+    virtual std::string checkEqual(automaton input_automaton) = 0;
     virtual bool checkMembership(const std::string& word) = 0;
     virtual std::vector <char> getAlphabet() = 0;
 };
@@ -68,7 +68,7 @@ public:
         return alphabet;
     }
 
-    std::string checkEqual(automaton &input_automaton) override {
+    std::string checkEqual(automaton input_automaton) override {
         auto m = input_automaton.get_transition_matrix();
         auto finals = input_automaton.get_end_states();
         for (auto word : words_oracle) {
