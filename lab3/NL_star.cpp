@@ -1,4 +1,5 @@
 #include <utility>
+#include <cassert>
 
 //
 // Created by march on 07.12.2023.
@@ -27,6 +28,7 @@ private:
     static bool checkAbsorb(std::vector <int> a, std::vector <int> b); //a >= b
     bool check_coverable(int pos, int table_num);
     void printCurrentState();
+    bool check_full_coverable(int pos, int table_num);
 
     automaton buildAutomaton();
 public:
@@ -47,7 +49,7 @@ automaton NL::getAutomaton() {
         Sa.emplace_back(1, elem);
         SaxE.emplace_back();
     }
-    extendTables();
+    extendTables();  // extendTables() НЕ добавляет новые строки
     fillTables();
 
     std::cout << "Tables inited" << std::endl;
@@ -185,6 +187,7 @@ bool NL::check_coverable(int pos, int table_num) {
     for (auto num : right_rows) {
         for (int i = 0; i < row.size(); i++){
             res[i] += SxE[num][i];
+            if (res[i] > 1) res[i] = 1;
         }
     }
     if (res == row) return true;
@@ -193,11 +196,70 @@ bool NL::check_coverable(int pos, int table_num) {
     }
 }
 
+bool NL::check_full_coverable(int pos, int table_num) {
+    std::vector <int> row;
+    if (table_num == 2)
+        row = SaxE[pos];
+    if (table_num == 1)
+        row = SxE[pos];
+
+    std::set <int> right_rows;
+    for (int i = 0; i < S.size(); i++){
+        if (table_num == 1 && i == pos) continue; // если строка входная из первой таблицы, то не добавляем ее в правильные
+        right_rows.insert(i);
+    }
+
+    for (int i = 0; i < Sa.size(); i++){
+        if (table_num == 2 && i == pos) continue; // если строка входная из второй таблицы, то не добавляем ее в правильные
+        right_rows.insert(i + static_cast <int> (S.size()));
+    }
+
+
+    for (int i = 0; i < E.size(); i++){                 // удаляем строки, у которых стоит единица в суффиксе, где у искомой 0 (верхняя таблица)
+        int val = row[i];
+        if (val == 1) continue;
+        for (int j = 0; j < S.size(); j++){
+            if (SxE[j][i] == 1) right_rows.erase(j % static_cast <int> (S.size()));
+        }
+    }
+
+    for (int i = 0; i < E.size(); i++){                 // удаляем строки, у которых стоит единица в суффиксе, где у искомой 0 (нижняя таблица)
+        int val = row[i];
+        if (val == 1) continue;
+        for (int j = 0; j < Sa.size(); j++){
+            if (SaxE[j][i] == 1) right_rows.erase(j + S.size());
+        }
+    }
+    if (right_rows.empty()) return false;
+    std::vector <int> res (row.size());
+    for (auto num : right_rows) {
+        for (int i = 0; i < row.size(); i++){
+            if (num < S.size())
+                res[i] += SxE[num][i];
+            else
+                res[i] += SaxE[num - S.size()][i];
+            if (res[i] > 1) res[i] = 1;
+        }
+    }
+    if (res == row) return true;
+    else {
+        return false;
+    }
+}
+
+
+
 bool NL::isComplete() {
     for (int i = 0; i < SaxE.size(); i++) {
         bool f = check_coverable(i, 2);
         if (!f) {
-            problem_row_pos = i;
+            for (int j = 0; j < Sa.size(); j++){
+                if (!check_full_coverable(j, 2)) {
+                    problem_row_pos = j;
+                    return false;
+                }
+            }
+            assert(problem_row_pos != -1);
             return false;
         }
     }
@@ -222,7 +284,6 @@ void NL::fillTables() {
             }
         }
     }
-
 }
 
 void NL::moveToTop(int pos) {
@@ -291,7 +352,8 @@ automaton NL::buildAutomaton() {
     return {std::vector <int> (1, 1), matrix, end_states};
 }
 
-void NL::printCurrentState() {
+void NL::printCurrentState() {              // отладочная
+    std::cout << "   ";
     for (const auto & i : E){
         if (i.empty()) std::cout << "eps" << " ";
         else std::cout << i << " ";
