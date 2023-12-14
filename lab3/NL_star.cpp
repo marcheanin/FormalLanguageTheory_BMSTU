@@ -89,6 +89,7 @@ automaton NL::getAutomaton() {
         }
         std::cout << "Building automaton" << std::endl;
         last_automaton = buildAutomaton();
+        last_automaton.show_like_arrows();
         std::cout << "Checking equal" << std::endl;
         std::string eq_result = orac->checkEqual(last_automaton);
         if (eq_result == "None") break;
@@ -109,7 +110,7 @@ automaton NL::getAutomaton() {
 
 bool NL::isConsistent() {
     for (int i1 = 0; i1 < S.size(); i1++){
-        for (int i2 = 0; i2 < S.size(); i2++){
+        for (int i2 = i1 + 1; i2 < S.size(); i2++){
             std::string a, b;
             std::vector <int> row_a2, row_b2;
             if (checkAbsorb(SxE[i1], SxE[i2])) {
@@ -118,11 +119,14 @@ bool NL::isConsistent() {
                 b = S[i2];
                 //row_b = SxE[i2];
             }
-            else{
+            else if (checkAbsorb(SxE[i2], SxE[i1])) {
                 a = S[i2];
                 //row_a = SxE[i2];
                 b = S[i1];
                 //row_b = SxE[i1];
+            } // имеем - a поглощает b
+            else {
+                continue;
             }
             for (int j1 = 0; j1 < S.size() + Sa.size(); j1++){
                 std::string a2;
@@ -148,7 +152,7 @@ bool NL::isConsistent() {
                     }
                     auto suffix2 = b2.back();
                     b2.pop_back();
-                    if (b2 != b && suffix != suffix2) continue;
+                    if (b2 != b || suffix != suffix2) continue;
                     b2.push_back(suffix2);
                     if (!checkAbsorb(row_a2, row_b2)) {
                         problem_suffix = suffix;
