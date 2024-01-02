@@ -28,7 +28,7 @@ private:
     void generate_words_rec(const std::string& s, int n);
     void generatePermutes(int k);
 
-    void check_word_in(std::vector < std::vector<std::string> > m, std::vector <int> finals, int v, std::string word) {
+    void check_word_in(std::vector < std::vector<std::vector<std::string>>> m, std::vector <int> finals, int v, std::string word) {
         //std::cout << v << " " << word << std::endl;
         if (finals[v] && word.empty()) {
             check_eq = true;
@@ -38,8 +38,12 @@ private:
         char first = word[0];
         word.erase(0, 1);
         for (int i = 0; i < m[v].size(); i++){
-            if (m[v][i] != "0" && std::string(1, first) == m[v][i]) {
-                check_word_in(m, finals, i, word);
+            if (!m[v][i].empty()) {
+                for (const auto &e : m[v][i]){
+                    if (std::string(1, first) == e){
+                        check_word_in(m, finals, i, word);
+                    }
+                }
             }
         }
     }
@@ -49,7 +53,11 @@ private:
         auto m = oracle_automaton.get_transition_matrix();
         for (int i = 0; i < m.size(); i++){
             for (int j = 0; j < m[0].size(); j++){
-                if (m[i][j] != "0") alph.insert(m[i][j][0]);
+                if (!m[i][j].empty()){
+                    for (const auto &e : m[i][j]){
+                        alph.insert(e[0]);
+                    }
+                }
             }
         }
         for (auto elem : alph) {
@@ -114,7 +122,7 @@ public:
 
 void AutomatonOracle::buildPrefixAutomaton(automaton &input_automaton) {
     std::vector<int> start_states = input_automaton.get_start_states();
-    std::vector<std::vector<std::string>> transition_matrix = input_automaton.get_transition_matrix();
+    std::vector<std::vector<std::vector<std::string>>> transition_matrix = input_automaton.get_transition_matrix();
     std::vector<int> end_states = input_automaton.get_end_states();
     for (int i = 0; i < input_automaton.get_end_states().size(); i++){
         end_states[i] = 1;
@@ -125,10 +133,10 @@ void AutomatonOracle::buildPrefixAutomaton(automaton &input_automaton) {
 void AutomatonOracle::buildPostfixAutomaton(automaton &input_automaton) {
     automaton result_automaton;
     std::vector<int> start_states = input_automaton.get_start_states();
-    std::vector<std::vector<std::string>> transition_matrix = input_automaton.get_transition_matrix();
-    std::vector<std::vector<std::string>> transition_matrix_transpose;
+    std::vector<std::vector<std::vector<std::string>>> transition_matrix = input_automaton.get_transition_matrix();
+    std::vector<std::vector<std::vector<std::string>>> transition_matrix_transpose;
     for (int i = 0; i < transition_matrix.size(); i++){
-        std::vector<std::string> elem;
+        std::vector<std::vector<std::string>> elem;
         for (int j = 0; j < transition_matrix.size(); j++){
             elem.push_back(transition_matrix[j][i]);
         }
