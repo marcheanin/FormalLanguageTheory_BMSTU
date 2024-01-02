@@ -32,15 +32,8 @@ int main() {
     std::cout << std::endl;
     test.print_all_ways_from_all_vertexes();
 
-
     AutomatonOracle orac;
     orac.setAutomaton(test, 1000);
-    std::cout << orac.checkMembership("aa") << std::endl; // 1
-    std::cout << orac.checkMembership("a") << std::endl; // 0
-    std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
-
-    auto nl_algo = NL(orac, std::set <char> {'a', 'b'});
-    auto result = nl_algo.getAutomaton();
-    result.show_like_arrows();
-
+    orac.buildPrefixAutomaton(test);
+    orac.buildPostfixAutomaton(test);
 }
