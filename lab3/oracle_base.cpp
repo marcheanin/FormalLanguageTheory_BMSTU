@@ -104,16 +104,45 @@ public:
         return check_eq;
     }
 
-    void buildPrefixAutomaton(); // TODO: Саня Швец  -> prefix_automaton
-    void buildPostfixAutomaton(); // TODO: Саня швец -> postfix_automaton
+    void buildPrefixAutomaton(automaton &input_automaton); // TODO: Саня Швец  -> prefix_automaton
+    void buildPostfixAutomaton(automaton &input_automaton); // TODO: Саня швец -> postfix_automaton
 };
 
-void AutomatonOracle::buildPrefixAutomaton() {
-
+void AutomatonOracle::buildPrefixAutomaton(automaton &input_automaton) {
+    std::vector<int> start_states = input_automaton.get_start_states();
+    std::vector<std::vector<std::string>> transition_matrix = input_automaton.get_transition_matrix();
+    std::vector<int> end_states = input_automaton.get_end_states();
+    for (int i = 0; i < input_automaton.get_end_states().size(); i++){
+        end_states[i] = 1;
+    }
+    prefix_automaton = automaton(start_states, transition_matrix, end_states);
 }
 
-void AutomatonOracle::buildPostfixAutomaton() {
+void AutomatonOracle::buildPostfixAutomaton(automaton &input_automaton) {
+    automaton result_automaton;
+    std::vector<int> start_states = input_automaton.get_start_states();
+    std::vector<std::vector<std::string>> transition_matrix = input_automaton.get_transition_matrix();
+    std::vector<std::vector<std::string>> transition_matrix_transpose;
+    for (int i = 0; i < transition_matrix.size(); i++){
+        std::vector<std::string> elem;
+        for (int j = 0; j < transition_matrix.size(); j++){
+            elem.push_back(transition_matrix[j][i]);
+        }
+        transition_matrix_transpose.push_back(elem);
+    }
+    std::vector<int> end_states = input_automaton.get_end_states();
 
+    for (int i = 0; i < end_states.size(); i++){
+        if (end_states[i]){
+            start_states[i] = 1;
+        } else {
+            start_states[i] = 0;
+        }
+    }
+    for (int i = 0; i < input_automaton.get_end_states().size(); i++){
+        end_states[i] = 1;
+    }
+    postfix_automaton = automaton(start_states, transition_matrix_transpose, end_states);
 }
 
 void AutomatonOracle::generate_words_rec(const std::string& s, int n) {
