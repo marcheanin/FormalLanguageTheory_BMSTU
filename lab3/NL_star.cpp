@@ -315,7 +315,7 @@ void NL::extendTables() {
     }
 }
 
-automaton NL::buildAutomaton() {
+automaton NL::buildAutomaton() { // TODO: Марч -> fix function. Пока тут заглушка
     std::vector <std::pair <std::string , std::vector <int> > > states;
     // заполняем список состояний - строки из SxE, не накрываемые остальными из SxE
     for (int i = 0; i < S.size(); i++){
@@ -353,7 +353,7 @@ automaton NL::buildAutomaton() {
         }
     }
 
-    return {std::vector <int> (1, 1), matrix, end_states};
+    return {std::vector <int> (1, 1), {{{}}}, end_states};
 }
 
 void NL::printCurrentState() {              // отладочная
