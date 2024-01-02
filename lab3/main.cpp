@@ -1,4 +1,3 @@
-#include "automaton.cpp"
 #include "oracle_base.cpp"
 #include "NL_star.cpp"
 
@@ -31,9 +30,18 @@ int main() {
     test.print_all_ways_to_all_vertexes();
     std::cout << std::endl;
     test.print_all_ways_from_all_vertexes();
+    std::cout << std::endl << "========================" << std::endl;
 
     AutomatonOracle orac;
     orac.setAutomaton(test, 1000);
     orac.buildPrefixAutomaton(test);
     orac.buildPostfixAutomaton(test);
+
+    pump pump_3_prefix = pump(3, orac.get_prefix_automaton());
+    pump pump_3_postfix = pump(3, orac.get_postfix_automaton());
+    orac.get_prefix_automaton().show_like_arrows();
+    pump_3_prefix.print_pump();
+    std::cout << std::endl << "========================" << std::endl;
+    orac.get_postfix_automaton().show_like_arrows();
+    pump_3_postfix.print_pump();
 }

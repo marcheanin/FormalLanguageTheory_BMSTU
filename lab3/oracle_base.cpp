@@ -3,6 +3,7 @@
 //
 
 #include <set>
+#include "pump.cpp"
 
 class Oracle{
 public:
@@ -106,6 +107,9 @@ public:
 
     void buildPrefixAutomaton(automaton &input_automaton); // TODO: Саня Швец  -> prefix_automaton
     void buildPostfixAutomaton(automaton &input_automaton); // TODO: Саня швец -> postfix_automaton
+    automaton get_prefix_automaton();
+    automaton get_oracle_automaton();
+    automaton get_postfix_automaton();
 };
 
 void AutomatonOracle::buildPrefixAutomaton(automaton &input_automaton) {
@@ -164,3 +168,16 @@ void AutomatonOracle::generate_words() {
         k++;
     }
 }
+
+automaton AutomatonOracle::get_prefix_automaton(){
+    return prefix_automaton;
+};
+
+automaton AutomatonOracle::get_oracle_automaton(){
+    return oracle_automaton;
+};
+
+automaton AutomatonOracle::get_postfix_automaton(){
+    return postfix_automaton;
+};
+
