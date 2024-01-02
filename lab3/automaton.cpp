@@ -3,7 +3,6 @@
 #include <vector>
 #include <iterator>
 #include <map>
-#include <algorithm>
 
 class automaton {
 private:
@@ -227,7 +226,6 @@ void automaton::get_all_ways_from_vertex(int from_vertex, int current_vertex, st
                 result.push_back(res_str);
             }
         }
-        return;
     }
 
     for (int i = 0; i < this->transition_matrix.size(); i++){
