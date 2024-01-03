@@ -13,7 +13,7 @@ std::vector<int> get_one_indexes(std::vector<int> vec){
     return result;
 }
 
-class automaton{
+class automaton_old{
 private:
 
     std::vector <int> start_states;
@@ -22,7 +22,7 @@ private:
 
     std::vector <bool> visited;
 public:
-    automaton() = default;
+    automaton_old() = default;
     std::vector<int> get_start_states();
     std::vector <std::vector <std::pair<std::string, bool>>> get_transition_matrix();
     std::vector<int> get_end_states();
@@ -40,12 +40,12 @@ public:
     void dfs_transpon(int vertex);
     void delete_traps();
 
-    automaton(std::vector<int> p_start_states,
+    automaton_old(std::vector<int> p_start_states,
               std::vector<std::vector<std::pair<std::string, bool>>> p_transition_matrix,
               std::vector<int> p_end_states);
 };
 
-void automaton::show_automaton() {
+void automaton_old::show_automaton() {
     this->print_start_vector();
     std::cout << std::endl;
     this->print_transition_matrix();
@@ -54,7 +54,7 @@ void automaton::show_automaton() {
     std::cout << std::endl;
 }
 
-void automaton::show_like_arrows() {
+void automaton_old::show_like_arrows() {
     std::cout << "digraph G {" << std::endl;
     std::cout << "rankdir=\"LR\";" << std::endl;
     for (int i = 0; i < this->transition_matrix.size(); i++){
@@ -74,33 +74,33 @@ void automaton::show_like_arrows() {
     std::cout << "}" << std::endl;
 }
 
-automaton::automaton(std::vector <int> p_start_states, std::vector <std::vector <std::pair<std::string, bool>>> p_transition_matrix, std::vector <int> p_end_states) {
+automaton_old::automaton_old(std::vector <int> p_start_states, std::vector <std::vector <std::pair<std::string, bool>>> p_transition_matrix, std::vector <int> p_end_states) {
     start_states = std::move(p_start_states);
     transition_matrix = std::move(p_transition_matrix);
     end_states = std::move(p_end_states);
     visited = std::vector<bool>(start_states.size(), false);
 }
 
-std::vector<int> automaton::get_start_states() {
+std::vector<int> automaton_old::get_start_states() {
     return start_states;
 }
 
-std::vector <std::vector <std::pair<std::string, bool>>> automaton::get_transition_matrix(){
+std::vector <std::vector <std::pair<std::string, bool>>> automaton_old::get_transition_matrix(){
     return transition_matrix;
 }
 
-std::vector<int> automaton::get_end_states(){
+std::vector<int> automaton_old::get_end_states(){
     return end_states;
 }
 
-void automaton::print_start_vector() {
+void automaton_old::print_start_vector() {
     for (int start_state : start_states){
         std::cout << start_state << " ";
     }
     std::cout << std::endl;
 }
 
-void automaton::print_transition_matrix() {
+void automaton_old::print_transition_matrix() {
     for (auto & i : transition_matrix){
         for (const auto & j : i){
             std::cout << j.first << " ";
@@ -109,13 +109,13 @@ void automaton::print_transition_matrix() {
     }
 }
 
-void automaton::print_end_vector() {
+void automaton_old::print_end_vector() {
     for (int end_state : end_states){
         std::cout << end_state << std::endl;
     }
 }
 
-void automaton::dfs(int vertex){
+void automaton_old::dfs(int vertex){
     this->visited[vertex] = true;
     for (int j = 0; j < this->transition_matrix[vertex].size(); j++){
         if (this->transition_matrix[vertex][j].first != "0" && !this->visited[j]){
@@ -124,7 +124,7 @@ void automaton::dfs(int vertex){
     }
 }
 
-void automaton::dfs_from_starts() {
+void automaton_old::dfs_from_starts() {
     for (int i = 0; i < this->start_states.size(); i++){
         if (this->start_states[i]){
             dfs(i);
@@ -132,11 +132,11 @@ void automaton::dfs_from_starts() {
     }
 }
 
-std::vector<bool> automaton::get_visited() {
+std::vector<bool> automaton_old::get_visited() {
     return this->visited;
 }
 
-void automaton::dfs_transpon(int vertex) {
+void automaton_old::dfs_transpon(int vertex) {
     this->visited[vertex] = true;
     for (int i = 0; i < this->transition_matrix[vertex].size(); i++){
         if (this->transition_matrix[i][vertex].first != "0" && !this->visited[i]){
@@ -145,7 +145,7 @@ void automaton::dfs_transpon(int vertex) {
     }
 }
 
-void automaton::delete_traps() {
+void automaton_old::delete_traps() {
     // ����� ��������� �� ����������������� ������� �� �������� ���������. ���, ������� �� �������� - �������
     for (int i = 0; i < this->visited.size(); i++){
         visited[i] = false;
@@ -186,19 +186,19 @@ void automaton::delete_traps() {
     }
 }
 
-void automaton::set_transition_matrix(std::vector<std::vector<std::pair<std::string, bool>>> new_matrix) {
+void automaton_old::set_transition_matrix(std::vector<std::vector<std::pair<std::string, bool>>> new_matrix) {
     this->transition_matrix = std::move(new_matrix);
 }
 
-void automaton::set_start_states(std::vector<int> new_start_states) {
+void automaton_old::set_start_states(std::vector<int> new_start_states) {
     this->start_states = new_start_states;
 }
 
-void automaton::set_end_states(std::vector<int> new_end_states) {
+void automaton_old::set_end_states(std::vector<int> new_end_states) {
     this->end_states = new_end_states;
 }
 
-automaton intersect_automatons(automaton& auto1, automaton& auto2){
+automaton_old intersect_automatons(automaton_old& auto1, automaton_old& auto2){
     std::vector<int> start_states(auto1.get_start_states().size() * auto2.get_start_states().size(), 0);
     for (int i = 0; i < auto1.get_start_states().size(); i++){
         for (int j = 0; j < auto2.get_start_states().size(); j++){
@@ -231,7 +231,7 @@ automaton intersect_automatons(automaton& auto1, automaton& auto2){
         }
     }
 
-    automaton res(start_states, transition_matrix, end_states);
+    automaton_old res(start_states, transition_matrix, end_states);
     res.dfs_from_starts();
 
     std::vector <bool> need_delete(transition_matrix.size(), false);
@@ -278,7 +278,7 @@ automaton intersect_automatons(automaton& auto1, automaton& auto2){
     return res;
 }
 
-automaton alternative_automatons(automaton& auto1, automaton& auto2){
+automaton_old alternative_automatons(automaton_old& auto1, automaton_old& auto2){
     if (auto1.get_transition_matrix().empty()){
         return auto2;
     } else if (auto2.get_transition_matrix().empty()){
@@ -327,7 +327,7 @@ automaton alternative_automatons(automaton& auto1, automaton& auto2){
     return {start_states, transition_matrix, end_states};
 }
 
-automaton concat_automatons(automaton& auto1, automaton& auto2){
+automaton_old concat_automatons(automaton_old& auto1, automaton_old& auto2){
     if (auto2.get_transition_matrix().empty()){
         return auto2;
     } else if (auto1.get_transition_matrix().empty()){
@@ -380,7 +380,7 @@ automaton concat_automatons(automaton& auto1, automaton& auto2){
     return {start_states, transition_matrix, end_states};
 }
 
-automaton iteration_automaton(automaton& auto1){
+automaton_old iteration_automaton(automaton_old& auto1){
     if (auto1.get_transition_matrix().empty()){
         return {std::vector<int>(1, 1), std::vector <std::vector <std::pair<std::string, bool>>>(1, std::vector<std::pair<std::string, bool>>(1, {"0", false})), std::vector<int>(1, 1)};
     }
@@ -446,7 +446,7 @@ void print_matrix(const std::vector<std::vector<std::pair<std::string, bool>>>& 
     std::cout << std::endl;
 }
 
-automaton remove_state(automaton& auto1, int index){
+automaton_old remove_state(automaton_old& auto1, int index){
     std::vector<int> new_start_states = auto1.get_start_states();
     new_start_states.erase(new_start_states.begin() + index);
 
@@ -462,7 +462,7 @@ automaton remove_state(automaton& auto1, int index){
     return {new_start_states, new_transition_matrix, new_end_states};
 }
 
-bool check_start_state(automaton& auto1){
+bool check_start_state(automaton_old& auto1){
     for(int i = 0; i < auto1.get_transition_matrix().size(); i++){
         if (auto1.get_transition_matrix()[i][0].first != "0"){
             return true;
@@ -471,7 +471,7 @@ bool check_start_state(automaton& auto1){
     return false;
 }
 
-int sum_end_states(automaton& auto1){
+int sum_end_states(automaton_old& auto1){
     int res = 0;
     for (int i = 0; i < auto1.get_end_states().size(); i++){
         res += auto1.get_end_states()[i];
@@ -479,7 +479,7 @@ int sum_end_states(automaton& auto1){
     return res;
 }
 
-std::vector<int> get_end_states_indexes(automaton& auto1){
+std::vector<int> get_end_states_indexes(automaton_old& auto1){
     std::vector<int> res;
     for(int i = 0; i < auto1.get_end_states().size(); i++){
         if(auto1.get_end_states()[i] == 1){
@@ -489,7 +489,7 @@ std::vector<int> get_end_states_indexes(automaton& auto1){
     return res;
 }
 
-std::vector<int> get_start_states_indexes(automaton& auto1){
+std::vector<int> get_start_states_indexes(automaton_old& auto1){
     std::vector<int> res;
     for(int i = 0; i < auto1.get_end_states().size(); i++){
         if(auto1.get_start_states()[i] == 1){
@@ -499,7 +499,7 @@ std::vector<int> get_start_states_indexes(automaton& auto1){
     return res;
 }
 
-std::string automaton_2_regex(const automaton& auto2){
+std::string automaton_2_regex(const automaton_old& auto2){
     auto auto1 = auto2;
     if (auto1.get_transition_matrix().empty()){
         return "^$";
