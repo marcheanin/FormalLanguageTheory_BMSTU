@@ -84,8 +84,10 @@ public:
         for (auto word : words_oracle) {
             check_eq = false;
             for (int i = 0; i < start_st.size(); i++)
-                if (start_st[i] == 1)
-                    check_word_in(m, finals, i, word); // v = 0 - стартовое. Если оно будет не 0 или их будет несколько - исправить.
+                if (start_st[i] == 1) {
+                    check_word_in(m, finals, i, word);
+                    if (check_eq) break;
+                }
             if (!check_eq) {
                 return word;
             }

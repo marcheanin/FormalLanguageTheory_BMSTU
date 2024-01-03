@@ -16,30 +16,30 @@ int main() {
 //    test.show_like_arrows();
 
 
-//    std::vector<int> start_states = {1, 0, 0, 0, 0, 0, 0, 0};
-//    std::vector<std::vector<std::vector<std::string>>> transition_matrix = {{{"b"}, {"a"}, {}, {}, {}, {}, {}, {}},
-//                                                                           {{}, {}, {"a"}, {}, {}, {"b"}, {}, {}},
-//                                                                           {{}, {}, {}, {"a"}, {"b"}, {}, {}, {}},
-//                                                                           {{}, {}, {}, {"a"}, {"b"}, {}, {}, {}},
-//                                                                           {{}, {}, {}, {}, {}, {}, {"a"}, {"b"}},
-//                                                                           {{}, {}, {}, {}, {}, {}, {"a"}, {"b"}},
-//                                                                           {{}, {}, {"a"}, {}, {}, {"b"}, {}, {}},
-//                                                                           {{"b"}, {"a"}, {}, {}, {}, {}, {}, {}}};
-//    std::vector<int> end_states = {0, 0, 0, 1, 1, 0, 1, 1};
+    std::vector<int> start_states = {1, 0, 0, 0, 0, 0, 0, 0};
+    std::vector<std::vector<std::vector<std::string>>> transition_matrix = {{{"b"}, {"a"}, {}, {}, {}, {}, {}, {}},
+                                                                           {{}, {}, {"a"}, {}, {}, {"b"}, {}, {}},
+                                                                           {{}, {}, {}, {"a"}, {"b"}, {}, {}, {}},
+                                                                           {{}, {}, {}, {"a"}, {"b"}, {}, {}, {}},
+                                                                           {{}, {}, {}, {}, {}, {}, {"a"}, {"b"}},
+                                                                           {{}, {}, {}, {}, {}, {}, {"a"}, {"b"}},
+                                                                           {{}, {}, {"a"}, {}, {}, {"b"}, {}, {}},
+                                                                           {{"b"}, {"a"}, {}, {}, {}, {}, {}, {}}};
+    std::vector<int> end_states = {0, 0, 0, 1, 1, 0, 1, 1};
 
 
-    std::vector<int> start_states = {1, 0, 0, 0, 0};
-    std::vector<std::vector<std::vector<std::string>>> transition_matrix = {{{}, {"a", "b"}, {}, {}, {}},
-                                                                            {{}, {}, {"a", "b"}, {}, {}},
-                                                                            {{}, {}, {}, {"a", "b"}, {}},
-                                                                            {{"b"}, {}, {}, {}, {"a"}},
-                                                                            {{}, {}, {}, {}, {"a", "b"}}};
-    std::vector<int> end_states = {1, 1, 1, 1, 0};
+//    std::vector<int> start_states = {1, 0, 0, 0, 0};
+//    std::vector<std::vector<std::vector<std::string>>> transition_matrix = {{{}, {"a", "b"}, {}, {}, {}},
+//                                                                            {{}, {}, {"a", "b"}, {}, {}},
+//                                                                            {{}, {}, {}, {"a", "b"}, {}},
+//                                                                            {{"b"}, {}, {}, {}, {"a"}},
+//                                                                            {{}, {}, {}, {}, {"a", "b"}}};
+//    std::vector<int> end_states = {0, 1, 1, 1, 0};
 
 
 
     automaton test(start_states, transition_matrix, end_states);
-
+    test.show_like_arrows();
     AutomatonOracle orac;
     orac.setAutomaton(test, 1000);
     std::cout << orac.checkMembership("aa") << std::endl; // 1

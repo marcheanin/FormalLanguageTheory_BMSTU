@@ -258,7 +258,7 @@ bool NL::isComplete() {
         bool f = check_coverable(i, 2);
         if (!f) {
             for (int j = 0; j < Sa.size(); j++){
-                if (!check_full_coverable(j, 2)) {
+                if (!check_coverable(j, 2)) {
                     problem_row_pos = j;
                     return false;
                 }
@@ -315,7 +315,7 @@ void NL::extendTables() {
     }
 }
 
-automaton NL::buildAutomaton() { // TODO: Марч -> fix function. Пока тут заглушка
+automaton NL::buildAutomaton() {
     std::vector <std::pair <std::string , std::vector <int> > > states;
     // заполняем список состояний - строки из SxE, не накрываемые остальными из SxE
     for (int i = 0; i < S.size(); i++){
@@ -331,7 +331,7 @@ automaton NL::buildAutomaton() { // TODO: Марч -> fix function. Пока т�
 
     std::vector <std::vector <std::vector <std::string> > > matrix (states.size(), std::vector < std::vector <std::string>  > (states.size()));
 
-    for (int i = 0; i < S.size(); i++){             //S[i] = u
+    for (int i = 0; i < states.size(); i++){             //S[i] = u
         for (int j = 0; j < S.size() + Sa.size(); j++){            //Sa[j] = uy
             int index = j;
             std::string uy;
@@ -348,9 +348,9 @@ automaton NL::buildAutomaton() { // TODO: Марч -> fix function. Пока т�
 
             auto y = uy.back();
             uy.pop_back();
-            if (S[i] != uy) continue;
-            for (int k = 0; k < S.size(); k++){         //S[k] = v
-                auto row2 = SxE[k];
+            if (states[i].first != uy) continue;
+            for (int k = 0; k < states.size(); k++){         //S[k] = v
+                auto row2 = states[k].second;
                 if (checkAbsorb(row, row2)) {     // если v поглощает uy, добавляем u -> v по y.
                     matrix[i][k].emplace_back(1, y);
                 }
@@ -361,8 +361,8 @@ automaton NL::buildAutomaton() { // TODO: Марч -> fix function. Пока т�
     std::vector <int> start_states (states.size());
     start_states[0] = 1;
 
-    for (int i = 0; i < S.size(); i++){
-        if (checkAbsorb(SxE[i], SxE[0])) {
+    for (int i = 0; i < states.size(); i++){
+        if (checkAbsorb(SxE[0], states[i].second)) {
             start_states[i] = 1;
         }
     }
