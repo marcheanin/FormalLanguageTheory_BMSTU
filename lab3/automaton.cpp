@@ -3,6 +3,7 @@
 #include <vector>
 #include <iterator>
 #include <map>
+#include "lab2_sources/ts.cpp"
 
 class automaton {
 private:
@@ -268,4 +269,19 @@ void automaton::print_all_ways_from_all_vertexes() {
         }
         std::cout << std::endl << std::endl;
     }
+}
+
+automaton old_automaton_to_new(automaton_old auto1){
+    std::vector<int> start_states = auto1.get_start_states();
+    std::vector<int> end_states = auto1.get_end_states();
+    std::vector<std::vector<std::pair<std::string, bool>>> old_transition_matrix = auto1.get_transition_matrix();
+    std::vector<std::vector<std::vector<std::string>>> transition_matrix;
+    for (int i = 0; i < old_transition_matrix.size(); i++){
+        std::vector<std::vector<std::string>> row;
+        for (int j = 0; j < old_transition_matrix.size(); j++){
+            row.push_back({old_transition_matrix[i][j].first});
+        }
+        transition_matrix.push_back(row);
+    }
+    return {start_states, transition_matrix, end_states};
 }
