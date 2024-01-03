@@ -279,7 +279,11 @@ automaton old_automaton_to_new(automaton_old auto1){
     for (int i = 0; i < old_transition_matrix.size(); i++){
         std::vector<std::vector<std::string>> row;
         for (int j = 0; j < old_transition_matrix.size(); j++){
-            row.push_back({old_transition_matrix[i][j].first});
+            if (old_transition_matrix[i][j].first == "0"){
+                row.emplace_back();
+            } else {
+                row.push_back({old_transition_matrix[i][j].first});
+            }
         }
         transition_matrix.push_back(row);
     }
