@@ -1,6 +1,10 @@
 #include "oracle_base.cpp"
 #include "NL_star.cpp"
 
+#include "lab2_sources/parser.cpp"
+#include "lab2_sources/tree.cpp"
+#include "lab2_sources/FFL.cpp"
+
 int main() {
 //    std::vector<int> start_states = {1, 0, 0, 0, 1, 0};
 //    std::vector<std::vector<std::vector<std::string>>>  transition_matrix = {{{}, {"a"}, {}, {}, {}, {}},
@@ -36,12 +40,30 @@ int main() {
 //                                                                            {{}, {}, {}, {}, {"a", "b"}}};
 //    std::vector<int> end_states = {0, 1, 1, 1, 0};
 
+    std::string input_regex;
+    std::ifstream fin("input.txt");
+    assert(fin.is_open());
+    fin >> input_regex;
 
+    std::vector <std::pair <std::string, std::string > > lexemes = lexer(input_regex);
 
-    automaton test(start_states, transition_matrix, end_states);
-    test.show_like_arrows();
+    for (const auto& elem : lexemes) {
+        std::cout << elem.first <<  " ";
+    }
+    std::cout << std::endl;
+
+    std::vector <std::pair <std::string, std::string > > postfix = to_postfix(lexemes);
+
+    TreeNode* tree = build_tree(postfix);
+
+    auto res4 = process_automaton_tree(tree);
+
+    res4.show_like_arrows();
+
+    // automaton test(start_states, transition_matrix, end_states);
+    // test.show_like_arrows();
     AutomatonOracle orac;
-    orac.setAutomaton(test, 1000);
+    orac.setAutomaton(res4, 1000);
     std::cout << orac.checkMembership("aa") << std::endl; // 1
     std::cout << orac.checkMembership("a") << std::endl; // 0
     std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
@@ -49,6 +71,8 @@ int main() {
     auto nl_algo = NL(orac, std::set <char> {'a', 'b'});
     auto result = nl_algo.getAutomaton();
     result.show_like_arrows();
+
+
 //
 //    test.print_all_ways_to_all_vertexes();
 //    std::cout << std::endl;
