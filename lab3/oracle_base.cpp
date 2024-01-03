@@ -80,9 +80,12 @@ public:
     std::string checkEqual(automaton input_automaton) override {
         auto m = input_automaton.get_transition_matrix();
         auto finals = input_automaton.get_end_states();
+        auto start_st = input_automaton.get_start_states();
         for (auto word : words_oracle) {
             check_eq = false;
-            check_word_in(m, finals, 0, word);
+            for (int i = 0; i < start_st.size(); i++)
+                if (start_st[i] == 1)
+                    check_word_in(m, finals, i, word); // v = 0 - стартовое. Если оно будет не 0 или их будет несколько - исправить.
             if (!check_eq) {
                 return word;
             }
@@ -92,9 +95,12 @@ public:
 
     bool checkMembership(const std::string &word) override {
         auto m = oracle_automaton.get_transition_matrix();
+        auto start_st = oracle_automaton.get_start_states();
         auto finals = oracle_automaton.get_end_states();
         check_eq = false;
-        check_word_in(m, finals, 0, word); // v = 0 - стартовое. Если оно будет не 0 или их будет несколько - исправить.
+        for (int i = 0; i < start_st.size(); i++)
+            if (start_st[i] == 1)
+                check_word_in(m, finals, i, word); // v = 0 - стартовое. Если оно будет не 0 или их будет несколько - исправить.
         return check_eq;
     }
 

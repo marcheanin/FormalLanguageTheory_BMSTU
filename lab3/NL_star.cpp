@@ -329,31 +329,45 @@ automaton NL::buildAutomaton() { // TODO: Марч -> fix function. Пока т�
         if (states[i].second[0] == 1) end_states[i] = 1;
     }
 
-    std::vector <std::vector <std::string> > matrix (states.size(), std::vector <std::string> (states.size()));
+    std::vector <std::vector <std::vector <std::string> > > matrix (states.size(), std::vector < std::vector <std::string>  > (states.size()));
 
     for (int i = 0; i < S.size(); i++){             //S[i] = u
         for (int j = 0; j < S.size() + Sa.size(); j++){            //Sa[j] = uy
             int index = j;
-            std::string row;
-            if (j < S.size())
-                row = S[j];
+            std::string uy;
+            std::vector <int> row;
+            if (j < S.size()) {
+                uy = S[j];
+                row = SxE[j];
+            }
             else {
                 index = j - S.size();
-                row = Sa[index];
+                uy = Sa[index];
+                row = SaxE[index];
             }
 
-            auto y = row.back();
-            row.pop_back();
-            if (S[i] != row) continue;
+            auto y = uy.back();
+            uy.pop_back();
+            if (S[i] != uy) continue;
             for (int k = 0; k < S.size(); k++){         //S[k] = v
-                if (checkAbsorb(SxE[k], SaxE[index])) {     // если v поглощает uy, добавляем u -> v по y.
-                    matrix[i][k] = y;
+                auto row2 = SxE[k];
+                if (checkAbsorb(row, row2)) {     // если v поглощает uy, добавляем u -> v по y.
+                    matrix[i][k].emplace_back(1, y);
                 }
             }
         }
     }
 
-    return {std::vector <int> (1, 1), {{{}}}, end_states};
+    std::vector <int> start_states (states.size());
+    start_states[0] = 1;
+
+    for (int i = 0; i < S.size(); i++){
+        if (checkAbsorb(SxE[i], SxE[0])) {
+            start_states[i] = 1;
+        }
+    }
+
+    return {start_states, matrix, end_states};
 }
 
 void NL::printCurrentState() {              // отладочная
