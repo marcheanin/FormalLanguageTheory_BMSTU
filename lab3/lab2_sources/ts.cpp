@@ -3,15 +3,15 @@
 #include <vector>
 #include <iterator>
 
-std::vector<int> get_one_indexes(std::vector<int> vec){
-    std::vector<int> result;
-    for(int i = 0; i < vec.size(); i++){
-        if (vec[i] == 1){
-            result.push_back(i);
-        }
-    }
-    return result;
-}
+//std::vector<int> get_one_indexes(std::vector<int> vec){
+//    std::vector<int> result;
+//    for(int i = 0; i < vec.size(); i++){
+//        if (vec[i] == 1){
+//            result.push_back(i);
+//        }
+//    }
+//    return result;
+//}
 
 class automaton_old{
 private:
