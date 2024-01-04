@@ -65,13 +65,13 @@ int main() {
     // automaton test(start_states, transition_matrix, end_states);
     // test.show_like_arrows();
     AutomatonOracle orac;
-    orac.setAutomaton(res4_new, 1000);
+    orac.setAutomaton(res4_new, 300);
     std::cout << orac.checkMembership("aa") << std::endl; // 1
     std::cout << orac.checkMembership("a") << std::endl; // 0
     std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
 
     auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
-    auto result = nl_algo.getAutomaton();
+    auto result = nl_algo.getAutomaton(0);
     result.show_like_arrows();
 
 

@@ -37,10 +37,10 @@ public:
         alphabet = std::move(_alphabet);
     }
 
-    automaton getAutomaton();
+    automaton getAutomaton(int mode);
 };
 
-automaton NL::getAutomaton() {
+automaton NL::getAutomaton(int mode) {
     E.emplace_back("");
     S.emplace_back("");
     SxE.emplace_back();
@@ -91,7 +91,7 @@ automaton NL::getAutomaton() {
         last_automaton = buildAutomaton();
         last_automaton.show_like_arrows();
         std::cout << "Checking equal" << std::endl;
-        std::string eq_result = orac->checkEqual(last_automaton);
+        std::string eq_result = orac->checkEqual(last_automaton, mode);
         if (eq_result == "None") break;
         else{
             std::cout << "Have example " << eq_result << std::endl;
