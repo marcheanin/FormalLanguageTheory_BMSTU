@@ -91,7 +91,7 @@ automaton NL::getAutomaton(int mode) {
         last_automaton = buildAutomaton();
         last_automaton.show_like_arrows();
         std::cout << "Checking equal" << std::endl;
-        std::string eq_result = orac->checkEqual(last_automaton, mode);
+        std::string eq_result = orac->checkEqual(last_automaton, mode, alphabet);
         if (eq_result == "None") break;
         else{
             std::cout << "Have example " << eq_result << std::endl;

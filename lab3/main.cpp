@@ -57,7 +57,6 @@ int main() {
     TreeNode* tree = build_tree(postfix);
 
     auto res4 = process_automaton_tree(tree);
-    res4.show_like_arrows();
 
     auto res4_new = old_automaton_to_new(res4);
     res4_new.show_like_arrows();
@@ -66,9 +65,12 @@ int main() {
     // test.show_like_arrows();
     AutomatonOracle orac;
     orac.setAutomaton(res4_new, 300);
-    std::cout << orac.checkMembership("aa") << std::endl; // 1
-    std::cout << orac.checkMembership("a") << std::endl; // 0
-    std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
+
+    auto pref_auto = orac.getPrefixAutomaton();
+    pref_auto.show_like_arrows();
+
+    auto post_auto = orac.getPostfixAutomaton();
+    post_auto.show_like_arrows();
 
     auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
     auto result = nl_algo.getAutomaton(0);
