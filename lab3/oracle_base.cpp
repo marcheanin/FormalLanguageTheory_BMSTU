@@ -24,6 +24,7 @@ private:
     int C_const;
 
     bool check_eq = false;
+    bool check_eq2 = false;
 
     void generate_words();
     void generate_words_rec(const std::string& s, int n);
@@ -43,6 +44,26 @@ private:
                 for (const auto &e : m[v][i]){
                     if (std::string(1, first) == e){
                         check_word_in(m, finals, i, word);
+                    }
+                }
+            }
+        }
+    }
+
+    void check_word_in2(std::vector < std::vector<std::vector<std::string>>> m, std::vector <int> finals, int v, std::string word) {
+        //std::cout << v << " " << word << std::endl;
+        if (finals[v] && word.empty()) {
+            check_eq2 = true;
+            return;
+        }
+        if (word.empty()) return;
+        char first = word[0];
+        word.erase(0, 1);
+        for (int i = 0; i < m[v].size(); i++){
+            if (!m[v][i].empty()) {
+                for (const auto &e : m[v][i]){
+                    if (std::string(1, first) == e){
+                        check_word_in2(m, finals, i, word);
                     }
                 }
             }
@@ -78,18 +99,19 @@ public:
         return alphabet;
     }
 
-    std::string checkEqual(automaton input_automaton) override {
+        std::string checkEqual(automaton input_automaton) override {
         auto m = input_automaton.get_transition_matrix();
         auto finals = input_automaton.get_end_states();
         auto start_st = input_automaton.get_start_states();
         for (auto word : words_oracle) {
+            check_eq2 = false;
             check_eq = false;
             for (int i = 0; i < start_st.size(); i++)
                 if (start_st[i] == 1) {
-                    check_word_in(m, finals, i, word);
-                    if (check_eq) break;
+                    check_word_in2(m, finals, i, word);
+                    checkMembership(word);
                 }
-            if (!check_eq) {
+            if (check_eq != check_eq2) {
                 return word;
             }
         }
@@ -102,8 +124,10 @@ public:
         auto finals = oracle_automaton.get_end_states();
         check_eq = false;
         for (int i = 0; i < start_st.size(); i++)
-            if (start_st[i] == 1)
+            if (start_st[i] == 1){
                 check_word_in(m, finals, i, word); // v = 0 - стартовое. Если оно будет не 0 или их будет несколько - исправить.
+                if (check_eq) break;
+            }
         return check_eq;
     }
 
@@ -169,7 +193,8 @@ void AutomatonOracle::buildPostfixAutomaton(automaton &input_automaton) {
 void AutomatonOracle::generate_words_rec(const std::string& s, int n) {
     if (s.size() == n ) {
        // std::cout << s << std::endl;
-        if (checkMembership(s )) words_oracle.push_back(s);
+        //if (checkMembership(s )) words_oracle.push_back(s);
+        words_oracle.push_back(s);
         C_const--;
     }
     if (s.size() == n) return;
