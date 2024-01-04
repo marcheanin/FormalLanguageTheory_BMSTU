@@ -19,7 +19,8 @@ private:
     automaton postfix_automaton;
 
     std::vector <char> alphabet;
-    std::set <std::string> words_oracle;
+   // std::set <std::string> words_oracle;
+    std::vector <std::string> words_oracle;
     int C_const;
 
     bool check_eq = false;
@@ -168,7 +169,7 @@ void AutomatonOracle::buildPostfixAutomaton(automaton &input_automaton) {
 void AutomatonOracle::generate_words_rec(const std::string& s, int n) {
     if (s.size() == n ) {
        // std::cout << s << std::endl;
-        if (checkMembership(s )) words_oracle.insert(s);
+        if (checkMembership(s )) words_oracle.push_back(s);
         C_const--;
     }
     if (s.size() == n) return;

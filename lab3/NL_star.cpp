@@ -95,8 +95,14 @@ automaton NL::getAutomaton() {
         if (eq_result == "None") break;
         else{
             std::cout << "Have example " << eq_result << std::endl;
-            for (int i = 1; i < eq_result.size() + 1; i++) {
-                E.push_back(eq_result.substr(0, i));
+//            for (int i = 1; i < eq_result.size() + 1; i++) {
+//                E.push_back(eq_result.substr(0, i));
+//            }
+            E.push_back(eq_result);
+            eq_result.erase(eq_result.begin());
+            while (!eq_result.empty()) {
+                E.push_back(eq_result);
+                eq_result.erase(eq_result.begin());
             }
             extendTables();
             fillTables();
