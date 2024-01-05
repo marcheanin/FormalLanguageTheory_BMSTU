@@ -20,6 +20,8 @@ public:
     AutomatonOracle get_oracle();
     std::map<std::set<char>, std::pair<automaton, bool>> get_prefix_automatons();
     std::map<std::set<char>, std::pair<automaton, bool>> get_postfix_automatons();
+    void show_prefix_automatons();
+    void show_postfix_automatons();
 };
 
 void combinationUtil(std::set<char> arr, std::vector<char> data,
@@ -106,3 +108,34 @@ std::map<std::set<char>, std::pair<automaton, bool>> main_algo::get_postfix_auto
     return alphabet_automatons_postfix;
 }
 
+void main_algo::show_prefix_automatons() {
+    for(auto & it : alphabet_automatons_prefix){
+        std::cout << std::endl << "{";
+        auto it_set = it.first.begin();
+        for (int i = 0; i < it.first.size(); i++){
+            if (i != it.first.size() - 1){
+                std::cout << *it_set << ", ";
+            } else {
+                std::cout << *it_set << "}:" << std::endl;
+            }
+        }
+        it.second.first.show_like_arrows();
+        std::cout << std::endl;
+    }
+}
+
+void main_algo::show_postfix_automatons() {
+    for(auto & it : alphabet_automatons_postfix){
+        std::cout << std::endl << "{";
+        auto it_set = it.first.begin();
+        for (int i = 0; i < it.first.size(); i++){
+            if (i != it.first.size() - 1){
+                std::cout << *it_set << ", ";
+            } else {
+                std::cout << *it_set << "}:" << std::endl;
+            }
+        }
+        it.second.first.show_like_arrows();
+        std::cout << std::endl;
+    }
+}
