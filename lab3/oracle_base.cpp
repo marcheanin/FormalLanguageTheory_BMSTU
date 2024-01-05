@@ -9,6 +9,8 @@ class Oracle{
 public:
     virtual std::string checkEqual(automaton input_automaton, int mode, std::set <char> alph) = 0; // 0: обычный язык, 1: язык префиксов, 2: язык суффиксов
     virtual bool checkMembership(const std::string& word) = 0;
+    virtual bool checkPrefixMembership(const std::string& word) = 0;
+    virtual bool checkPostfixMembership(const std::string& word) = 0;
     virtual std::vector <char> getAlphabet() = 0;
 };
 
@@ -152,7 +154,7 @@ public:
         return check_eq;
     }
 
-    bool checkPrefixMembership(const std::string  &word) {
+    bool checkPrefixMembership(const std::string  &word) override {
         auto m = prefix_automaton.get_transition_matrix();
         auto start_st = prefix_automaton.get_start_states();
         auto finals = prefix_automaton.get_end_states();
@@ -164,7 +166,7 @@ public:
             }
         return check_eq;
     }
-    bool checkPostfixMembership(const std::string  &word) {
+    bool checkPostfixMembership(const std::string  &word) override {
         auto m = postfix_automaton.get_transition_matrix();
         auto start_st = postfix_automaton.get_start_states();
         auto finals = postfix_automaton.get_end_states();

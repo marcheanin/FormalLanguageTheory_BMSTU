@@ -14,6 +14,8 @@ private:
     std::vector <std::vector <int> > SxE;
     std::vector <std::vector <int> > SaxE;
 
+    int mode = 0;
+
     int problem_row_pos = -1;
     std::string problem_suffix;
 
@@ -41,7 +43,8 @@ public:
     automaton getAutomaton(int mode);
 };
 
-automaton NL::getAutomaton(int mode) {
+automaton NL::getAutomaton(int _mode) {
+    mode = _mode;
     E.emplace_back("");
     S.emplace_back("");
     SxE.emplace_back();
@@ -328,7 +331,10 @@ void NL::fillTables() {
     for (int i = 0; i < S.size(); i++){
         for (int j = 0; j < E.size(); j++){
             if (SxE[i][j] == -1) {
-                if (orac->checkMembership(S[i] + E[j])) SxE[i][j] = 1;
+                if (mode == 0 && orac->checkMembership(S[i] + E[j]) ||
+                    mode == 1 && orac->checkPrefixMembership(S[i] + E[j]) ||
+                    mode == 2 && orac->checkPostfixMembership(S[i] + E[j]))
+                    SxE[i][j] = 1;
                 else SxE[i][j] = 0;
             }
         }
@@ -337,7 +343,10 @@ void NL::fillTables() {
     for (int i = 0; i < Sa.size(); i++){
         for (int j = 0; j < E.size(); j++){
             if (SaxE[i][j] == -1) {
-                if (orac->checkMembership(Sa[i] + E[j])) SaxE[i][j] = 1;
+                if (mode == 0 && orac->checkMembership(Sa[i] + E[j]) ||
+                    mode == 1 && orac->checkPrefixMembership(Sa[i] + E[j]) ||
+                    mode == 2 && orac->checkPostfixMembership(Sa[i] + E[j]))
+                    SaxE[i][j] = 1;
                 else SaxE[i][j] = 0;
             }
         }
