@@ -13,13 +13,13 @@ class main_algo{
 private:
     AutomatonOracle orac;
 
-    std::map<std::set<char>, std::pair<automaton, bool>> alphabet_automatons_prefix;
-    std::map<std::set<char>, std::pair<automaton, bool>> alphabet_automatons_postfix;
+    std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> alphabet_automatons_prefix;
+    std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> alphabet_automatons_postfix;
 public:
     main_algo(const automaton &a, int C, std::set<char> alphabet);
     AutomatonOracle get_oracle();
-    std::map<std::set<char>, std::pair<automaton, bool>> get_prefix_automatons();
-    std::map<std::set<char>, std::pair<automaton, bool>> get_postfix_automatons();
+    std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> get_prefix_automatons();
+    std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> get_postfix_automatons();
     void show_prefix_automatons();
     void show_postfix_automatons();
 };
@@ -68,30 +68,30 @@ main_algo::main_algo(const automaton &a, int C, std::set<char> alphabet) {
         nl_algo = NL(orac, combinations[i]);
         auto auto_postfix = nl_algo.getAutomaton(2);
         if (combinations[i].size() == 1){
-            alphabet_automatons_prefix[combinations[i]] = std::pair<automaton, bool>{auto_prefix, true};
-            alphabet_automatons_postfix[combinations[i]] = std::pair<automaton, bool>{auto_postfix, true};
+            alphabet_automatons_prefix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_prefix, true), pumps(auto_prefix))));
+            alphabet_automatons_postfix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_postfix, true), pumps(auto_postfix))));
         } else if (combinations[i].size() > 1){
             int max_prefix = INT_MIN;
             int max_postfix = INT_MIN;
             auto it = combinations[i].begin();
             for (int j = 0; j < combinations[i].size(); j++){
-                if (alphabet_automatons_prefix[std::set<char>{*it}].first.get_transition_matrix().size() > max_prefix){
-                    max_prefix = alphabet_automatons_prefix[std::set<char>{*it}].first.get_transition_matrix().size();
+                if (alphabet_automatons_prefix.at(std::set<char>{*it}).first.first.get_transition_matrix().size() > max_prefix){
+                    max_prefix = alphabet_automatons_prefix.at(std::set<char>{*it}).first.first.get_transition_matrix().size();
                 }
-                if (alphabet_automatons_postfix[std::set<char>{*it}].first.get_transition_matrix().size() > max_postfix){
-                    max_postfix = alphabet_automatons_postfix[std::set<char>{*it}].first.get_transition_matrix().size();
+                if (alphabet_automatons_prefix.at(std::set<char>{*it}).first.first.get_transition_matrix().size() > max_postfix){
+                    max_postfix = alphabet_automatons_prefix.at(std::set<char>{*it}).first.first.get_transition_matrix().size();
                 }
                 it++;
             }
             if (auto_prefix.get_transition_matrix().size() > max_prefix + C){
-                alphabet_automatons_prefix[combinations[i]] = std::pair<automaton, bool>{auto_prefix, false};
+                alphabet_automatons_prefix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_prefix, false), pumps({{},{},{}}))));
             } else {
-                alphabet_automatons_prefix[combinations[i]] = std::pair<automaton, bool>{auto_prefix, true};
+                alphabet_automatons_prefix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_prefix, true), pumps(auto_prefix))));
             }
             if (auto_postfix.get_transition_matrix().size() > max_postfix + C){
-                alphabet_automatons_postfix[combinations[i]] = std::pair<automaton, bool>{auto_postfix, false};
+                alphabet_automatons_postfix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_postfix, false), pumps({{},{},{}}))));
             } else {
-                alphabet_automatons_postfix[combinations[i]] = std::pair<automaton, bool>{auto_postfix, true};
+                alphabet_automatons_postfix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_postfix, true), pumps(auto_postfix))));
             }
         }
     }
@@ -101,17 +101,18 @@ AutomatonOracle main_algo::get_oracle() {
     return orac;
 }
 
-std::map<std::set<char>, std::pair<automaton, bool>> main_algo::get_prefix_automatons() {
+std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> main_algo::get_prefix_automatons() {
     return alphabet_automatons_prefix;
 }
 
-std::map<std::set<char>, std::pair<automaton, bool>> main_algo::get_postfix_automatons() {
+std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> main_algo::get_postfix_automatons() {
     return alphabet_automatons_postfix;
 }
 
 void main_algo::show_prefix_automatons() {
+    std::cout << std::endl << "Prefix automatons: " << std::endl;
     for(auto & it : alphabet_automatons_prefix){
-        std::cout << std::endl << "{";
+        std::cout << "{";
         auto it_set = it.first.begin();
         for (int i = 0; i < it.first.size(); i++){
             if (i != it.first.size() - 1){
@@ -121,14 +122,15 @@ void main_algo::show_prefix_automatons() {
             }
             it_set++;
         }
-        it.second.first.show_like_arrows();
+        it.second.first.first.show_like_arrows();
         std::cout << std::endl;
     }
 }
 
 void main_algo::show_postfix_automatons() {
+    std::cout << std::endl << "Postfix automatons: " << std::endl;
     for(auto & it : alphabet_automatons_postfix){
-        std::cout << std::endl << "{";
+        std::cout << "{";
         auto it_set = it.first.begin();
         for (int i = 0; i < it.first.size(); i++){
             if (i != it.first.size() - 1){
@@ -138,7 +140,7 @@ void main_algo::show_postfix_automatons() {
             }
             it_set++;
         }
-        it.second.first.show_like_arrows();
+        it.second.first.first.show_like_arrows();
         std::cout << std::endl;
     }
 }
