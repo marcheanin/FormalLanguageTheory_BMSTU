@@ -65,6 +65,7 @@ main_algo::main_algo(const automaton &a, int C, std::set<char> alphabet) {
     for (int i = 0; i < combinations.size(); i++){
         auto nl_algo = NL(orac, combinations[i]);
         auto auto_prefix = nl_algo.getAutomaton(1);
+        nl_algo = NL(orac, combinations[i]);
         auto auto_postfix = nl_algo.getAutomaton(2);
         if (combinations[i].size() == 1){
             alphabet_automatons_prefix[combinations[i]] = std::pair<automaton, bool>{auto_prefix, true};
@@ -118,6 +119,7 @@ void main_algo::show_prefix_automatons() {
             } else {
                 std::cout << *it_set << "}:" << std::endl;
             }
+            it_set++;
         }
         it.second.first.show_like_arrows();
         std::cout << std::endl;
@@ -134,6 +136,7 @@ void main_algo::show_postfix_automatons() {
             } else {
                 std::cout << *it_set << "}:" << std::endl;
             }
+            it_set++;
         }
         it.second.first.show_like_arrows();
         std::cout << std::endl;
