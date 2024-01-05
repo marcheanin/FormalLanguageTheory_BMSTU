@@ -101,7 +101,7 @@ automaton NL::getAutomaton(int _mode) {
         if (eq_result == "None") break;
         else{
             std::cout << "Have example " << eq_result << std::endl;
-//            for (int i = 1; i < eq_result.size() + 1; i++) {
+//            for (int i = 1; i < eq_result.size() + 1; i++) {     // это типо добавление префиксов - автор кода не умеет читать описание алгоритма 
 //                E.push_back(eq_result.substr(0, i));
 //            }
             E.push_back(eq_result);

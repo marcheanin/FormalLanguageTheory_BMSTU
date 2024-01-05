@@ -23,7 +23,7 @@ private:
     std::vector <char> alphabet;
    // std::set <std::string> words_oracle;
     std::vector <std::string> words_oracle;
-    int C_const;
+    int P_const;
 
     bool check_eq = false;
     bool check_eq2 = false;
@@ -90,9 +90,9 @@ private:
     }
 
 public:
-    void setAutomaton(const automaton &input_automaton, int C){
+    void setAutomaton(const automaton &input_automaton, int P){
         oracle_automaton = input_automaton;
-        C_const = C;
+        P_const = P;
         set_alphabet();
         generate_words();
         buildPrefixAutomaton(const_cast<automaton &>(input_automaton));
@@ -228,7 +228,7 @@ void AutomatonOracle::generate_words_rec(const std::string& s, int n) {
        // std::cout << s << std::endl;
         //if (checkMembership(s )) words_oracle.push_back(s);
         words_oracle.push_back(s);
-        C_const--;
+        P_const--;
     }
     if (s.size() == n) return;
     for (auto letter : alphabet) {
@@ -238,7 +238,7 @@ void AutomatonOracle::generate_words_rec(const std::string& s, int n) {
 
 void AutomatonOracle::generate_words() {
     int k = 1;
-    while (C_const > 0) {
+    while (P_const > 0) {
         generate_words_rec("", k);
         k++;
     }
