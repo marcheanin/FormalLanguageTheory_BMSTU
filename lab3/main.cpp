@@ -1,9 +1,4 @@
-#include "oracle_base.cpp"
-#include "NL_star.cpp"
-
-#include "lab2_sources/parser.cpp"
-#include "lab2_sources/tree.cpp"
-#include "lab2_sources/FFL.cpp"
+#include "main_algo.cpp"
 
 int main() {
 //    std::vector<int> start_states = {1, 0, 0, 0, 1, 0};
@@ -66,13 +61,16 @@ int main() {
     // test.show_like_arrows();
     AutomatonOracle orac;
     orac.setAutomaton(res4_new, 300);
-    std::cout << orac.checkMembership("aa") << std::endl; // 1
-    std::cout << orac.checkMembership("a") << std::endl; // 0
-    std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
+//    std::cout << orac.checkMembership("aa") << std::endl; // 1
+//    std::cout << orac.checkMembership("a") << std::endl; // 0
+//    std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
 
-    auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
-    auto result = nl_algo.getAutomaton(0);
-    result.show_like_arrows();
+
+//    auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
+//    auto result = nl_algo.getAutomaton(0);
+//    result.show_like_arrows();
+    main_algo test = main_algo(res4_new, 300, std::set <char> {'a', 'b', 'c'});
+
 
 
 //
@@ -93,4 +91,17 @@ int main() {
 //    std::cout << std::endl << "========================" << std::endl;
 //    orac.get_postfix_automaton().show_like_arrows();
 //    pump_3_postfix.print_pump();
+
+
+//    std::set<char> alphabet {'a', 'b', 'c', 'd'};
+//    std::vector<std::set<char>> res;
+//    get_all_sets(alphabet, res);
+//    for (int i = 0; i < res.size(); i++){
+//        auto it = res[i].begin();
+//        for (int j = 0; j < res[i].size(); j++){
+//            std::cout << *it << " ";
+//            it++;
+//        }
+//        std::cout << std::endl;
+//    }
 }

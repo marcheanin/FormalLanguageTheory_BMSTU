@@ -93,8 +93,10 @@ public:
         C_const = C;
         set_alphabet();
         generate_words();
+        buildPrefixAutomaton(const_cast<automaton &>(input_automaton));
         buildPostfixAutomaton(const_cast<automaton &>(input_automaton));
-        buildPostfixAutomaton(const_cast<automaton &>(input_automaton));
+        prefix_automaton.show_like_arrows();
+        postfix_automaton.show_like_arrows();
     }
 
     std::vector <char> getAlphabet() override {
