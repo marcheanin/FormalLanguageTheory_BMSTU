@@ -72,7 +72,7 @@ int main() {
     auto post_auto = orac.getPostfixAutomaton();
     post_auto.show_like_arrows();
 
-    auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
+    auto nl_algo = NL(orac, std::set <char> {'a', 'b'});
     auto result = nl_algo.getAutomaton(0);
     result.show_like_arrows();
 

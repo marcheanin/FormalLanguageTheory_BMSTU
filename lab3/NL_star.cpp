@@ -21,6 +21,7 @@ private:
     std::set <char> alphabet;
 
     bool isConsistent();
+    bool isConsistent2();
     bool isComplete();
     void fillTables();
     void extendTables();
@@ -77,7 +78,7 @@ automaton NL::getAutomaton(int mode) {
             } else {
                 f_complete = true;
             }
-            if (!isConsistent()) {
+            if (!isConsistent2()) {
                 std::cout << "Not consistant" << std::endl;
                 E.emplace_back(problem_suffix);             // добавляем суффикс, на котором произошло противоречие
                 extendTables();                             // увеличиваем размер таблиц
@@ -156,6 +157,53 @@ bool NL::isConsistent() {
                         b2 = Sa[j2 - S.size()];
                         row_b2 = SaxE[j2 - S.size()];
                     }
+                    auto suffix2 = b2.back();
+                    b2.pop_back();
+                    if (b2 != b || suffix != suffix2) continue;
+                    b2.push_back(suffix2);
+                    if (!checkAbsorb(row_a2, row_b2)) {
+                        problem_suffix = suffix;
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool NL::isConsistent2() {
+    for (int i1 = 0; i1 < S.size(); i1++){
+        for (int i2 = i1 + 1; i2 < S.size(); i2++){
+            std::string a, b;
+            std::vector <int> row_a2, row_b2;
+            if (checkAbsorb(SxE[i1], SxE[i2])) {
+                a = S[i1];
+                //row_a = SxE[i1];
+                b = S[i2];
+                //row_b = SxE[i2];
+            }
+            else if (checkAbsorb(SxE[i2], SxE[i1])) {
+                a = S[i2];
+                //row_a = SxE[i2];
+                b = S[i1];
+                //row_b = SxE[i1];
+            } // имеем - a поглощает b
+            else {
+                continue;
+            }
+            for (int j1 = 0; j1 < Sa.size(); j1++){
+                std::string a2;
+                a2 = Sa[j1];
+                row_a2 = SaxE[j1];
+                auto suffix = a2.back();
+                a2.pop_back();
+                if (a != a2) continue;
+                a2.push_back(suffix);
+                for (int j2 = 0; j2 < Sa.size(); j2++){
+                    std::string b2;
+                    b2 = Sa[j2];
+                    row_b2 = SaxE[j2];
                     auto suffix2 = b2.back();
                     b2.pop_back();
                     if (b2 != b || suffix != suffix2) continue;
