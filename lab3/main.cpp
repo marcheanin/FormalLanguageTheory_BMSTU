@@ -20,25 +20,25 @@ int main() {
 //    test.show_like_arrows();
 
 
-    std::vector<int> start_states = {1, 0, 0, 0, 0, 0, 0, 0};
-    std::vector<std::vector<std::vector<std::string>>> transition_matrix = {{{"b"}, {"a"}, {}, {}, {}, {}, {}, {}},
-                                                                           {{}, {}, {"a"}, {}, {}, {"b"}, {}, {}},
-                                                                           {{}, {}, {}, {"a"}, {"b"}, {}, {}, {}},
-                                                                           {{}, {}, {}, {"a"}, {"b"}, {}, {}, {}},
-                                                                           {{}, {}, {}, {}, {}, {}, {"a"}, {"b"}},
-                                                                           {{}, {}, {}, {}, {}, {}, {"a"}, {"b"}},
-                                                                           {{}, {}, {"a"}, {}, {}, {"b"}, {}, {}},
-                                                                           {{"b"}, {"a"}, {}, {}, {}, {}, {}, {}}};
-    std::vector<int> end_states = {0, 0, 0, 1, 1, 0, 1, 1};
+//    std::vector<int> start_states = {1, 0, 0, 0, 0, 0, 0, 0};
+//    std::vector<std::vector<std::vector<std::string>>> transition_matrix = {{{"b"}, {"a"}, {}, {}, {}, {}, {}, {}},
+//                                                                           {{}, {}, {"a"}, {}, {}, {"b"}, {}, {}},
+//                                                                           {{}, {}, {}, {"a"}, {"b"}, {}, {}, {}},
+//                                                                           {{}, {}, {}, {"a"}, {"b"}, {}, {}, {}},
+//                                                                           {{}, {}, {}, {}, {}, {}, {"a"}, {"b"}},
+//                                                                           {{}, {}, {}, {}, {}, {}, {"a"}, {"b"}},
+//                                                                           {{}, {}, {"a"}, {}, {}, {"b"}, {}, {}},
+//                                                                           {{"b"}, {"a"}, {}, {}, {}, {}, {}, {}}};
+//    std::vector<int> end_states = {0, 0, 0, 1, 1, 0, 1, 1};
 
 
-//    std::vector<int> start_states = {1, 0, 0, 0, 0};
-//    std::vector<std::vector<std::vector<std::string>>> transition_matrix = {{{}, {"a", "b"}, {}, {}, {}},
-//                                                                            {{}, {}, {"a", "b"}, {}, {}},
-//                                                                            {{}, {}, {}, {"a", "b"}, {}},
-//                                                                            {{"b"}, {}, {}, {}, {"a"}},
-//                                                                            {{}, {}, {}, {}, {"a", "b"}}};
-//    std::vector<int> end_states = {0, 1, 1, 1, 0};
+    std::vector<int> start_states = {1, 0, 0, 0, 0};
+    std::vector<std::vector<std::vector<std::string>>> transition_matrix = {{{}, {"a", "b"}, {}, {}, {}},
+                                                                            {{}, {}, {"a", "b"}, {}, {}},
+                                                                            {{}, {}, {}, {"a", "b"}, {}},
+                                                                            {{"b"}, {}, {}, {}, {"a"}},
+                                                                            {{}, {}, {}, {}, {"a", "b"}}};
+    std::vector<int> end_states = {1, 1, 1, 1, 0};
 
     std::string input_regex;
     std::ifstream fin("input.txt");
@@ -59,21 +59,21 @@ int main() {
     auto res4 = process_automaton_tree(tree);
 
     auto res4_new = old_automaton_to_new(res4);
-    res4_new.show_like_arrows();
+   // res4_new.show_like_arrows();
 
-    // automaton test(start_states, transition_matrix, end_states);
-    // test.show_like_arrows();
+    automaton test(start_states, transition_matrix, end_states);
+    test.show_like_arrows();
     AutomatonOracle orac;
-    orac.setAutomaton(res4_new, 300);
+    orac.setAutomaton(test, 300);
 
     auto pref_auto = orac.getPrefixAutomaton();
-    pref_auto.show_like_arrows();
+    //pref_auto.show_like_arrows();
 
     auto post_auto = orac.getPostfixAutomaton();
-    post_auto.show_like_arrows();
+    //post_auto.show_like_arrows();
 
     auto nl_algo = NL(orac, std::set <char> {'a', 'b'});
-    auto result = nl_algo.getAutomaton(0);
+    auto result = nl_algo.getAutomaton(2);
     result.show_like_arrows();
 
 
