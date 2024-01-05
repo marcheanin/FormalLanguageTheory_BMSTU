@@ -57,4 +57,23 @@ void pump::print_pump() {
 }
 
 
+class pumps{
+private:
+    std::map<int, pump> automaton_pumps;
+public:
+    pumps(automaton a);
+    std::map<int, pump> get_automaton_pumps();
+
+};
+
+pumps::pumps(automaton a) {
+    for (int i = 0; i < a.get_transition_matrix().size(); i++){
+        automaton_pumps.insert(std::make_pair(i, pump(i, a)));
+    }
+}
+
+std::map<int, pump> pumps::get_automaton_pumps() {
+    return automaton_pumps;
+}
+
 

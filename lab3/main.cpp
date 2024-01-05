@@ -69,9 +69,9 @@ int main() {
 //    auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
 //    auto result = nl_algo.getAutomaton(0);
 //    result.show_like_arrows();
-    main_algo test = main_algo(res4_new, 300, std::set <char> {'a', 'b'});
-    test.show_prefix_automatons();
-    test.show_postfix_automatons();
+    main_algo test_algo = main_algo(res4_new, 300, std::set <char> {'a', 'b'});
+    test_algo.show_prefix_automatons();
+    test_algo.show_postfix_automatons();
 
 //    test.print_all_ways_to_all_vertexes();
 //    std::cout << std::endl;
