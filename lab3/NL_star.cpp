@@ -14,18 +14,23 @@ private:
     std::vector <std::vector <int> > SxE;
     std::vector <std::vector <int> > SaxE;
 
+    int mode = 0;
+
     int problem_row_pos = -1;
+
     std::string problem_suffix;
+    std::string problem_letter;
 
     Oracle* orac;
     std::set <char> alphabet;
 
     bool isConsistent();
+    bool isConsistent2();
     bool isComplete();
     void fillTables();
     void extendTables();
     void moveToTop(int pos);
-    static bool checkAbsorb(std::vector <int> a, std::vector <int> b); //a >= b
+    bool checkAbsorb(std::vector <int> a, std::vector <int> b); //a >= b
     bool check_coverable(int pos, int table_num);
     void printCurrentState();
     bool check_full_coverable(int pos, int table_num);
@@ -40,7 +45,8 @@ public:
     automaton getAutomaton(int mode);
 };
 
-automaton NL::getAutomaton(int mode) {
+automaton NL::getAutomaton(int _mode) {
+    mode = _mode;
     E.emplace_back("");
     S.emplace_back("");
     SxE.emplace_back();
@@ -79,7 +85,7 @@ automaton NL::getAutomaton(int mode) {
             }
             if (!isConsistent()) {
                 std::cout << "Not consistant" << std::endl;
-                E.emplace_back(problem_suffix);             // добавляем суффикс, на котором произошло противоречие
+                E.emplace_back(problem_letter + problem_suffix);             // добавляем суффикс, на котором произошло противоречие
                 extendTables();                             // увеличиваем размер таблиц
                 fillTables();                               // дозаполняем таблицы
                 printCurrentState();
@@ -91,7 +97,7 @@ automaton NL::getAutomaton(int mode) {
         last_automaton = buildAutomaton();
         last_automaton.show_like_arrows();
         std::cout << "Checking equal" << std::endl;
-        std::string eq_result = orac->checkEqual(last_automaton, mode);
+        std::string eq_result = orac->checkEqual(last_automaton, mode, alphabet);
         if (eq_result == "None") break;
         else{
             std::cout << "Have example " << eq_result << std::endl;
@@ -161,7 +167,54 @@ bool NL::isConsistent() {
                     if (b2 != b || suffix != suffix2) continue;
                     b2.push_back(suffix2);
                     if (!checkAbsorb(row_a2, row_b2)) {
-                        problem_suffix = suffix;
+                        problem_letter = suffix;
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool NL::isConsistent2() {
+    for (int i1 = 0; i1 < S.size(); i1++){
+        for (int i2 = i1 + 1; i2 < S.size(); i2++){
+            std::string a, b;
+            std::vector <int> row_a2, row_b2;
+            if (checkAbsorb(SxE[i1], SxE[i2])) {
+                a = S[i1];
+                //row_a = SxE[i1];
+                b = S[i2];
+                //row_b = SxE[i2];
+            }
+            else if (checkAbsorb(SxE[i2], SxE[i1])) {
+                a = S[i2];
+                //row_a = SxE[i2];
+                b = S[i1];
+                //row_b = SxE[i1];
+            } // имеем - a поглощает b
+            else {
+                continue;
+            }
+            for (int j1 = 0; j1 < Sa.size(); j1++){
+                std::string a2;
+                a2 = Sa[j1];
+                row_a2 = SaxE[j1];
+                auto suffix = a2.back();
+                a2.pop_back();
+                if (a != a2) continue;
+                a2.push_back(suffix);
+                for (int j2 = 0; j2 < Sa.size(); j2++){
+                    std::string b2;
+                    b2 = Sa[j2];
+                    row_b2 = SaxE[j2];
+                    auto suffix2 = b2.back();
+                    b2.pop_back();
+                    if (b2 != b || suffix != suffix2) continue;
+                    b2.push_back(suffix2);
+                    if (!checkAbsorb(row_a2, row_b2)) {
+                        problem_letter = suffix;
                         return false;
                     }
                 }
@@ -280,7 +333,10 @@ void NL::fillTables() {
     for (int i = 0; i < S.size(); i++){
         for (int j = 0; j < E.size(); j++){
             if (SxE[i][j] == -1) {
-                if (orac->checkMembership(S[i] + E[j])) SxE[i][j] = 1;
+                if (mode == 0 && orac->checkMembership(S[i] + E[j]) ||
+                    mode == 1 && orac->checkPrefixMembership(S[i] + E[j]) ||
+                    mode == 2 && orac->checkPostfixMembership(S[i] + E[j]))
+                    SxE[i][j] = 1;
                 else SxE[i][j] = 0;
             }
         }
@@ -289,7 +345,10 @@ void NL::fillTables() {
     for (int i = 0; i < Sa.size(); i++){
         for (int j = 0; j < E.size(); j++){
             if (SaxE[i][j] == -1) {
-                if (orac->checkMembership(Sa[i] + E[j])) SaxE[i][j] = 1;
+                if (mode == 0 && orac->checkMembership(Sa[i] + E[j]) ||
+                    mode == 1 && orac->checkPrefixMembership(Sa[i] + E[j]) ||
+                    mode == 2 && orac->checkPostfixMembership(Sa[i] + E[j]))
+                    SaxE[i][j] = 1;
                 else SaxE[i][j] = 0;
             }
         }
@@ -307,7 +366,10 @@ void NL::moveToTop(int pos) {
 
 bool NL::checkAbsorb(std::vector<int> a, std::vector<int> b) {
     for (int i = 0; i < a.size(); i++) {
-        if (a[i] < b[i]) return false;
+        if (a[i] < b[i]){
+            problem_suffix = E[i];
+            return false;
+        }
     }
     return true;
 }

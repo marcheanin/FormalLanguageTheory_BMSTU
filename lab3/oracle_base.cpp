@@ -7,8 +7,10 @@
 
 class Oracle{
 public:
-    virtual std::string checkEqual(automaton input_automaton, int mode) = 0; // 0: обычный язык, 1: язык префиксов, 2: язык суффиксов
+    virtual std::string checkEqual(automaton input_automaton, int mode, std::set <char> alph) = 0; // 0: обычный язык, 1: язык префиксов, 2: язык суффиксов
     virtual bool checkMembership(const std::string& word) = 0;
+    virtual bool checkPrefixMembership(const std::string& word) = 0;
+    virtual bool checkPostfixMembership(const std::string& word) = 0;
     virtual std::vector <char> getAlphabet() = 0;
 };
 
@@ -95,24 +97,39 @@ public:
         generate_words();
         buildPrefixAutomaton(const_cast<automaton &>(input_automaton));
         buildPostfixAutomaton(const_cast<automaton &>(input_automaton));
-        prefix_automaton.show_like_arrows();
-        postfix_automaton.show_like_arrows();
     }
 
     std::vector <char> getAlphabet() override {
         return alphabet;
     }
 
-        std::string checkEqual(automaton input_automaton, int mode) override {
+    automaton getPrefixAutomaton() {
+        return prefix_automaton;
+    }
+
+    automaton getPostfixAutomaton() {
+        return postfix_automaton;
+    }
+
+    std::string checkEqual(automaton input_automaton, int mode, std::set <char> alph) override {
         auto m = input_automaton.get_transition_matrix();
         auto finals = input_automaton.get_end_states();
         auto start_st = input_automaton.get_start_states();
         for (auto word : words_oracle) {
+            bool f = true;
+            for (auto letter : word){
+                if (!alph.contains(letter)) {
+                    f = false;
+                    break;
+                }
+            }
+            if (!f) continue;
             check_eq2 = false;
             check_eq = false;
             for (int i = 0; i < start_st.size(); i++)
                 if (start_st[i] == 1) {
                     check_word_in2(m, finals, i, word);
+                    if (check_eq) continue;
                     if (mode == 0) checkMembership(word);
                     if (mode == 1) checkPrefixMembership(word);
                     if (mode == 2) checkPostfixMembership(word);
@@ -137,7 +154,7 @@ public:
         return check_eq;
     }
 
-    bool checkPrefixMembership(const std::string  &word) {
+    bool checkPrefixMembership(const std::string  &word) override {
         auto m = prefix_automaton.get_transition_matrix();
         auto start_st = prefix_automaton.get_start_states();
         auto finals = prefix_automaton.get_end_states();
@@ -149,7 +166,7 @@ public:
             }
         return check_eq;
     }
-    bool checkPostfixMembership(const std::string  &word) {
+    bool checkPostfixMembership(const std::string  &word) override {
         auto m = postfix_automaton.get_transition_matrix();
         auto start_st = postfix_automaton.get_start_states();
         auto finals = postfix_automaton.get_end_states();
