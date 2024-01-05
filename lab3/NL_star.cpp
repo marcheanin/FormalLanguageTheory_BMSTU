@@ -17,7 +17,9 @@ private:
     int mode = 0;
 
     int problem_row_pos = -1;
+
     std::string problem_suffix;
+    std::string problem_letter;
 
     Oracle* orac;
     std::set <char> alphabet;
@@ -28,7 +30,7 @@ private:
     void fillTables();
     void extendTables();
     void moveToTop(int pos);
-    static bool checkAbsorb(std::vector <int> a, std::vector <int> b); //a >= b
+    bool checkAbsorb(std::vector <int> a, std::vector <int> b); //a >= b
     bool check_coverable(int pos, int table_num);
     void printCurrentState();
     bool check_full_coverable(int pos, int table_num);
@@ -81,9 +83,9 @@ automaton NL::getAutomaton(int _mode) {
             } else {
                 f_complete = true;
             }
-            if (!isConsistent2()) {
+            if (!isConsistent()) {
                 std::cout << "Not consistant" << std::endl;
-                E.emplace_back(problem_suffix);             // добавляем суффикс, на котором произошло противоречие
+                E.emplace_back(problem_letter + problem_suffix);             // добавляем суффикс, на котором произошло противоречие
                 extendTables();                             // увеличиваем размер таблиц
                 fillTables();                               // дозаполняем таблицы
                 printCurrentState();
@@ -165,7 +167,7 @@ bool NL::isConsistent() {
                     if (b2 != b || suffix != suffix2) continue;
                     b2.push_back(suffix2);
                     if (!checkAbsorb(row_a2, row_b2)) {
-                        problem_suffix = suffix;
+                        problem_letter = suffix;
                         return false;
                     }
                 }
@@ -212,7 +214,7 @@ bool NL::isConsistent2() {
                     if (b2 != b || suffix != suffix2) continue;
                     b2.push_back(suffix2);
                     if (!checkAbsorb(row_a2, row_b2)) {
-                        problem_suffix = suffix;
+                        problem_letter = suffix;
                         return false;
                     }
                 }
@@ -364,7 +366,10 @@ void NL::moveToTop(int pos) {
 
 bool NL::checkAbsorb(std::vector<int> a, std::vector<int> b) {
     for (int i = 0; i < a.size(); i++) {
-        if (a[i] < b[i]) return false;
+        if (a[i] < b[i]){
+            problem_suffix = E[i];
+            return false;
+        }
     }
     return true;
 }
