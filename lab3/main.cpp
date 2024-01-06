@@ -56,9 +56,8 @@ int main() {
     auto res4_new = old_automaton_to_new(res4);
 
     auto pal_oracle = Palindrome_oracle(300);
-    auto nl_algo = NL(pal_oracle, std::set <char> {'a', 'b'});
-    auto result = nl_algo.getAutomaton(1);
-    res4_new.show_like_arrows();
+   // auto nl_algo = NL(pal_oracle, std::set <char> {'a', 'b'});
+  //  auto result = nl_algo.getAutomaton(1);
 
 //    automaton test(start_states, transition_matrix, end_states);
 //    test.show_like_arrows();
@@ -73,8 +72,8 @@ int main() {
    // auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
   //  auto result = nl_algo.getAutomaton(0);
   //  result.show_like_arrows();
-//    main_algo test_algo = main_algo(res4_new, 300, std::set <char> {'a', 'b', 'c'});
-//    test_algo.start_algo();
+    main_algo test_algo = main_algo(pal_oracle, 300);
+    test_algo.start_algo();
 
 //    test.print_all_ways_to_all_vertexes();
 //    std::cout << std::endl;

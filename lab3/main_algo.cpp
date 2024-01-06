@@ -12,13 +12,12 @@
 
 class main_algo{
 private:
-    AutomatonOracle orac;
+    Oracle& orac;
 
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> alphabet_automatons_prefix;
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> alphabet_automatons_postfix;
 public:
-    main_algo(AutomatonOracle orac, int C);
-    AutomatonOracle get_oracle();
+    main_algo(Oracle& orac, int C);
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> get_prefix_automatons();
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> get_postfix_automatons();
     void show_prefix_automatons();
@@ -59,8 +58,7 @@ void get_all_sets(std::set<char> alphabet, std::vector<std::set<char>> &res){
     }
 }
 
-main_algo::main_algo(AutomatonOracle o, int C) {
-    orac = std::move(o);
+main_algo::main_algo(Oracle& o, int C) : orac(o) {
 
     std::vector<std::set<char>> combinations;
     std::vector <char> alphabet_vector = orac.getAlphabet();
@@ -108,9 +106,6 @@ main_algo::main_algo(AutomatonOracle o, int C) {
     }
 }
 
-AutomatonOracle main_algo::get_oracle() {
-    return orac;
-}
 
 std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> main_algo::get_prefix_automatons() {
     return alphabet_automatons_prefix;
@@ -177,7 +172,7 @@ void main_algo::start_algo(int count_experiment = 100) {
                                                 auto it = std::find(checked.begin(), checked.end(), parts);
                                                 if (it == checked.end()){
                                                     bool flag = false;
-                                                    std::cout << "Pumping word    " << w1 + " " + u1 + " " + w2 + " " + w3 + " " + u2 + " " + w4 + "..." << std::endl;
+                                                    std::cout << "Pumping word    \'" << w1 + "\' \'" + u1 + "\' \'" + w2 + "\' \'" + w3 + "\' \'" + u2 + "\' \'" + w4 + "\'..." << std::endl;
                                                     bool pump1_flag = false;
                                                     for (int k1 = 1; k1 < count_experiment; k1++){
                                                         for (int k2 = 1; k2 < count_experiment; k2++){
