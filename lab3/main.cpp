@@ -54,23 +54,27 @@ int main() {
     auto res4 = process_automaton_tree(tree);
 
     auto res4_new = old_automaton_to_new(res4);
-   // res4_new.show_like_arrows();
 
-    automaton test(start_states, transition_matrix, end_states);
-    test.show_like_arrows();
+    auto pal_oracle = Palindrome_oracle(300);
+    auto nl_algo = NL(pal_oracle, std::set <char> {'a', 'b'});
+    auto result = nl_algo.getAutomaton(1);
+    res4_new.show_like_arrows();
+
+//    automaton test(start_states, transition_matrix, end_states);
+//    test.show_like_arrows();
     AutomatonOracle orac;
-    orac.setAutomaton(test, 300);
+    orac.setAutomaton(res4_new, 300);
 
 //    std::cout << orac.checkMembership("aa") << std::endl; // 1
 //    std::cout << orac.checkMembership("a") << std::endl; // 0
 //    std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
 
 
-//    auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
-//    auto result = nl_algo.getAutomaton(0);
-//    result.show_like_arrows();
-    main_algo test_algo = main_algo(test, 300, std::set <char> {'a', 'b'});
-    test_algo.start_algo();
+   // auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
+  //  auto result = nl_algo.getAutomaton(0);
+  //  result.show_like_arrows();
+//    main_algo test_algo = main_algo(res4_new, 300, std::set <char> {'a', 'b', 'c'});
+//    test_algo.start_algo();
 
 //    test.print_all_ways_to_all_vertexes();
 //    std::cout << std::endl;

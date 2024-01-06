@@ -1,6 +1,7 @@
 #include <utility>
 
 #include "oracle_base.cpp"
+#include "oracle_CF.cpp"
 #include "NL_star.cpp"
 
 #include "lab2_sources/parser.cpp"
@@ -67,8 +68,8 @@ main_algo::main_algo(const automaton &a, int C, std::set<char> alphabet) {
         auto nl_algo = NL(orac, combinations[i]);
         auto auto_prefix = nl_algo.getAutomaton(1);
         auto_prefix.delete_traps();
-        nl_algo = NL(orac, combinations[i]);
-        auto auto_postfix = nl_algo.getAutomaton(2);
+        auto nl_algo2 = NL(orac, combinations[i]);
+        auto auto_postfix = nl_algo2.getAutomaton(2);
         auto_postfix.delete_traps();
         if (combinations[i].size() == 1){
             alphabet_automatons_prefix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_prefix, true), pumps(auto_prefix))));

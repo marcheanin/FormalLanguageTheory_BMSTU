@@ -21,7 +21,7 @@ private:
     std::string problem_suffix;
     std::string problem_letter;
 
-    Oracle* orac;
+    Oracle& orac;
     std::set <char> alphabet;
 
     bool isConsistent();
@@ -37,10 +37,7 @@ private:
 
     automaton buildAutomaton();
 public:
-    explicit NL(AutomatonOracle _orac, std::set <char> _alphabet) {
-        orac = new AutomatonOracle(std::move(_orac));
-        alphabet = std::move(_alphabet);
-    }
+    explicit NL(Oracle &_orac, std::set <char> _alphabet) : orac(_orac), alphabet(std::move(_alphabet)){}
 
     automaton getAutomaton(int mode);
 };
@@ -97,7 +94,7 @@ automaton NL::getAutomaton(int _mode) {
         last_automaton = buildAutomaton();
         last_automaton.show_like_arrows();
         std::cout << "Checking equal" << std::endl;
-        std::string eq_result = orac->checkEqual(last_automaton, mode, alphabet);
+        std::string eq_result = orac.checkEqual(last_automaton, mode, alphabet);
         if (eq_result == "None") break;
         else{
             std::cout << "Have example " << eq_result << std::endl;
@@ -333,9 +330,9 @@ void NL::fillTables() {
     for (int i = 0; i < S.size(); i++){
         for (int j = 0; j < E.size(); j++){
             if (SxE[i][j] == -1) {
-                if (mode == 0 && orac->checkMembership(S[i] + E[j]) ||
-                    mode == 1 && orac->checkPrefixMembership(S[i] + E[j]) ||
-                    mode == 2 && orac->checkPostfixMembership(S[i] + E[j]))
+                if (mode == 0 && orac.checkMembership(S[i] + E[j]) ||
+                    mode == 1 && orac.checkPrefixMembership(S[i] + E[j]) ||
+                    mode == 2 && orac.checkPostfixMembership(S[i] + E[j]))
                     SxE[i][j] = 1;
                 else SxE[i][j] = 0;
             }
@@ -345,9 +342,9 @@ void NL::fillTables() {
     for (int i = 0; i < Sa.size(); i++){
         for (int j = 0; j < E.size(); j++){
             if (SaxE[i][j] == -1) {
-                if (mode == 0 && orac->checkMembership(Sa[i] + E[j]) ||
-                    mode == 1 && orac->checkPrefixMembership(Sa[i] + E[j]) ||
-                    mode == 2 && orac->checkPostfixMembership(Sa[i] + E[j]))
+                if (mode == 0 && orac.checkMembership(Sa[i] + E[j]) ||
+                    mode == 1 && orac.checkPrefixMembership(Sa[i] + E[j]) ||
+                    mode == 2 && orac.checkPostfixMembership(Sa[i] + E[j]))
                     SaxE[i][j] = 1;
                 else SaxE[i][j] = 0;
             }
