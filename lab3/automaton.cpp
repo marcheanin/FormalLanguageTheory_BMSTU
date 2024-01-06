@@ -180,6 +180,9 @@ std::map<int, std::vector<std::string>> automaton::get_cycles() {
 }
 
 void automaton::get_all_ways_to_vertex(int to_vertex, int current_vertex, std::string res_str, std::vector<std::string> &result, std::string way){
+    if (current_vertex == to_vertex && res_str.empty()){
+        result.push_back(res_str);
+    }
     if (current_vertex == to_vertex){
         if (result.empty()){
             if (!res_str.empty()){
@@ -231,6 +234,9 @@ void automaton::print_all_ways_to_all_vertexes() {
 
 void automaton::get_all_ways_from_vertex(int from_vertex, int current_vertex, std::string res_str,
                                          std::vector<std::string> &result, std::string way) {
+    if (this->is_end_vertex(current_vertex) && res_str.empty()){
+        result.push_back(res_str);
+    }
     if (this->is_end_vertex(current_vertex)){
         if (result.empty()){
             if (!res_str.empty()){
