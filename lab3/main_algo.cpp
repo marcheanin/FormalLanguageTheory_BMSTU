@@ -66,8 +66,10 @@ main_algo::main_algo(const automaton &a, int C, std::set<char> alphabet) {
     for (int i = 0; i < combinations.size(); i++){
         auto nl_algo = NL(orac, combinations[i]);
         auto auto_prefix = nl_algo.getAutomaton(1);
+        auto_prefix.delete_traps();
         nl_algo = NL(orac, combinations[i]);
         auto auto_postfix = nl_algo.getAutomaton(2);
+        auto_postfix.delete_traps();
         if (combinations[i].size() == 1){
             alphabet_automatons_prefix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_prefix, true), pumps(auto_prefix))));
             alphabet_automatons_postfix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_postfix, true), pumps(auto_postfix))));
