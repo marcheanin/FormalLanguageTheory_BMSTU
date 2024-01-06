@@ -85,7 +85,7 @@ automaton NL::getAutomaton(int _mode) {
             }
             if (!isConsistent()) {
                 std::cout << "Not consistant" << std::endl;
-                E.emplace_back(problem_letter + problem_suffix);             // добавляем суффикс, на котором произошло противоречие
+                E.emplace_back(problem_letter + problem_suffix);             // добавляем букву + суффикс, на котором произошло противоречие
                 extendTables();                             // увеличиваем размер таблиц
                 fillTables();                               // дозаполняем таблицы
                 printCurrentState();
