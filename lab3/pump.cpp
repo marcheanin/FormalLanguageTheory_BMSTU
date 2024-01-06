@@ -18,6 +18,7 @@ pump::pump(int n, automaton auto1) {
     ways_to_cycle = auto1.get_all_ways_to_all_vertexes()[n];
     vertex_cycles = auto1.get_cycles()[n];
     ways_from_cycle = auto1.get_all_ways_from_all_vertexes()[n];
+    std::cout << "Built pump for vertex " << n << std::endl << "Ways to vertex count = " << ways_to_cycle.size() << std::endl << "Cycles count = " << vertex_cycles.size() << std::endl << "Ways from vertex count = " << ways_from_cycle.size() << std::endl;
     vertex_num = n;
     for (const auto &to : ways_to_cycle){
         for (const auto &cycle : vertex_cycles){

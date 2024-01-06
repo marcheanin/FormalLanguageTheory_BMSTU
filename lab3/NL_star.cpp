@@ -117,7 +117,6 @@ automaton NL::getAutomaton(int _mode) {
         }
     }
     std::cout << "Building tables complete" << std::endl;
-    last_automaton.delete_traps();
     return last_automaton;
 }
 
