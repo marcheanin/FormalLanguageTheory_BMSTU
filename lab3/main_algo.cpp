@@ -16,7 +16,7 @@ private:
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> alphabet_automatons_prefix;
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> alphabet_automatons_postfix;
 public:
-    main_algo(const automaton &a, int C, std::set<char> alphabet);
+    main_algo(AutomatonOracle orac, int C);
     AutomatonOracle get_oracle();
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> get_prefix_automatons();
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> get_postfix_automatons();
@@ -58,10 +58,17 @@ void get_all_sets(std::set<char> alphabet, std::vector<std::set<char>> &res){
     }
 }
 
-main_algo::main_algo(const automaton &a, int C, std::set<char> alphabet) {
-    orac.setAutomaton(a, C);
+main_algo::main_algo(AutomatonOracle o, int C) {
+    orac = std::move(o);
 
     std::vector<std::set<char>> combinations;
+    std::vector <char> alphabet_vector = orac.getAlphabet();
+    std::cout << "ALPHABET: ";
+    for (auto &a : alphabet_vector){
+        std::cout << a << " ";
+    }
+    std::cout << std::endl;
+    std::set<char> alphabet(alphabet_vector.begin(), alphabet_vector.end());
     get_all_sets(alphabet, combinations);
     for (int i = 0; i < combinations.size(); i++){
         auto nl_algo = NL(orac, combinations[i]);
@@ -151,6 +158,7 @@ void main_algo::show_postfix_automatons() {
 void main_algo::start_algo(int count_experiment = 100) {
     // w1u1w2w3u2w4 (w1, u1, w2 from prefix; w3, u2, w4 from postfix)
     std::cout << std::endl << "Start main algo: " << std::endl;
+    std::vector<std::vector<std::string>> checked;
     for (auto &prefix_item : alphabet_automatons_prefix){
         for (auto &postfix_item : alphabet_automatons_postfix){
             std::map<int, pump> prefix_pumps = prefix_item.second.second.get_automaton_pumps();
@@ -164,36 +172,54 @@ void main_algo::start_algo(int count_experiment = 100) {
                                     for (auto &w3 : postfix_pump.second.get_ways_to_cycle()){
                                         for (auto &u2 : postfix_pump.second.get_vertex_cycles()){
                                             for (auto &w4 : postfix_pump.second.get_ways_from_cycle()){
-                                                bool flag = false;
-                                                for (int k1 = 1; k1 < count_experiment; k1++){
-                                                    for (int k2 = 1; k2 < count_experiment; k2++){
-                                                        std::string pump_u1;
-                                                        for (int i = 0; i < k1; i++){
-                                                            pump_u1 += u1;
-                                                        }
-                                                        std::string pump_u2;
-                                                        for (int i = 0; i < k2; i++){
-                                                            pump_u2 += u2;
-                                                        }
-                                                        if (orac.checkMembership(w1 + pump_u1 + w2 + w3 + pump_u2 + w4)){
-                                                            flag = true;
-                                                        }
-                                                    }
-                                                }
-                                                for (int k2 = 1; k2 < count_experiment; k2++){
+                                                std::vector<std::string> parts{w1, u1, w2, w3, u2, w4};
+                                                auto it = std::find(checked.begin(), checked.end(), parts);
+                                                if (it == checked.end()){
+                                                    bool flag = false;
+                                                    std::cout << "Pumping word    " << w1 + " " + u1 + " " + w2 + " " + w3 + " " + u2 + " " + w4 + "..." << std::endl;
+                                                    bool pump1_flag = false;
                                                     for (int k1 = 1; k1 < count_experiment; k1++){
-                                                        std::string pump_u1;
-                                                        for (int i = 0; i < k1; i++){
-                                                            pump_u1 += u1;
+                                                        for (int k2 = 1; k2 < count_experiment; k2++){
+                                                            std::string pump_u1;
+                                                            for (int i = 0; i < k1; i++){
+                                                                pump_u1 += u1;
+                                                            }
+                                                            std::string pump_u2;
+                                                            for (int i = 0; i < k2; i++){
+                                                                pump_u2 += u2;
+                                                            }
+                                                            if (orac.checkMembership(w1 + pump_u1 + w2 + w3 + pump_u2 + w4)){
+                                                                flag = true;
+                                                                pump1_flag = true;
+                                                                break;
+                                                            }
                                                         }
-                                                        std::string pump_u2;
-                                                        for (int i = 0; i < k2; i++){
-                                                            pump_u2 += u2;
-                                                        }
-                                                        if (orac.checkMembership(w1 + pump_u1 + w2 + w3 + pump_u2 + w4) && flag){
-                                                            std::cout << w1 << std::endl << u1 << std::endl << w2 << std::endl << w3 << std::endl << u2 << std::endl << w4 << std::endl;
+                                                        if (pump1_flag){
+                                                            break;
                                                         }
                                                     }
+                                                    bool pump2_flag = false;
+                                                    for (int k2 = 1; k2 < count_experiment; k2++){
+                                                        for (int k1 = 1; k1 < count_experiment; k1++){
+                                                            std::string pump_u1;
+                                                            for (int i = 0; i < k1; i++){
+                                                                pump_u1 += u1;
+                                                            }
+                                                            std::string pump_u2;
+                                                            for (int i = 0; i < k2; i++){
+                                                                pump_u2 += u2;
+                                                            }
+                                                            if (orac.checkMembership(w1 + pump_u1 + w2 + w3 + pump_u2 + w4) && flag){
+                                                                std::cout << "Pump fitted with: w1 = " + w1 << " u1 = " + u1 << " w2 = " + w2 << " w3 = " + w3 << " u2 = " + u2 << " w4 = " + w4 << std::endl;
+                                                                pump2_flag = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                        if (pump2_flag){
+                                                            break;
+                                                        }
+                                                    }
+                                                    checked.push_back(parts);
                                                 }
                                             }
                                         }
