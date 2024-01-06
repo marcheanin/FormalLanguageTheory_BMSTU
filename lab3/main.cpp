@@ -70,8 +70,7 @@ int main() {
 //    auto result = nl_algo.getAutomaton(0);
 //    result.show_like_arrows();
     main_algo test_algo = main_algo(res4_new, 300, std::set <char> {'a', 'b'});
-    test_algo.show_prefix_automatons();
-    test_algo.show_postfix_automatons();
+    test_algo.start_algo();
 
 //    test.print_all_ways_to_all_vertexes();
 //    std::cout << std::endl;

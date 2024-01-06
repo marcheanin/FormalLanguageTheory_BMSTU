@@ -22,6 +22,7 @@ public:
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> get_postfix_automatons();
     void show_prefix_automatons();
     void show_postfix_automatons();
+    void start_algo(int count_experiment);
 };
 
 void combinationUtil(std::set<char> arr, std::vector<char> data,
@@ -142,5 +143,65 @@ void main_algo::show_postfix_automatons() {
         }
         it.second.first.first.show_like_arrows();
         std::cout << std::endl;
+    }
+}
+
+void main_algo::start_algo(int count_experiment = 100) {
+    // w1u1w2w3u2w4 (w1, u1, w2 from prefix; w3, u2, w4 from postfix)
+    std::cout << std::endl << "Start main algo: " << std::endl;
+    for (auto &prefix_item : alphabet_automatons_prefix){
+        for (auto &postfix_item : alphabet_automatons_postfix){
+            std::map<int, pump> prefix_pumps = prefix_item.second.second.get_automaton_pumps();
+            std::map<int, pump> postfix_pumps = postfix_item.second.second.get_automaton_pumps();
+            if (prefix_item.second.first.second && postfix_item.second.first.second){
+                for (auto &prefix_pump : prefix_pumps){
+                    for (auto &postfix_pump : postfix_pumps){
+                        for (auto &w1 : prefix_pump.second.get_ways_to_cycle()){
+                            for (auto &u1 : prefix_pump.second.get_vertex_cycles()){
+                                for (auto &w2 : prefix_pump.second.get_ways_from_cycle()){
+                                    for (auto &w3 : postfix_pump.second.get_ways_to_cycle()){
+                                        for (auto &u2 : postfix_pump.second.get_vertex_cycles()){
+                                            for (auto &w4 : postfix_pump.second.get_ways_from_cycle()){
+                                                bool flag = false;
+                                                for (int k1 = 1; k1 < count_experiment; k1++){
+                                                    for (int k2 = 1; k2 < count_experiment; k2++){
+                                                        std::string pump_u1;
+                                                        for (int i = 0; i < k1; i++){
+                                                            pump_u1 += u1;
+                                                        }
+                                                        std::string pump_u2;
+                                                        for (int i = 0; i < k2; i++){
+                                                            pump_u2 += u2;
+                                                        }
+                                                        if (orac.checkMembership(w1 + pump_u1 + w2 + w3 + pump_u2 + w4)){
+                                                            flag = true;
+                                                        }
+                                                    }
+                                                }
+                                                for (int k2 = 1; k2 < count_experiment; k2++){
+                                                    for (int k1 = 1; k1 < count_experiment; k1++){
+                                                        std::string pump_u1;
+                                                        for (int i = 0; i < k1; i++){
+                                                            pump_u1 += u1;
+                                                        }
+                                                        std::string pump_u2;
+                                                        for (int i = 0; i < k2; i++){
+                                                            pump_u2 += u2;
+                                                        }
+                                                        if (orac.checkMembership(w1 + pump_u1 + w2 + w3 + pump_u2 + w4) && flag){
+                                                            std::cout << w1 << std::endl << u1 << std::endl << w2 << std::endl << w3 << std::endl << u2 << std::endl << w4 << std::endl;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
