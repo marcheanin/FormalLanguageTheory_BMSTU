@@ -13,6 +13,7 @@ private:
     std::vector<int> end_states;
 
     std::map<int, bool> visited_states;
+    std::vector <bool> visited;
 
 public:
     automaton() = default;
@@ -42,6 +43,8 @@ public:
     void print_all_ways_from_all_vertexes();
     void clear_visited_states();
     bool is_end_vertex(int vertex);
+    void delete_traps();
+    void dfs_transpon(int vertex);
 };
 
 automaton::automaton(std::vector <int> p_start_states, std::vector <std::vector <std::vector<std::string>>> p_transition_matrix, std::vector <int> p_end_states) {
@@ -51,6 +54,7 @@ automaton::automaton(std::vector <int> p_start_states, std::vector <std::vector 
     for(int i = 0; i < start_states.size(); i++){
         visited_states[i] = false;
     }
+    visited = std::vector<bool>(start_states.size(), false);
 }
 
 std::vector<int> automaton::get_start_states() {
@@ -288,4 +292,53 @@ automaton old_automaton_to_new(automaton_old auto1){
         transition_matrix.push_back(row);
     }
     return {start_states, transition_matrix, end_states};
+}
+
+void automaton::dfs_transpon(int vertex) {
+    this->visited[vertex] = true;
+    for (int i = 0; i < this->transition_matrix[vertex].size(); i++){
+        if (!this->transition_matrix[i][vertex].empty() && !this->visited[i]){
+            dfs_transpon(i);
+        }
+    }
+}
+
+void automaton::delete_traps() {
+    for (int i = 0; i < this->visited.size(); i++){
+        visited[i] = false;
+    }
+    for (int i = 0; i < this->end_states.size(); i++){
+        if (this->end_states[i]){
+            dfs_transpon(i);
+        }
+    }
+    std::vector <bool> need_delete(this->transition_matrix.size(), false);
+    for (int i = 0; i < this->visited.size(); i++){
+        if (!this->visited[i]){
+            need_delete[i] = true;
+        }
+    }
+
+    int cnt = 0;
+    for (int i = 0; i < need_delete.size(); i++){
+        if (need_delete[i]){
+            this->start_states.erase(this->start_states.begin() + i - cnt);
+            this->end_states.erase(this->end_states.begin() + i - cnt);
+            this->transition_matrix.erase(this->transition_matrix.begin() + i - cnt);
+            cnt += 1;
+        }
+    }
+    cnt = 0;
+    for (auto & i : this->transition_matrix){
+        for (int j = 0; j < need_delete.size(); j++){
+            if (need_delete[j]){
+                i.erase(i.begin() + j - cnt);
+                cnt += 1;
+            }
+        }
+        cnt = 0;
+    }
+    for(auto && i : this->visited){
+        i = false;
+    }
 }
