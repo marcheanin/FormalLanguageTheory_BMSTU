@@ -67,14 +67,13 @@ int main() {
     auto nl_algo = NL(psp_oracle, std::set <char> {'a', 'b', 'c'}, 50);
     auto result = nl_algo.getAutomaton(0);
     result.delete_traps();
-    result.show_like_arrows();
 
 
    // auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
   //  auto result = nl_algo.getAutomaton(0);
   //  result.show_like_arrows();
-   //  main_algo test_algo = main_algo(psp_oracle, 300);
-   //  test_algo.start_algo();
+     main_algo test_algo = main_algo(orac, 300);
+     test_algo.start_algo();
 
 //    test.print_all_ways_to_all_vertexes();
 //    std::cout << std::endl;
