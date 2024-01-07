@@ -1,7 +1,8 @@
 #include <utility>
 
 #include "oracle_base.cpp"
-#include "oracle_CF.cpp"
+#include "oracle_palindrome.cpp"
+#include "oracle_psp.cpp"
 #include "NL_star.cpp"
 
 #include "lab2_sources/parser.cpp"

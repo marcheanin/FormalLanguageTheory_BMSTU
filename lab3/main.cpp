@@ -62,20 +62,19 @@ int main() {
     AutomatonOracle orac;
     orac.setAutomaton(res4_new, 300);
 
-    auto pal_oracle = Palindrome_oracle(300, {'a', 'b'});
-    auto nl_algo = NL(pal_oracle, std::set <char> {'a', 'b'}, 50);
+    auto pal_oracle = Palindrome_oracle(700, {'a', 'b'});
+    auto psp_oracle = Psp_oracle(300);
+    auto nl_algo = NL(psp_oracle, std::set <char> {'a', 'b', 'c'}, 50);
     auto result = nl_algo.getAutomaton(0);
-
-//    std::cout << orac.checkMembership("aa") << std::endl; // 1
-//    std::cout << orac.checkMembership("a") << std::endl; // 0
-//    std::cout << orac.checkMembership("aacccbcaca") << std::endl; // 1
+    result.delete_traps();
+    result.show_like_arrows();
 
 
    // auto nl_algo = NL(orac, std::set <char> {'a', 'b', 'c'});
   //  auto result = nl_algo.getAutomaton(0);
   //  result.show_like_arrows();
-    main_algo test_algo = main_algo(orac, 300);
-    test_algo.start_algo();
+   //  main_algo test_algo = main_algo(psp_oracle, 300);
+   //  test_algo.start_algo();
 
 //    test.print_all_ways_to_all_vertexes();
 //    std::cout << std::endl;
