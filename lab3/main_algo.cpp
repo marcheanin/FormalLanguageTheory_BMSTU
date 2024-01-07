@@ -101,12 +101,12 @@ main_algo::main_algo(Oracle& o, int C) : orac(o) {
             }
             C_prefix = max_prefix + C_prefix;
             C_postfix = max_postfix + C_postfix;
-            if (auto_prefix.get_transition_matrix().size() > C_prefix){
+            if (auto_prefix.get_transition_matrix().empty()){
                 alphabet_automatons_prefix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_prefix, false), pumps({{},{},{}}))));
             } else {
                 alphabet_automatons_prefix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_prefix, true), pumps(auto_prefix))));
             }
-            if (auto_postfix.get_transition_matrix().size() > C_postfix){
+            if (auto_postfix.get_transition_matrix().empty()){
                 alphabet_automatons_postfix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_postfix, false), pumps({{},{},{}}))));
             } else {
                 alphabet_automatons_postfix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_postfix, true), pumps(auto_postfix))));
