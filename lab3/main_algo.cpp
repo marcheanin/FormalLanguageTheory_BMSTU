@@ -14,6 +14,8 @@ class main_algo{
 private:
     Oracle& orac;
 
+    std::ofstream fout;
+
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> alphabet_automatons_prefix;
     std::map<std::set<char>, std::pair<std::pair<automaton, bool>, pumps>> alphabet_automatons_postfix;
 public:
@@ -59,7 +61,6 @@ void get_all_sets(std::set<char> alphabet, std::vector<std::set<char>> &res){
 }
 
 main_algo::main_algo(Oracle& o, int C) : orac(o) {
-
     std::vector<std::set<char>> combinations;
     std::vector <char> alphabet_vector = orac.getAlphabet();
     std::cout << "ALPHABET: ";
@@ -153,6 +154,8 @@ void main_algo::show_postfix_automatons() {
 
 void main_algo::start_algo(int count_experiment = 100) {
     // w1u1w2w3u2w4 (w1, u1, w2 from prefix; w3, u2, w4 from postfix)
+    fout.open("output.txt");
+    assert(fout.is_open());
     std::cout << std::endl << "Start main algo: " << std::endl;
     std::vector<std::vector<std::string>> checked;
     for (auto &prefix_item : alphabet_automatons_prefix){
@@ -173,9 +176,9 @@ void main_algo::start_algo(int count_experiment = 100) {
                                                 if (it == checked.end()){
                                                     bool flag = true;
                                                     std::cout << "Pumping word    \'" << w1 + "\' \'" + u1 + "\' \'" + w2 + "\' \'" + w3 + "\' \'" + u2 + "\' \'" + w4 + "\'..." << std::endl;
-                                                    for (int k1 = 1; k1 < count_experiment; k1++){
+                                                    for (int k1 = 0; k1 < count_experiment; k1++){
                                                         bool pump1_flag = false;
-                                                        for (int k2 = 1; k2 < count_experiment; k2++){
+                                                        for (int k2 = 0; k2 < count_experiment; k2++){
                                                             std::string pump_u1;
                                                             for (int i = 0; i < k1; i++){
                                                                 pump_u1 += u1;
@@ -219,6 +222,7 @@ void main_algo::start_algo(int count_experiment = 100) {
                                                         }
                                                         if (flag){
                                                             std::cout << "Pump fitted with: w1 = " + w1 << " u1 = " + u1 << " w2 = " + w2 << " w3 = " + w3 << " u2 = " + u2 << " w4 = " + w4 << std::endl;
+                                                            fout << w1 + "(" + u1 + ")*" + w2 + w3 + "(" + u2 + ")*" + w4 << std::endl;
                                                         }
                                                     }
                                                     checked.push_back(parts);
@@ -234,4 +238,5 @@ void main_algo::start_algo(int count_experiment = 100) {
             }
         }
     }
+    fout.close();
 }

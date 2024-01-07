@@ -56,6 +56,7 @@ int main() {
     auto res4_new = old_automaton_to_new(res4);
 
     auto pal_oracle = Palindrome_oracle(300);
+    pal_oracle.set_alphabet({'a', 'b', 'c'});
    // auto nl_algo = NL(pal_oracle, std::set <char> {'a', 'b'});
   //  auto result = nl_algo.getAutomaton(1);
 
