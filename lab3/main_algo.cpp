@@ -77,9 +77,11 @@ main_algo::main_algo(Oracle& o, int C) : orac(o) {
     int C_prefix = C;
     int C_postfix = C;
     for (int i = 0; i < combinations.size(); i++){
+        // assert(C_prefix >= 0);
         auto nl_algo = NL(orac, combinations[i], C_prefix);
         auto auto_prefix = nl_algo.getAutomaton(1);
         auto_prefix.delete_traps();
+        // assert(C_postfix >= 0);
         auto nl_algo2 = NL(orac, combinations[i], C_postfix);
         auto auto_postfix = nl_algo2.getAutomaton(2);
         auto_postfix.delete_traps();
