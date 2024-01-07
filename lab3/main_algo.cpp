@@ -63,18 +63,23 @@ void get_all_sets(std::set<char> alphabet, std::vector<std::set<char>> &res){
 main_algo::main_algo(Oracle& o, int C) : orac(o) {
     std::vector<std::set<char>> combinations;
     std::vector <char> alphabet_vector = orac.getAlphabet();
+
     std::cout << "ALPHABET: ";
     for (auto &a : alphabet_vector){
         std::cout << a << " ";
     }
     std::cout << std::endl;
+
     std::set<char> alphabet(alphabet_vector.begin(), alphabet_vector.end());
     get_all_sets(alphabet, combinations);
+
+    int C_prefix = C;
+    int C_postfix = C;
     for (int i = 0; i < combinations.size(); i++){
-        auto nl_algo = NL(orac, combinations[i], 100);
+        auto nl_algo = NL(orac, combinations[i], C_prefix);
         auto auto_prefix = nl_algo.getAutomaton(1);
         auto_prefix.delete_traps();
-        auto nl_algo2 = NL(orac, combinations[i], 100);
+        auto nl_algo2 = NL(orac, combinations[i], C_postfix);
         auto auto_postfix = nl_algo2.getAutomaton(2);
         auto_postfix.delete_traps();
         if (combinations[i].size() == 1){
@@ -93,12 +98,14 @@ main_algo::main_algo(Oracle& o, int C) : orac(o) {
                 }
                 it++;
             }
-            if (auto_prefix.get_transition_matrix().size() > max_prefix + C){
+            C_prefix = max_prefix + C_prefix;
+            C_postfix = max_postfix + C_postfix;
+            if (auto_prefix.get_transition_matrix().size() > C_prefix){
                 alphabet_automatons_prefix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_prefix, false), pumps({{},{},{}}))));
             } else {
                 alphabet_automatons_prefix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_prefix, true), pumps(auto_prefix))));
             }
-            if (auto_postfix.get_transition_matrix().size() > max_postfix + C){
+            if (auto_postfix.get_transition_matrix().size() > C_postfix){
                 alphabet_automatons_postfix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_postfix, false), pumps({{},{},{}}))));
             } else {
                 alphabet_automatons_postfix.insert(std::make_pair(combinations[i], std::make_pair(std::make_pair(auto_postfix, true), pumps(auto_postfix))));
