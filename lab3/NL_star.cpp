@@ -24,6 +24,8 @@ private:
     Oracle& orac;
     std::set <char> alphabet;
 
+    int C_const;
+
     bool isConsistent();
     bool isConsistent2();
     bool isComplete();
@@ -34,10 +36,11 @@ private:
     bool check_coverable(int pos, int table_num);
     void printCurrentState();
     bool check_full_coverable(int pos, int table_num);
+    int count_states_from_table();
 
     automaton buildAutomaton();
 public:
-    explicit NL(Oracle &_orac, std::set <char> _alphabet) : orac(_orac), alphabet(std::move(_alphabet)){}
+    explicit NL(Oracle &_orac, std::set <char> _alphabet, int C) : orac(_orac), alphabet(std::move(_alphabet)), C_const(C){}
 
     automaton getAutomaton(int mode);
 };
@@ -63,6 +66,10 @@ automaton NL::getAutomaton(int _mode) {
     while(1) {
         bool f_complete = false, f_consist = false;
         while (!f_complete || !f_consist) {
+            if (count_states_from_table() > C_const) {
+                std::cout << "The regularity limit has been exceeded" << std::endl;
+                return {{}, {}, {}};
+            }
             if (!isComplete()) {
                 std::cout << "Not complete" << std::endl;
                 std::string prefix = Sa[problem_row_pos];
@@ -307,8 +314,6 @@ bool NL::check_full_coverable(int pos, int table_num) {
     }
 }
 
-
-
 bool NL::isComplete() {
     for (int i = 0; i < SaxE.size(); i++) {
         bool f = check_coverable(i, 2);
@@ -319,7 +324,7 @@ bool NL::isComplete() {
                     return false;
                 }
             }
-            assert(problem_row_pos != -1);
+            assert(problem_row_pos != -1); // тут проверяю нашлась ли проблемная строка - если не нашлась, это странно
             return false;
         }
     }
@@ -464,4 +469,13 @@ void NL::printCurrentState() {              // отладочная
         }
         std::cout << std::endl;
     }
+}
+
+int NL::count_states_from_table() {
+    int res = 0;
+    for (int i = 0; i < S.size(); i++){
+        if (!check_coverable(i, 1))
+            res++;
+    }
+    return res;
 }

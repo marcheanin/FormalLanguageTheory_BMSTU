@@ -71,10 +71,10 @@ main_algo::main_algo(Oracle& o, int C) : orac(o) {
     std::set<char> alphabet(alphabet_vector.begin(), alphabet_vector.end());
     get_all_sets(alphabet, combinations);
     for (int i = 0; i < combinations.size(); i++){
-        auto nl_algo = NL(orac, combinations[i]);
+        auto nl_algo = NL(orac, combinations[i], 100);
         auto auto_prefix = nl_algo.getAutomaton(1);
         auto_prefix.delete_traps();
-        auto nl_algo2 = NL(orac, combinations[i]);
+        auto nl_algo2 = NL(orac, combinations[i], 100);
         auto auto_postfix = nl_algo2.getAutomaton(2);
         auto_postfix.delete_traps();
         if (combinations[i].size() == 1){

@@ -1,10 +1,12 @@
+#include <utility>
+
 //
 // Created by march on 06.01.2024.
 //
 
 class Palindrome_oracle : public Oracle {
 private:
-    std::vector <char> alphabet = {'a', 'b'};
+    std::vector <char> alphabet;
 
     bool check_eq = false;
     bool check_eq2 = false;
@@ -76,12 +78,10 @@ private:
 
 public:
 
-    Palindrome_oracle(int P) {
+    Palindrome_oracle(int P, std::vector <char> alph) {
         P_const = P;
+        alphabet = std::move(alph);
         generate_words();
-    }
-    void set_alphabet(std::vector <char> alph) {
-        alphabet = alph;
     }
 
     std::vector <char> getAlphabet() override {
