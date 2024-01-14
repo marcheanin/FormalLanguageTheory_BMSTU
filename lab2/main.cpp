@@ -53,6 +53,8 @@ int main() {
 
     auto res4 = process_automaton_tree(tree);
 
+    res4.show_like_arrows();
+
     std::cout << std::endl;
     std::cout << std::endl;
     std::string test = automaton_2_regex(res4);

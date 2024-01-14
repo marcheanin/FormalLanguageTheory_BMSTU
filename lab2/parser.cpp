@@ -81,7 +81,7 @@ void replace_lookahead(std::vector <std::pair <std::string, std::string > >& lex
 
     int f = 0;
     for (int i = pos2; i < lexemes.size(); i++){
-        if (lexemes[i].first == "*" || lexemes[i].first == CONCAT_OP || lexemes[i].second == "TERM") continue;
+        if (lexemes[i].first == "*" || lexemes[i].first == CONCAT_OP || lexemes[i].second == "TERM" || lexemes[i].second == "INTERSECT") continue;
         if (lexemes[i].first == "("){
             int b = 1;
             i++;
@@ -123,27 +123,12 @@ void replace_lookbehind(std::vector <std::pair <std::string, std::string > >& le
             lexemes.insert(lexemes.begin() + i + 1, {")", "BRACKET"});
             break;
         }
-//        if (lexemes[i].first == "$"){
-//            end_line_flag = true;
-//            lexemes.erase(lexemes.begin() + i);
-//            lexemes.insert(lexemes.begin() + i + 1, {")", "BRACKET"});
-//            break;
-//        }
 
     }
     int pos2 = pos - 2;
     lexemes.erase(lexemes.begin() + pos2);
     int pos3 = pos2;
-//    if (!start_line_flag){
-//        lexemes.insert(lexemes.begin()+pos2, {CONCAT_OP, "CONCAT"});
-//        pos2++;
-//        lexemes.insert(lexemes.begin()+pos2, {".", "DOT"});
-//        pos2++;
-//        lexemes.insert(lexemes.begin()+pos2, {"*", "UNARY"});
-//        pos2++;
-//        lexemes.insert(lexemes.begin() + pos2, {INTERSECT_OP, "INTERSECT"});
-//    }
-//    else {
+
     lexemes.insert(lexemes.begin() + pos2, {INTERSECT_OP, "INTERSECT"});
     pos2++;
     if (!start_line_flag){
@@ -156,11 +141,6 @@ void replace_lookbehind(std::vector <std::pair <std::string, std::string > >& le
     }
     pos3--;
 
-//    for (const auto& elem : lexemes) {
-//        std::cout << elem.first <<  " ";
-//    }
-//    std::cout << std::endl;
-//    std::cout << pos3 << std::endl;
     int f = 0;
     for (int i = pos3; i >= 0; i--){
         if (lexemes[i].first == "*" || lexemes[i].first == CONCAT_OP || lexemes[i].second == "TERM") continue;
@@ -219,6 +199,11 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
         res.erase(res.begin());
     if (balance != 0) throw std::invalid_argument("Bad bracket balance");
 
+    for (const auto& elem : res) {
+        std::cout << elem.first << " ";
+    }
+    std::cout << std::endl;
+
     for (int i = 0; i < res.size() - 1; i++){
         if (res[i].second == "TERM" && res[i + 1].second == "TERM"      // a · b
             || res[i].first == ")" && res[i + 1].first == "("           // ) · (
@@ -229,18 +214,11 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
             res.insert(res.begin()+i+1, {CONCAT_OP, "CONCAT"});
         }
     }
-    bool f;
-    while(true){
-        f = false;
-        for (int i = 0; i < res.size(); i++){
-            if (res[i].second == "LOOKAHEAD"){
-                replace_lookahead(res, i);
-                f = true;
-                break;
-            }
-        }
-        if (!f) break;
+    for (const auto& elem : res) {
+        std::cout << elem.first << " ";
     }
+    std::cout << std::endl;
+    bool f;
     while(true){
         f = false;
         for (int i = 0; i < res.size(); i++){
@@ -252,7 +230,30 @@ std::vector <std::pair <std::string, std::string> > lexer(const std::string& reg
         }
         if (!f) break;
     }
+    for (const auto& elem : res) {
+        std::cout << elem.first << " ";
+    }
+    std::cout << std::endl;
+    while(true){
+        f = false;
+        for (int i = 0; i < res.size(); i++){
+            if (res[i].second == "LOOKAHEAD"){
+                replace_lookahead(res, i);
+                f = true;
+                break;
+            }
+        }
+        if (!f) break;
+    }
+    for (const auto& elem : res) {
+        std::cout << elem.first << " ";
+    }
+    std::cout << std::endl;
     replace_dots(res);
+    for (const auto& elem : res) {
+        std::cout << elem.first << " ";
+    }
+    std::cout << std::endl;
 
     return res;
 }
